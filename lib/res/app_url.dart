@@ -13,7 +13,7 @@ class AppUrl {
   // static var domain = 'http://192.168.1.4:80';
   // static var mainUrl = '$domain/approvalzone/index.php';
   // static var subMainUrl = '$domain/approvalzone/';
-  static var domain = 'http://ukcdesigner.in';
+  static var domain = 'https://ukcdesigner.in';
   static var mainUrl = 'https://ukcdesigner.in/approvalzone/index.php';
   static var subMainUrl = 'https://ukcdesigner.in/approvalzone/';
 
