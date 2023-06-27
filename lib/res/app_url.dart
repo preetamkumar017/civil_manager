@@ -10,11 +10,12 @@ class AppUrl {
 
   static var registerApiEndPoint =  '$baseUrl/api/register' ;
 
-  static var domain = 'http://192.168.1.4:80';
-  static var mainUrl = '$domain/approvalzone/index.php';
-  static var subMainUrl = '$domain/approvalzone/';
-  // static var mainUrl = 'https://ukcdesigner.in/approvalzone/index.php';
-  // static var subMainUrl = 'https://ukcdesigner.in/approvalzone/';
+  // static var domain = 'http://192.168.1.4:80';
+  // static var mainUrl = '$domain/approvalzone/index.php';
+  // static var subMainUrl = '$domain/approvalzone/';
+  static var domain = 'http://ukcdesigner.in';
+  static var mainUrl = 'https://ukcdesigner.in/approvalzone/index.php';
+  static var subMainUrl = 'https://ukcdesigner.in/approvalzone/';
 
   static var loginEndPint =  '$mainUrl/ApiLabour/login' ;
   static var laborHeadListEndPoint =  '$mainUrl/ApiLabour/labour_head_list' ;
