@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:developer';
 import 'package:civil_manager/data/response/status.dart';
 import 'package:civil_manager/utils/utils.dart';
@@ -40,7 +42,7 @@ class _RequestFormViewState extends State<RequestFormView> {
 
   @override
   void dispose() {
-    materialViewModel.dispose();
+    // materialViewModel.dispose();
     super.dispose();
   }
 
