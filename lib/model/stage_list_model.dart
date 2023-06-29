@@ -12,56 +12,52 @@ class StageListModel {
     if (json['result'] != null) {
       result = <Result>[];
       json['result'].forEach((v) {
-        result!.add(Result.fromJson(v));
+        result!.add(new Result.fromJson(v));
       });
     }
     if (json['floor'] != null) {
       floor = <Floor>[];
       json['floor'].forEach((v) {
-        floor!.add(Floor.fromJson(v));
+        floor!.add(new Floor.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['code'] = code;
-    data['status'] = status;
-    if (result != null) {
-      data['result'] = result!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['code'] = this.code;
+    data['status'] = this.status;
+    if (this.result != null) {
+      data['result'] = this.result!.map((v) => v.toJson()).toList();
     }
-    if (floor != null) {
-      data['floor'] = floor!.map((v) => v.toJson()).toList();
+    if (this.floor != null) {
+      data['floor'] = this.floor!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Result {
-  String? cnt;
   String? stageId;
-  String? stageName;
   String? floorNum;
   String? floorName;
+  String? stageName;
 
-  Result(
-      {this.cnt, this.stageId, this.stageName, this.floorNum, this.floorName});
+  Result({this.stageId, this.floorNum, this.floorName, this.stageName});
 
   Result.fromJson(Map<String, dynamic> json) {
-    cnt = json['cnt'];
     stageId = json['stage_id'];
-    stageName = json['stage_name'];
     floorNum = json['floor_num'];
     floorName = json['floor_name'];
+    stageName = json['stage_name'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['cnt'] = cnt;
-    data['stage_id'] = stageId;
-    data['stage_name'] = stageName;
-    data['floor_num'] = floorNum;
-    data['floor_name'] = floorName;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['stage_id'] = this.stageId;
+    data['floor_num'] = this.floorNum;
+    data['floor_name'] = this.floorName;
+    data['stage_name'] = this.stageName;
     return data;
   }
 }
@@ -76,8 +72,8 @@ class Floor {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['floor_num'] = floorNum;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['floor_num'] = this.floorNum;
     return data;
   }
 }

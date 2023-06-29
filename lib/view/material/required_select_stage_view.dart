@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:developer';
 import 'package:civil_manager/data/response/status.dart';
 import 'package:civil_manager/model/arguments.dart';
@@ -91,29 +93,7 @@ class _RequiredSelectStageViewState extends State<RequiredSelectStageView> {
                                     return ListTile(
                                       iconColor: FlutterFlowTheme.of(context).primaryBackground,
                                       trailing: const Icon(Icons.arrow_forward,weight: 2.0,size: 30),
-                                      title: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(val.stageName ?? "",style: FlutterFlowTheme.of(context).subtitle2,),
-                                          Container(
-                                            height:30,
-                                            width: 30,
-                                            margin: const EdgeInsets.all(5.0),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(100),
-                                              border: Border.all(
-                                                  color: FlutterFlowTheme.of(context).primaryBackground,
-                                                  width: 2.0
-                                              ),
-
-                                            ),
-                                            child: Center(child: Text(val.cnt ?? "",style: TextStyle(
-                                              color: FlutterFlowTheme.of(context).primaryColor,
-                                              fontWeight: FontWeight.bold,
-                                            ),)),
-                                          ),
-                                        ],
-                                      ),
+                                      title: Text(val.stageName ?? "",style: FlutterFlowTheme.of(context).subtitle2,),
                                       onTap: () {
                                         // Utils.flushBarSuccessMessage(widget.data['site_id'].toString()+" "+floor.toString()+" "+stage.toString(), context);
                                         Map<String,String> argdata = {
