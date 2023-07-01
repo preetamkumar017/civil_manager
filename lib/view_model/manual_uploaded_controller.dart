@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:civil_manager/data/response/status.dart';
 import 'package:civil_manager/model/manual_image_model.dart';
 import 'package:civil_manager/respository/client_image_repository.dart';
@@ -24,7 +22,7 @@ class ManualUploadedController extends GetxController
   RxString error = ''.obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value ;
-  void setBookingDetails(ManualImageModel value) => imageDetails.value = value ;
+  void setImageDetails(ManualImageModel value) => imageDetails.value = value ;
   void setError(String value) => error.value = value ;
 
 
@@ -38,9 +36,10 @@ class ManualUploadedController extends GetxController
     _myRepo.getManualUploadedImages(data).then((value){
       if(value.code==200)
         {
-          setBookingDetails(value);
+          setImageDetails(value);
         }else if(value.code == 202)
           {
+            setImageDetails(ManualImageModel());
             CoolAlert.show(
               context: context,
               type: CoolAlertType.info,
