@@ -48,6 +48,9 @@ class NetworkApiService extends BaseApiServices {
   Future getPostWithFormDataApiResponse(String url, file, data) async {
     dynamic responseJson;
 // print("fdhthobject");
+
+    log("NetworkApiService: $data");
+    log("NetworkApiService: $url");
     try {
       var request = http.MultipartRequest("POST", Uri.parse(url));
       request.fields.addAll(data);
@@ -57,11 +60,11 @@ class NetworkApiService extends BaseApiServices {
       var responseString = await response.stream.bytesToString().then((value){
         responseJson = returnResponseFile(response, value);
       });
-
-
     } on SocketException {
       throw FetchDataException('No Internet Connection');
-    }catch(e){debugPrint(e.toString());}
+    }catch(e){
+      debugPrint(e.toString());
+    }
     print(responseJson.toString());
     return responseJson;
   }

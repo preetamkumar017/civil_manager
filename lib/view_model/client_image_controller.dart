@@ -1,21 +1,18 @@
 import 'dart:developer';
-
 import 'package:civil_manager/data/response/api_response.dart';
-import 'package:civil_manager/model/CctvDetailsModel.dart';
 import 'package:civil_manager/respository/client_image_repository.dart';
 import 'package:civil_manager/utils/utils.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:ftpconnect/ftpconnect.dart';
-import 'package:ftpconnect/src/dto/ftp_entry.dart';
+import 'package:ftpconnect/src/ftp_entry.dart';
 import 'package:intl/intl.dart';
 
 class ClientImageController extends GetxController {
   final _myRepo = ClientImageRepository();
   Rx<ApiResponse> cctvDetails = ApiResponse.loading().obs;
-  Rx<FTPConnect> ftpConnect = FTPConnect('ukcdesigner.in',
-          user: 'site_camera@ukcdesigner.in', pass: '(RaytO}cbnzX')
+  Rx<FTPConnect> ftpConnect = FTPConnect('ukcdesigner.in',user: 'site_camera@ukcdesigner.in', pass: '(RaytO}cbnzX')
       .obs;
 
   RxString folderName = "".obs;
@@ -28,15 +25,19 @@ class ClientImageController extends GetxController {
   setCctvDetails(ctvDetails) => cctvDetails.value = ctvDetails;
 
   Future<void> fetchCctvDetails(dynamic data,context) async {
+
     setCctvDetails(ApiResponse.loading());
+
     _myRepo.fetchCctvDetails(data).then((value) {
+
       if (value.code == 200) {
-        // log(value.result!.toJson().toString());
+
         setCctvDetails(ApiResponse.completed(value));
         log(cctvDetails.value.data!.result!.folderName ?? "");
         folderName.value = cctvDetails.value.data!.result!.folderName ?? "";
         dvrIp.value = cctvDetails.value.data!.result!.dvrIp ?? "";
         getData(context);
+
       } else {
         Utils.toastMessage("Something Went Wrong");
       }

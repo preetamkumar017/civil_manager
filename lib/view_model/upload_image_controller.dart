@@ -47,11 +47,12 @@ class UploadImageController extends GetxController {
 
   final _myrepo = ClientImageRepository();
 
-  Future<void> uploadImage(String siteId, String userName) async {
+  Future<void> uploadImage(String siteId, String userName,String remark) async {
     Map<String, String> data = <String, String>{
       "site_id": siteId,
       "upload_by": userName,
       "upload_location": "",
+      "remark":remark
     };
     log(data.toString());
     setLoading(true);
@@ -69,7 +70,6 @@ class UploadImageController extends GetxController {
       }
     }
 
-    setLoading(false);
 
     _myrepo.uploadImageApi(multipartFiles, data).then((value) {
       print(value.toJson().toString());

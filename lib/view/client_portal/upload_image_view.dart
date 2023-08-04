@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:civil_manager/utils/utils.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_theme.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_widgets.dart';
 import 'package:civil_manager/view_model/upload_image_controller.dart';
@@ -22,6 +23,7 @@ class _UploadImageViewState extends State<UploadImageView> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
   final UploadImageController uIController = Get.put(UploadImageController());
+  final remark = TextEditingController();
 
   @override
   void initState() {
@@ -32,6 +34,7 @@ class _UploadImageViewState extends State<UploadImageView> {
   @override
   void dispose() {
     _unfocusNode.dispose();
+    remark.dispose();
     super.dispose();
   }
 
@@ -230,10 +233,10 @@ class _UploadImageViewState extends State<UploadImageView> {
                       padding: const EdgeInsetsDirectional.fromSTEB(
                           0, 10, 0, 10),
                       child: FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          // print('Button pressed ...');
+                          getRemark();
 
-                          uIController.uploadImage(widget.data['site_id'],widget.data['user_name']);
                         },
                         text: 'Upload Images',
                         options: FFButtonOptions(
@@ -347,5 +350,44 @@ class _UploadImageViewState extends State<UploadImageView> {
     File file = File(pickedFile!.path);
     uIController.addImagesList(file);
     log(uIController.getImagesListLength.toString());
+  }
+
+  Future<void> getRemark()
+  async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Add Remark'),
+          content:  TextField(
+            controller: remark,
+            decoration: const InputDecoration(labelText: 'Enter your remark'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: const Text('Save'),
+              onPressed: () {
+                if(remark.text != "") {
+                  uIController.uploadImage(widget.data['site_id'],
+                      widget.data['user_name'],remark.text);
+                  remark.text = "";
+
+                  Navigator.of(context).pop();
+                }else
+                {
+                  Utils.flushBarErrorMessage("Remark Can not be null", context);
+                }// Close the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

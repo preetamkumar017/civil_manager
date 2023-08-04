@@ -10,8 +10,6 @@ import 'package:civil_manager/utils/routes/routes_name.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_theme.dart';
 import 'package:civil_manager/view_model/manual_uploaded_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:civil_manager/model/manual_image_model.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -174,84 +172,108 @@ class _ManualImageUploadedViewState extends State<ManualImageUploadedView> {
                       log(clientImageViewModel.imageDetails.value
                           .toJson()
                           .toString());
-                      if (clientImageViewModel.imageDetails.value.result !=
-                          null) {
+                      if (clientImageViewModel.imageDetails.value.result != null) {
                         return Expanded(
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 20.0, 0.0, 0.0),
-                            child: GridView.builder(
-                              itemCount: clientImageViewModel
-                                  .imageDetails.value.result!.length,
-                              padding: EdgeInsets.zero,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 10.0,
-                                mainAxisSpacing: 10.0,
-                                childAspectRatio: 1.0,
-                              ),
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (context, index) {
-                                Result data = clientImageViewModel
-                                    .imageDetails.value.result![index];
-                                // log(AppUrl.subMainUrl+"/assets/site_images/manual_upload/"+ data.imageName.toString());
+                            child: ListView.builder(
+                              shrinkWrap: false,
+                              itemCount: clientImageViewModel.imageDetails.value.result!.length,
+                              itemBuilder:(context, idx)   {
                                 return Column(
-                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    InkWell(
-                                      onTap: () {
-                                        Map<String, String> da = {
-                                          'image':
-                                              "${AppUrl.subMainUrl}/assets/site_images/manual_upload/${data.imageName}"
-                                        };
-                                        log("message");
-                                        Get.toNamed(RoutesName.image_viewer,
-                                            arguments: ScreenArguments(da));
-                                      },
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.8,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.17,
+                                    Container(
+                                        width: Get.width,
+                                        margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+                                        padding: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          border: Border.all(
-                                            width: 3.0,
-                                          ),
+                                          // color: Colors.brown[400],
+                                          borderRadius: BorderRadius.circular(10.0),
                                         ),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(13.0),
-                                          child: Image.network(
-                                            "${AppUrl.subMainUrl}/assets/site_images/manual_upload/${data.imageName}",
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width * 0.7,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height * 0.0,
-                                            fit: BoxFit.fill,
-                                          ),
+                                        child: Text("Remark:- ${clientImageViewModel.imageDetails.value.result![idx].remark ?? ""}",
+                                        style: const TextStyle(
+                                          // color: Colors.white,
+                                          fontSize: 15
                                         ),
+                                        )),
+                                    GridView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: clientImageViewModel.imageDetails.value.result![idx].imageNames!.length,
+                                      padding: EdgeInsets.zero,
+                                      gridDelegate:
+                                           const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 10.0,
+                                        mainAxisSpacing: 0.1,
+                                        childAspectRatio: 1.0,
                                       ),
-                                    ),
-                                    Center(
-                                      child: Text(
-                                        data.imageName ?? "",
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelMedium,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        String data =  clientImageViewModel.imageDetails.value.result![idx].imageNames![index];
+                                        // log(AppUrl.subMainUrl+"/assets/site_images/manual_upload/"+ data.imageName.toString());
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                Map<String, String> da = {
+                                                  'image':
+                                                      "${AppUrl.subMainUrl}/assets/site_images/manual_upload/${data}"
+                                                };
+                                                log("message");
+                                                Get.toNamed(RoutesName.image_viewer,
+                                                    arguments: ScreenArguments(da));
+                                              },
+                                              child: Container(
+                                                width:
+                                                    MediaQuery.of(context).size.width *
+                                                        0.8,
+                                                height:
+                                                    MediaQuery.of(context).size.height *
+                                                        0.17,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(15.0),
+                                                  border: Border.all(
+                                                    width: 3.0,
+                                                  ),
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(13.0),
+                                                  child: Image.network(
+                                                    "${AppUrl.subMainUrl}/assets/site_images/manual_upload/${data}",
+                                                    width: MediaQuery.of(context)
+                                                            .size
+                                                            .width * 0.7,
+                                                    height: MediaQuery.of(context)
+                                                            .size
+                                                            .height * 0.0,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            // Center(
+                                            //   child: Text(
+                                            //     data ?? "",
+                                            //     style: FlutterFlowTheme.of(context)
+                                            //         .labelMedium,
+                                            //     overflow: TextOverflow.ellipsis,
+                                            //   ),
+                                            // ),
+                                          ],
+                                        );
+                                      },
                                     ),
                                   ],
                                 );
-                              },
+                              }
                             ),
                           ),
                         );

@@ -188,7 +188,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
       ],
-      urlPathStrategy: UrlPathStrategy.path,
+      // urlPathStrategy: UrlPathStrategy.path,
     );
 
 extension NavParamExtensions on Map<String, String?> {
@@ -203,8 +203,8 @@ extension _GoRouterStateExtensions on GoRouterState {
   Map<String, dynamic> get extraMap =>
       extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
-    ..addAll(params)
-    ..addAll(queryParams)
+    // ..addAll(params)
+    // ..addAll(queryParams)
     ..addAll(extraMap);
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo

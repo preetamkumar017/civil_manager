@@ -19,8 +19,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   await FlutterFlowTheme.initialize();
-
-
   runApp(const MyApp());
 }
 
@@ -81,7 +79,6 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(brightness: Brightness.light),
         // darkTheme: ThemeData(brightness: Brightness.dark),
         themeMode: ThemeMode.light,
-
       ),
     );
     // return MaterialApp.router(
