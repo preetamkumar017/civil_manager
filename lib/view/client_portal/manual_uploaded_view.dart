@@ -28,7 +28,7 @@ class _ManualImageUploadedViewState extends State<ManualImageUploadedView> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
   ManualUploadedController clientImageViewModel =
-      Get.put(ManualUploadedController());
+  Get.put(ManualUploadedController());
 
   @override
   void initState() {
@@ -75,7 +75,7 @@ class _ManualImageUploadedViewState extends State<ManualImageUploadedView> {
                             Icon(
                               Icons.location_on,
                               color:
-                                  FlutterFlowTheme.of(context).highlightColour,
+                              FlutterFlowTheme.of(context).highlightColour,
                               size: 20.0,
                             ),
                             Text(
@@ -137,9 +137,9 @@ class _ManualImageUploadedViewState extends State<ManualImageUploadedView> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Poppins',
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                ),
+                              fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).alternate,
+                            ),
                           );
                         }),
                       ),
@@ -178,102 +178,102 @@ class _ManualImageUploadedViewState extends State<ManualImageUploadedView> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 20.0, 0.0, 0.0),
                             child: ListView.builder(
-                              shrinkWrap: false,
-                              itemCount: clientImageViewModel.imageDetails.value.result!.length,
-                              itemBuilder:(context, idx)   {
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        width: Get.width,
-                                        margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
-                                        padding: const EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                          // color: Colors.brown[400],
-                                          borderRadius: BorderRadius.circular(10.0),
+                                shrinkWrap: false,
+                                itemCount: clientImageViewModel.imageDetails.value.result!.length,
+                                itemBuilder:(context, idx)   {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: Get.width,
+                                          margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+                                          padding: const EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                            // color: Colors.brown[400],
+                                            borderRadius: BorderRadius.circular(10.0),
+                                          ),
+                                          child: Text("Remark:- ${clientImageViewModel.imageDetails.value.result![idx].remark ?? " Not Available"}",
+                                            style: const TextStyle(
+                                              // color: Colors.white,
+                                                fontSize: 15
+                                            ),
+                                          )),
+                                      GridView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: clientImageViewModel.imageDetails.value.result![idx].imageList!.length,
+                                        padding: EdgeInsets.zero,
+                                        gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 10.0,
+                                          mainAxisSpacing: 0.1,
+                                          childAspectRatio: 1.0,
                                         ),
-                                        child: Text("Remark:- ${clientImageViewModel.imageDetails.value.result![idx].remark ?? ""}",
-                                        style: const TextStyle(
-                                          // color: Colors.white,
-                                          fontSize: 15
-                                        ),
-                                        )),
-                                    GridView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: clientImageViewModel.imageDetails.value.result![idx].imageNames!.length,
-                                      padding: EdgeInsets.zero,
-                                      gridDelegate:
-                                           const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 10.0,
-                                        mainAxisSpacing: 0.1,
-                                        childAspectRatio: 1.0,
-                                      ),
-                                      scrollDirection: Axis.vertical,
-                                      itemBuilder: (context, index) {
-                                        String data =  clientImageViewModel.imageDetails.value.result![idx].imageNames![index];
-                                        // log(AppUrl.subMainUrl+"/assets/site_images/manual_upload/"+ data.imageName.toString());
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                Map<String, String> da = {
-                                                  'image':
-                                                      "${AppUrl.subMainUrl}/assets/site_images/manual_upload/${data}"
-                                                };
-                                                log("message");
-                                                Get.toNamed(RoutesName.image_viewer,
-                                                    arguments: ScreenArguments(da));
-                                              },
-                                              child: Container(
-                                                width:
-                                                    MediaQuery.of(context).size.width *
-                                                        0.8,
-                                                height:
-                                                    MediaQuery.of(context).size.height *
-                                                        0.17,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                                  borderRadius:
-                                                      BorderRadius.circular(15.0),
-                                                  border: Border.all(
-                                                    width: 3.0,
+                                        scrollDirection: Axis.vertical,
+                                        itemBuilder: (context, index) {
+                                          String data =  clientImageViewModel.imageDetails.value.result![idx].imageList![index];
+                                          // log(AppUrl.subMainUrl+"/assets/site_images/manual_upload/"+ data.imageName.toString());
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  Map<String, String> da = {
+                                                    'image':
+                                                    "${AppUrl.subMainUrl}/assets/site_images/manual_upload/${data}"
+                                                  };
+                                                  log("message");
+                                                  Get.toNamed(RoutesName.image_viewer,
+                                                      arguments: ScreenArguments(da));
+                                                },
+                                                child: Container(
+                                                  width:
+                                                  MediaQuery.of(context).size.width *
+                                                      0.8,
+                                                  height:
+                                                  MediaQuery.of(context).size.height *
+                                                      0.17,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                    borderRadius:
+                                                    BorderRadius.circular(15.0),
+                                                    border: Border.all(
+                                                      width: 3.0,
+                                                    ),
                                                   ),
-                                                ),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(13.0),
-                                                  child: Image.network(
-                                                    "${AppUrl.subMainUrl}/assets/site_images/manual_upload/${data}",
-                                                    width: MediaQuery.of(context)
-                                                            .size
-                                                            .width * 0.7,
-                                                    height: MediaQuery.of(context)
-                                                            .size
-                                                            .height * 0.0,
-                                                    fit: BoxFit.fill,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                    BorderRadius.circular(13.0),
+                                                    child: Image.network(
+                                                      "${AppUrl.subMainUrl}/assets/site_images/manual_upload/${data}",
+                                                      width: MediaQuery.of(context)
+                                                          .size
+                                                          .width * 0.7,
+                                                      height: MediaQuery.of(context)
+                                                          .size
+                                                          .height * 0.0,
+                                                      fit: BoxFit.fill,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            // Center(
-                                            //   child: Text(
-                                            //     data ?? "",
-                                            //     style: FlutterFlowTheme.of(context)
-                                            //         .labelMedium,
-                                            //     overflow: TextOverflow.ellipsis,
-                                            //   ),
-                                            // ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                );
-                              }
+                                              // Center(
+                                              //   child: Text(
+                                              //     data ?? "",
+                                              //     style: FlutterFlowTheme.of(context)
+                                              //         .labelMedium,
+                                              //     overflow: TextOverflow.ellipsis,
+                                              //   ),
+                                              // ),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                }
                             ),
                           ),
                         );

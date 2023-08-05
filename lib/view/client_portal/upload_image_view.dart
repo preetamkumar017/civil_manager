@@ -360,8 +360,11 @@ class _UploadImageViewState extends State<UploadImageView> {
         return AlertDialog(
           title: const Text('Add Remark'),
           content:  TextField(
+            maxLines: 5,
             controller: remark,
-            decoration: const InputDecoration(labelText: 'Enter your remark'),
+            decoration: const InputDecoration(labelText: 'Enter your remark',
+            border: OutlineInputBorder()
+            ),
           ),
           actions: <Widget>[
             TextButton(
@@ -381,7 +384,7 @@ class _UploadImageViewState extends State<UploadImageView> {
                   Navigator.of(context).pop();
                 }else
                 {
-                  Utils.flushBarErrorMessage("Remark Can not be null", context);
+                  Utils.flushBarErrorMessage("Remark cannot be left blank", context);
                 }// Close the dialog
               },
             ),

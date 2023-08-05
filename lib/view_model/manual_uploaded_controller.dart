@@ -41,6 +41,7 @@ class ManualUploadedController extends GetxController
           setBookingDetails(value);
         }else if(value.code == 202)
           {
+            setBookingDetails(ManualImageModel());
             CoolAlert.show(
               context: context,
               type: CoolAlertType.info,

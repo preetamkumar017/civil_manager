@@ -10,7 +10,8 @@ class AppUrl {
 
   static var registerApiEndPoint =  '$baseUrl/api/register' ;
 
-  static var domain = 'http://192.168.1.4:80';
+  // static var domain = 'http://192.168.1.4:80';
+  static var domain = 'https://ukcdesigner.in';
   static var mainUrl = '$domain/approvalzone/index.php';
   static var subMainUrl = '$domain/approvalzone/';
   // static var mainUrl = 'https://ukcdesigner.in/approvalzone/index.php';

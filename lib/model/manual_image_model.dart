@@ -31,20 +31,26 @@ class ManualImageModel {
 }
 
 class Result {
+  List<String>? imageList;
+  String? createDate;
   String? remark;
-  List<String>? imageNames;
+  String? id;
 
-  Result({this.remark, this.imageNames});
+  Result({this.imageList, this.createDate, this.remark, this.id});
 
   Result.fromJson(Map<String, dynamic> json) {
+    imageList = json['image_list'].cast<String>();
+    createDate = json['create_date'];
     remark = json['remark'];
-    imageNames = json['image_names'].cast<String>();
+    id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['image_list'] = this.imageList;
+    data['create_date'] = this.createDate;
     data['remark'] = this.remark;
-    data['image_names'] = this.imageNames;
+    data['id'] = this.id;
     return data;
   }
 }
