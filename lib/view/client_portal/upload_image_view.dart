@@ -360,7 +360,7 @@ class _UploadImageViewState extends State<UploadImageView> {
         return AlertDialog(
           title: const Text('Add Remark'),
           content:  TextField(
-            maxLines: 5,
+            maxLines: 2,
             controller: remark,
             decoration: const InputDecoration(labelText: 'Enter your remark',
             border: OutlineInputBorder()

@@ -48,42 +48,44 @@ class UploadImageController extends GetxController {
   final _myrepo = ClientImageRepository();
 
   Future<void> uploadImage(String siteId, String userName,String remark) async {
-    Map<String, String> data = <String, String>{
-      "site_id": siteId,
-      "upload_by": userName,
-      "upload_location": "",
-      "remark":remark
-    };
-    log(data.toString());
-    setLoading(true);
+    if(_image.isNotEmpty){
+      Map<String, String> data = <String, String>{
+        "site_id": siteId,
+        "upload_by": userName,
+        "upload_location": "",
+        "remark": remark
+      };
+      log(data.toString());
+      setLoading(true);
 
-    List<http.MultipartFile> multipartFiles = [];
-
-    for (File? imageFile in _image) {
-      if (imageFile != null) {
-        http.MultipartFile file = await http.MultipartFile.fromPath(
-          "images[]",
-          imageFile.path,
-          contentType: MediaType('image', 'jpeg'),
-        );
-        multipartFiles.add(file);
+      List<http.MultipartFile> multipartFiles = [];
+      for (File? imageFile in _image) {
+        if (imageFile != null) {
+          http.MultipartFile file = await http.MultipartFile.fromPath(
+            "images[]",
+            imageFile.path,
+            contentType: MediaType('image', 'jpeg'),
+          );
+          multipartFiles.add(file);
+        }
       }
-    }
 
-
-    _myrepo.uploadImageApi(multipartFiles, data).then((value) {
-      print(value.toJson().toString());
-      if (value.code == 200) {
-        Get.back();
-        clearVariables(); // Call the method to clear variables here
-
-      } else {
-        Utils.toastMessage(value.message.toString());
+      _myrepo.uploadImageApi(multipartFiles, data).then((value) {
+        print(value.toJson().toString());
+        if (value.code == 200) {
+          Get.back();
+          clearVariables(); // Call the method to clear variables here
+        } else {
+          Utils.toastMessage(value.message.toString());
+        }
+        setLoading(false);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+      });
+    }else
+      {
+        Utils.toastMessage("Please take attlist one image");
       }
-      setLoading(false);
-    }).onError((error, stackTrace) {
-      setLoading(false);
-    });
   }
 
   void clearVariables() {
