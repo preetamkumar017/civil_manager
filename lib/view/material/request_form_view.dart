@@ -5,10 +5,11 @@ import 'package:civil_manager/view/flutter_flow/flutter_flow_theme.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_util.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_widgets.dart';
 import 'package:civil_manager/view_model/material_view_model.dart';
-import 'package:civil_manager/view_model/services/storage.dart';
+import 'package:civil_manager/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:civil_manager/model/user_model.dart';
 
 class RequestFormView extends StatefulWidget {
   final Map<String,String> data;
@@ -126,15 +127,16 @@ class _RequestFormViewState extends State<RequestFormView> {
                                     ),
                                     FFButtonWidget(
                                       onPressed: () async {
+                                        Result userData = await  UserViewModel().getUser();
 
                                         Map data1= <String,dynamic>{
-                                          "user_id":user.read('user')['id'].toString(),
-                                          "request_by":user.read('user')['user_name'].toString(),
+                                          "user_id":userData.id ?? "",
+                                          "request_by":userData.userName ?? "",
                                           "required_id":materialViewModel.getAllId(),
                                           "request_qty":materialViewModel.getAllQty(),
                                         };
 
-                                        dynamic  jsonData =jsonEncode(data1);
+                                        dynamic  jsonData = jsonEncode(data1);
 
                                         // print(jsonData);
 

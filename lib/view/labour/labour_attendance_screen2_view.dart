@@ -3,12 +3,13 @@ import 'package:civil_manager/model/arguments.dart';
 import 'package:civil_manager/utils/routes/routes_name.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_widgets.dart';
 import 'package:civil_manager/view_model/labour_list_for_attendence_view_model.dart';
-import 'package:civil_manager/view_model/services/storage.dart';
+import 'package:civil_manager/view_model/user_view_model.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:civil_manager/model/user_model.dart';
 
 class LabourAttendanceScreen2View extends StatefulWidget {
   final Map<dynamic, dynamic> data;
@@ -192,7 +193,8 @@ class LabourAttendanceScreen2ViewState
                                 children: [
                                   FFButtonWidget(
                                     onPressed: ()
-                                    {
+                                    async {
+                                      Result result = await  UserViewModel().getUser();
 
                                       Map data={
                                         "l_id":_labourListForAttendanceViewModel.getAllId(),
@@ -203,8 +205,8 @@ class LabourAttendanceScreen2ViewState
                                         "hdn_att_date":widget.data['hdn_att_date'],
                                         "hdn_labour_head":widget.data['labour_head'],
                                         "hdn_site_id":widget.data['site_id'],
-                                        "user_id":user.read('user')['id'].toString(),
-                                        "user_name":user.read('user')['user_name'].toString()
+                                        "user_id":result.id ?? "",
+                                        "user_name":result.userName ?? ""
                                       };
                                       // Map userData = user.read("user");
                                       // log(data.toString());

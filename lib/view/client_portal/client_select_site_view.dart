@@ -59,8 +59,6 @@ class _ClientSelectSiteViewState extends State<ClientSelectSiteView> {
                     itemCount: value.siteRequestList.data!.siteList!.length,
                     itemBuilder: (context, index) {
                       var data = value.siteRequestList.data!.siteList![index];
-
-
                       return ListTile(
                         onTap: () {
                           Map<String, String>  pdata =   {"site_id":"${data.siteId}","full_name":"${data.siteName}"};

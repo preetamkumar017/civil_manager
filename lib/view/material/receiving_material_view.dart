@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:civil_manager/data/response/status.dart';
 import 'package:civil_manager/model/arguments.dart';
 import 'package:civil_manager/res/components/text_style.dart';
@@ -8,12 +7,12 @@ import 'package:civil_manager/utils/utils.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_theme.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_widgets.dart';
 import 'package:civil_manager/view_model/material_view_model.dart';
-import 'package:civil_manager/view_model/services/storage.dart';
+import 'package:civil_manager/view_model/user_view_model.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-
 import 'package:styled_divider/styled_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:civil_manager/model/user_model.dart';
 
 class ReceivingMaterialView extends StatefulWidget {
   final Map<String,String> data ;
@@ -550,6 +549,7 @@ class ReceivingMaterialViewState extends State<ReceivingMaterialView> {
                                                                           else
                                                                           {
 
+                                                                            Result userData = await  UserViewModel().getUser();
 
                                                                             Map<String,String> data1= {
                                                                               "required_id":data.requiredId.toString(),
@@ -558,7 +558,7 @@ class ReceivingMaterialViewState extends State<ReceivingMaterialView> {
                                                                               "order_qty":data.orderQty.toString(),
                                                                               "received_qty":data.receivedQty.toString(),
                                                                               "new_received_qty":materialViewModel.getLtcText(index),
-                                                                              "created_by":user.read('user')['user_name'].toString(),
+                                                                              "created_by":userData.userName ?? "",
                                                                             };
                                                                          bool result =   await Get.toNamed(RoutesName.receiving_material_image_capture_view,arguments: ScreenArguments(data1));
                                                                             materialViewModel.setLtc(index,"");

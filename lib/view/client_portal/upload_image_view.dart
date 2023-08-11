@@ -345,7 +345,7 @@ class _UploadImageViewState extends State<UploadImageView> {
 
   Future<void> _pickImageFromCamera() async {
     final pickedFile = await uIController.picker.value.pickImage(
-        source: ImageSource.camera, imageQuality: 10);
+        source: ImageSource.camera, imageQuality: 50);
 
     File file = File(pickedFile!.path);
     uIController.addImagesList(file);
