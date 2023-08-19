@@ -144,10 +144,13 @@ class NetworkApiService extends BaseApiServices {
   }
 
   @override
-  Future getPostWithFormDataAndJSONApiResponse(String url, file, data) async {
+  Future getPostWithFormDataAndJSONApiResponse(String url,List<MultipartFile> file, data) async {
     dynamic responseJson;
 
     try {
+      log(url);
+      log(data.toString());
+      log(file.first.filename ?? "");
       var request = http.MultipartRequest("POST", Uri.parse(url));
       request.fields['json'] = data;
       request.files.addAll(file);
@@ -159,7 +162,7 @@ class NetworkApiService extends BaseApiServices {
     } on SocketException {
       throw FetchDataException('No Internet Connection');
     }
-    // print(responseJson.toString());
+    print(responseJson.toString());
 
     return responseJson;
   }

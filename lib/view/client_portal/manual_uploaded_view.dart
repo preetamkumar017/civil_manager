@@ -201,6 +201,7 @@ class _ManualImageUploadedViewState extends State<ManualImageUploadedView> {
                                           )),
                                       GridView.builder(
                                         shrinkWrap: true,
+                                        physics: const NeverScrollableScrollPhysics(),
                                         itemCount: clientImageViewModel.imageDetails.value.result![idx].imageList!.length,
                                         padding: EdgeInsets.zero,
                                         gridDelegate:

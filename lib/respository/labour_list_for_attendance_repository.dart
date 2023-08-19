@@ -6,6 +6,7 @@ import 'package:civil_manager/model/labour_list_after_attendance_model.dart';
 import 'package:civil_manager/model/labour_list_for_attendance_model.dart';
 import 'package:civil_manager/model/result_model.dart';
 import 'package:civil_manager/res/app_url.dart';
+import 'package:http/src/multipart_file.dart';
 
 class LabourListForAttendanceRepository {
   final BaseApiServices _apiServices = NetworkApiService();
@@ -39,7 +40,7 @@ class LabourListForAttendanceRepository {
 
 
 
-  Future<ResultModel> labourAddAttendance(dynamic data,dynamic files) async {
+  Future<ResultModel> labourAddAttendance(dynamic data,List<MultipartFile> files) async {
     try {
       // print(data);
       dynamic response = await _apiServices.getPostWithFormDataAndJSONApiResponse(AppUrl.labourAddAttendanceEndPoint,files, data);

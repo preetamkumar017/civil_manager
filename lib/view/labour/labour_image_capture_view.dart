@@ -110,9 +110,11 @@ class _LabourImageCaptureViewState
                           dismissible: true,
                         action: () async {
                           List<MultipartFile> files = [];
+
                           if (_image != null) {
                             files = [
-                              await http.MultipartFile.fromPath("image", _image!.path),
+                              await http.MultipartFile.fromPath("image", _image!.path,
+                                  filename: "hh"),
                             ];
                           } else {
                           }
@@ -132,6 +134,19 @@ class _LabourImageCaptureViewState
                   ),
                 ),
               ),
+              ElevatedButton(onPressed: () async {
+                List<MultipartFile> files = [];
+                if (_image != null) {
+                  // _image.
+                  files = [
+                    await http.MultipartFile.fromPath("image", _image!.path),
+                  ];
+                } else {
+                }
+                setState(() {});
+                labourAddAttendanceViewModel.labourAddAttendanceApi(widget.data,files, context);
+                // materialViewModel.receivedMaterialApi(widget.data,files, context);
+              }, child: Text("Submit"))
 
               // Container(
               //   alignment: Alignment.center,

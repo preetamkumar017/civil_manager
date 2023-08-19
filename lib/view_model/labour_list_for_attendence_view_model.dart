@@ -8,6 +8,7 @@ import 'package:civil_manager/respository/labour_list_for_attendance_repository.
 import 'package:civil_manager/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:http/src/multipart_file.dart' as img;
 class LabourListForAttendanceViewModel with ChangeNotifier {
   final _myRepo = LabourListForAttendanceRepository();
   List present = <bool>[];
@@ -136,7 +137,7 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
     });
   }
 
-  Future<void> labourAddAttendanceApi(dynamic data, dynamic file, BuildContext context) async {
+  Future<void> labourAddAttendanceApi(dynamic data, List<img.MultipartFile> file, BuildContext context) async {
         
     setAddLoading(true);
     setResult(ApiResponse.loading());

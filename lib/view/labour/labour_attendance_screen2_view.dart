@@ -320,249 +320,248 @@ class LabourAttendanceScreen2ViewState
                           color: FlutterFlowTheme.of(context).secondaryText,
                         ),
 
-                        Expanded(
-                          child: SizedBox(
-                            height: height,
-                            child: ChangeNotifierProvider<LabourListForAttendanceViewModel>(
-                              create: (context) => _labourListForAttendanceViewModel,
-                              child: Consumer<LabourListForAttendanceViewModel>(
-                                builder: (context, value, _) {
-                                  var data = value.labourList.data?.labourList!;
-                                  switch (value.labourList.status) {
-                                    case Status.LOADING:
-                                      return const Center(child: CircularProgressIndicator());
-                                    case Status.ERROR:
-                                      return Center(
-                                          child: Text(value.labourList.message.toString()));
-                                    case Status.COMPLETED:
-                                      while (i < data!.length) {
-                                        String id = value.labourList.data!.labourList![i].id.toString();
-                                        i++;
-                                        _labourListForAttendanceViewModel.setDefaultPresent(id);
-                                      }
-                                      return ListView.builder(
-                                        physics: const BouncingScrollPhysics(),
-                                        itemCount: data.length,
-                                        itemBuilder: (context, index) {
-                                          return
-                                            Container(
-                                              margin: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.circular(12),
-                                                border: Border.all(
-                                                  color: const Color(0xFFF1F4F8),
-                                                  width: 2,
-                                                ),
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                                        15, 10, 0, 0),
-                                                    child: Row(
-                                                      mainAxisSize: MainAxisSize.max,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.person,
-                                                          color: FlutterFlowTheme.of(context)
-                                                              .tertiaryColor,
-                                                          size: 18,
-                                                        ),
-                                                        Padding(
-                                                          padding: const EdgeInsetsDirectional.fromSTEB(
-                                                              5, 0, 0, 0),
-                                                          child: Text(
-                                                            data[index].fullName ?? "",
-                                                            style: FlutterFlowTheme.of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                              fontFamily: 'Poppins',
-                                                              color:
-                                                              FlutterFlowTheme.of(context)
-                                                                  .primaryText,
-                                                              fontSize: 15,
-                                                              fontWeight: FontWeight.w600,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                                        15, 0, 15, 0),
-                                                    child: Row(
-                                                      mainAxisSize: MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Row(
-                                                            mainAxisSize: MainAxisSize.max,
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment.start,
-                                                            children: [
-                                                              Container(
-                                                                width: MediaQuery.of(context)
-                                                                    .size
-                                                                    .width *
-                                                                    0.25,
-                                                                height: MediaQuery.of(context)
-                                                                    .size
-                                                                    .height *
-                                                                    0.03,
-                                                                decoration: BoxDecoration(
-                                                                  color:
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .primaryBtnText,
-                                                                ),
-                                                                child: Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(20, 2, 2, 2),
-                                                                  child: Text(
-                                                                    data[index].labourType ?? "",
-                                                                    style:
-                                                                    FlutterFlowTheme.of(context)
-                                                                        .bodyText1
-                                                                        .override(
-                                                                      fontFamily: 'Poppins',
-                                                                      color: FlutterFlowTheme
-                                                                          .of(context)
-                                                                          .secondaryText,
-                                                                      fontSize: 14,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Row(
-                                                            mainAxisSize: MainAxisSize.max,
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment.spaceBetween,
-                                                            children: [
-                                                              Theme(
-                                                                data: ThemeData(
-                                                                  checkboxTheme: CheckboxThemeData(
-                                                                    shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                      BorderRadius.circular(0),
-                                                                    ),
-                                                                  ),
-                                                                  unselectedWidgetColor:
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .tertiaryColor,
-                                                                ),
-                                                                child: Checkbox(
-                                                                  value:
-                                                                  _labourListForAttendanceViewModel
-                                                                      .getPresent(index),
-                                                                  onChanged: (value) {
-                                                                    _labourListForAttendanceViewModel
-                                                                        .setpresent(index);
-                                                                  },
-                                                                  activeColor:
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .primaryColor,
-                                                                ),
-                                                              ),
-                                                              Theme(
-                                                                data: ThemeData(
-                                                                  checkboxTheme: CheckboxThemeData(
-                                                                    shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                      BorderRadius.circular(0),
-                                                                    ),
-                                                                  ),
-                                                                  unselectedWidgetColor:
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .tertiaryColor,
-                                                                ),
-                                                                child: Checkbox(
-                                                                  value:
-                                                                  _labourListForAttendanceViewModel
-                                                                      .getHalfDay(index),
-                                                                  onChanged: (value) {
-                                                                    _labourListForAttendanceViewModel
-                                                                        .setHalfDay(index);
-                                                                  },
-                                                                  activeColor:
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .primaryColor,
-                                                                ),
-                                                              ),
-                                                              Theme(
-                                                                data: ThemeData(
-                                                                  checkboxTheme: CheckboxThemeData(
-                                                                    shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                      BorderRadius.circular(0),
-                                                                    ),
-                                                                  ),
-                                                                  unselectedWidgetColor:
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .tertiaryColor,
-                                                                ),
-                                                                child: Checkbox(
-                                                                  value:
-                                                                  _labourListForAttendanceViewModel
-                                                                      .getNigh(index),
-                                                                  onChanged: (newValue) async {
 
-                                                                    _labourListForAttendanceViewModel
-                                                                        .setNight(index);
-                                                                    if (newValue!) {
-                                                                      _showMyDialog(newValue, index);
-                                                                    }else
-                                                                    {
-                                                                      _labourListForAttendanceViewModel.setNote(index, "");
-                                                                    }
-                                                                  },
-                                                                  activeColor:
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .primaryColor,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                                        15, 0, 0, 10),
-                                                    child: Text(
-                                                      _labourListForAttendanceViewModel.getNote(index).toString(),
-                                                      style: FlutterFlowTheme.of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                        fontFamily: 'Poppins',
+                        Container(
+                          height: height-260,
+                          child: ChangeNotifierProvider<LabourListForAttendanceViewModel>(
+                            create: (context) => _labourListForAttendanceViewModel,
+                            child: Consumer<LabourListForAttendanceViewModel>(
+                              builder: (context, value, _) {
+                                var data = value.labourList.data?.labourList!;
+                                switch (value.labourList.status) {
+                                  case Status.LOADING:
+                                    return const Center(child: CircularProgressIndicator());
+                                  case Status.ERROR:
+                                    return Center(
+                                        child: Text(value.labourList.message.toString()));
+                                  case Status.COMPLETED:
+                                    while (i < data!.length) {
+                                      String id = value.labourList.data!.labourList![i].id.toString();
+                                      i++;
+                                      _labourListForAttendanceViewModel.setDefaultPresent(id);
+                                    }
+                                    return ListView.builder(
+                                      physics: const BouncingScrollPhysics(),
+                                      itemCount: data.length,
+                                      itemBuilder: (context, index) {
+                                        return
+                                          Container(
+                                            margin: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(12),
+                                              border: Border.all(
+                                                color: const Color(0xFFF1F4F8),
+                                                width: 2,
+                                              ),
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                                      15, 10, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.person,
                                                         color: FlutterFlowTheme.of(context)
-                                                            .secondaryText,
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight.normal,
+                                                            .tertiaryColor,
+                                                        size: 18,
                                                       ),
+                                                      Padding(
+                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                            5, 0, 0, 0),
+                                                        child: Text(
+                                                          data[index].fullName ?? "",
+                                                          style: FlutterFlowTheme.of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                            fontFamily: 'Poppins',
+                                                            color:
+                                                            FlutterFlowTheme.of(context)
+                                                                .primaryText,
+                                                            fontSize: 15,
+                                                            fontWeight: FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                                      15, 0, 15, 0),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Row(
+                                                          mainAxisSize: MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.start,
+                                                          children: [
+                                                            Container(
+                                                              width: MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                                  0.25,
+                                                              height: MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                                  0.03,
+                                                              decoration: BoxDecoration(
+                                                                color:
+                                                                FlutterFlowTheme.of(context)
+                                                                    .primaryBtnText,
+                                                              ),
+                                                              child: Padding(
+                                                                padding: const EdgeInsetsDirectional
+                                                                    .fromSTEB(20, 2, 2, 2),
+                                                                child: Text(
+                                                                  data[index].labourType ?? "",
+                                                                  style:
+                                                                  FlutterFlowTheme.of(context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                    fontFamily: 'Poppins',
+                                                                    color: FlutterFlowTheme
+                                                                        .of(context)
+                                                                        .secondaryText,
+                                                                    fontSize: 14,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Row(
+                                                          mainAxisSize: MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Theme(
+                                                              data: ThemeData(
+                                                                checkboxTheme: CheckboxThemeData(
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                    BorderRadius.circular(0),
+                                                                  ),
+                                                                ),
+                                                                unselectedWidgetColor:
+                                                                FlutterFlowTheme.of(context)
+                                                                    .tertiaryColor,
+                                                              ),
+                                                              child: Checkbox(
+                                                                value:
+                                                                _labourListForAttendanceViewModel
+                                                                    .getPresent(index),
+                                                                onChanged: (value) {
+                                                                  _labourListForAttendanceViewModel
+                                                                      .setpresent(index);
+                                                                },
+                                                                activeColor:
+                                                                FlutterFlowTheme.of(context)
+                                                                    .primaryColor,
+                                                              ),
+                                                            ),
+                                                            Theme(
+                                                              data: ThemeData(
+                                                                checkboxTheme: CheckboxThemeData(
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                    BorderRadius.circular(0),
+                                                                  ),
+                                                                ),
+                                                                unselectedWidgetColor:
+                                                                FlutterFlowTheme.of(context)
+                                                                    .tertiaryColor,
+                                                              ),
+                                                              child: Checkbox(
+                                                                value:
+                                                                _labourListForAttendanceViewModel
+                                                                    .getHalfDay(index),
+                                                                onChanged: (value) {
+                                                                  _labourListForAttendanceViewModel
+                                                                      .setHalfDay(index);
+                                                                },
+                                                                activeColor:
+                                                                FlutterFlowTheme.of(context)
+                                                                    .primaryColor,
+                                                              ),
+                                                            ),
+                                                            Theme(
+                                                              data: ThemeData(
+                                                                checkboxTheme: CheckboxThemeData(
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                    BorderRadius.circular(0),
+                                                                  ),
+                                                                ),
+                                                                unselectedWidgetColor:
+                                                                FlutterFlowTheme.of(context)
+                                                                    .tertiaryColor,
+                                                              ),
+                                                              child: Checkbox(
+                                                                value:
+                                                                _labourListForAttendanceViewModel
+                                                                    .getNigh(index),
+                                                                onChanged: (newValue) async {
+
+                                                                  _labourListForAttendanceViewModel
+                                                                      .setNight(index);
+                                                                  if (newValue!) {
+                                                                    _showMyDialog(newValue, index);
+                                                                  }else
+                                                                  {
+                                                                    _labourListForAttendanceViewModel.setNote(index, "");
+                                                                  }
+                                                                },
+                                                                activeColor:
+                                                                FlutterFlowTheme.of(context)
+                                                                    .primaryColor,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                                      15, 0, 0, 10),
+                                                  child: Text(
+                                                    _labourListForAttendanceViewModel.getNote(index).toString(),
+                                                    style: FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: FlutterFlowTheme.of(context)
+                                                          .secondaryText,
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.normal,
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            );
-                                        },
-                                      );
-                                    default:
-                                      break;
-                                  }
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                      },
+                                    );
+                                  default:
+                                    break;
+                                }
 
-                                  return Container();
-                                },
-                              ),
+                                return Container();
+                              },
                             ),
                           ),
                         ),
