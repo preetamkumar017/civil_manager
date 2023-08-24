@@ -38,7 +38,7 @@ class AppUrl {
 
 
   static var excelDownloadPaymentEndPoint =  'https://ukcdesigner.in/approvalzone/excel/excel_labour_payment.php' ;
-  static var pdfDownloadPaymentEndPoint =  'https://ukcdesigner.in/approvalzone/export/lab_salary_template/' ;
+  static var pdfDownloadPaymentEndPoint =  'https://ukcdesigner.in/approvalzone/index.php/export/lab_salary_template/' ;
   static var pdfDownloadAttendanceEndPoint =  '$mainUrl/export/labour_attandance_pdf/' ;
 
 

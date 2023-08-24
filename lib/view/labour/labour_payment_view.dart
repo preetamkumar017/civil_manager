@@ -6,10 +6,12 @@ import 'dart:io';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:civil_manager/data/response/status.dart';
 import 'package:civil_manager/res/app_url.dart';
+import 'package:civil_manager/res/components/pdf_viewer.dart';
 import 'package:civil_manager/utils/utils.dart';
 import 'package:civil_manager/view_model/labour_payment_view_model.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -169,13 +171,17 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                             date=  widget.data['date_range'];
                                             date = "${date.replaceAll('-', '/')}";
                                             date = "${date.replaceAll('To', '-')}";
-                                            log("${AppUrl.pdfDownloadPaymentEndPoint}?site_id=${widget.data['site_id']}&labour_head_id=${widget.data['labour_head']}&date_range=18/01/2023 - 19/01/2023");
+                                            log("${AppUrl.pdfDownloadPaymentEndPoint}?site_id=${widget.data['site_id']}&labour_head_id=${widget.data['labour_head']}&date_range=$date");
                                           }
+                                          // log(date);
 
                                           openFile(
-                                              url: "${AppUrl.pdfDownloadPaymentEndPoint}?site_id=${widget.data['site_id']}&labour_head_id=${widget.data['labour_head']}&date_range=18/01/2023 - 19/01/2023",
+                                              url: "${AppUrl.pdfDownloadPaymentEndPoint}?site_id=${widget.data['site_id']}&labour_head_id=${widget.data['labour_head']}&date_range=$date",
                                               fileName:
-                                              'labour-payment-${DateTime.now().millisecondsSinceEpoch.toString()}.pdf');
+                                              'labour-payment-${DateTime.now().millisecondsSinceEpoch.toString()}.pdf',
+                                              isPDF: true
+                                          );
+
 
                                         },
                                         icon: Icon(
@@ -201,7 +207,9 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                         openFile(
                                             url: "${AppUrl.excelDownloadPaymentEndPoint}?site_id=${widget.data['site_id']}&labour_head_id=${widget.data['labour_head']}&date_range=$date",
                                             fileName:
-                                            'labour-payment-${DateTime.now().millisecondsSinceEpoch.toString()}.xlsx');
+                                            'labour-payment-${DateTime.now().millisecondsSinceEpoch.toString()}.xlsx',
+                                        isPDF: false
+                                        );
 
                                       },
                                       icon: FaIcon(
@@ -613,9 +621,15 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
     );
   }
 
-  Future openFile({required String url, String? fileName}) async {
+  Future openFile({required String url, String? fileName,required bool isPDF}) async {
     final file = await downloadFile(url, fileName!);
+    log(url);
     if (file == null) return;
+    if(await Permission.mediaLibrary.isGranted)
+      {
+        if(isPDF)
+        Get.to(() => PDFFileScreen(path: file.path,));
+      }
 
     log('Path: ${file.path}');
     Utils.toastMessage("Successfully downloaded to: ${file.path}");

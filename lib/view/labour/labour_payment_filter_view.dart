@@ -264,7 +264,7 @@ class LabourPaymentFilterViewState extends State<LabourPaymentFilterView> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                   ),
-                                  hintText: 'Select Labour Type',
+                                  hintText: 'Select Site',
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(

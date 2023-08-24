@@ -1,8 +1,11 @@
 import 'dart:io';
+import 'package:civil_manager/model/arguments.dart';
+import 'package:civil_manager/utils/routes/routes_name.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_theme.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_widgets.dart';
 import 'package:civil_manager/view_model/labour_list_for_attendence_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -109,18 +112,16 @@ class _LabourImageCaptureViewState
                         child: SliderButton(
                           dismissible: true,
                         action: () async {
-                          List<MultipartFile> files = [];
-
+                          List<http.MultipartFile> files = [];
                           if (_image != null) {
                             files = [
-                              await http.MultipartFile.fromPath("image", _image!.path,
-                                  filename: "hh"),
+                              await http.MultipartFile.fromPath("image", _image!.path),
                             ];
                           } else {
                           }
                           setState(() {});
                           labourAddAttendanceViewModel.labourAddAttendanceApi(widget.data,files, context);
-                          // materialViewModel.receivedMaterialApi(widget.data,files, context);
+
                       },
                         label: const Text(
                           "Slide to submit",
@@ -134,19 +135,18 @@ class _LabourImageCaptureViewState
                   ),
                 ),
               ),
-              ElevatedButton(onPressed: () async {
-                List<MultipartFile> files = [];
-                if (_image != null) {
-                  // _image.
-                  files = [
-                    await http.MultipartFile.fromPath("image", _image!.path),
-                  ];
-                } else {
-                }
-                setState(() {});
-                labourAddAttendanceViewModel.labourAddAttendanceApi(widget.data,files, context);
-                // materialViewModel.receivedMaterialApi(widget.data,files, context);
-              }, child: Text("Submit"))
+              // ElevatedButton(onPressed: () async {
+              //   List<MultipartFile> files = [];
+              //   if (_image != null) {
+              //     files = [
+              //       await http.MultipartFile.fromPath("image", _image!.path),
+              //     ];
+              //   } else {
+              //   }
+              //   setState(() {});
+              //   labourAddAttendanceViewModel.labourAddAttendanceApi(widget.data,files, context);
+              //   // materialViewModel.receivedMaterialApi(widget.data,files, context);
+              // }, child: Text("Submit"))
 
               // Container(
               //   alignment: Alignment.center,

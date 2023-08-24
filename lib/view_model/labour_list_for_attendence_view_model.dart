@@ -149,7 +149,7 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
 
       if(value.code==200)
       {
-        // Utils.flushBarErrorMessage(value.status.toString(), context);
+        Utils.flushBarSuccessMessage("Attendance Successfully Added", context);
         log(value.message.toString());
         Get.back();
         Get.back();

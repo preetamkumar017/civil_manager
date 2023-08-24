@@ -1,7 +1,8 @@
 import 'package:civil_manager/data/response/status.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_theme.dart';
-import 'package:civil_manager/view/flutter_flow/flutter_flow_util.dart';
+import 'package:civil_manager/model/labour_list_model.dart';
 import 'package:civil_manager/view_model/labour_list_view_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class LabourListViewState extends State<LabourListView>
   final _unFocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   LabourListViewModel labourViewModel = LabourListViewModel();
+  final search = TextEditingController();
+  List<LabourList> filteredList = [];
 
   @override
   void initState() {
@@ -40,44 +43,23 @@ class LabourListViewState extends State<LabourListView>
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+      appBar: AppBar(
+        title: Text("Labour List",
+          style: FlutterFlowTheme.of(context).bodyText1.override(
+            fontFamily: 'Roboto',
+            color: FlutterFlowTheme.of(context).alternate,
+            fontSize: 25,
+            fontWeight: FontWeight.normal,
+          ),),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
-                margin: const EdgeInsetsDirectional.fromSTEB(25, 20, 30, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(onPressed: (){
-                      Get.back();
-                    }, icon: const Icon(Icons.arrow_back_outlined,color: Colors.white,)),
-                    Text(
-                      'Labour List ',
-                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                            fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).alternate,
-                            fontSize: 25,
-                            fontWeight: FontWeight.normal,
-                          ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(100, 0, 0, 0),
-                      child: InkWell(
-                        onTap: () async {
-                          context.pushNamed('Labourlistfilter');
-                        },
-                        child: const Icon(
-                          Icons.filter_list_rounded,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               Container(
                 margin: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                 width: MediaQuery.of(context).size.width,
@@ -95,6 +77,17 @@ class LabourListViewState extends State<LabourListView>
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 25.0,right: 25.0,left: 25.0),
+                      child: CupertinoSearchTextField(
+                        controller: search,
+                        onChanged: (value) {
+                          setState(() {
+                            
+                          });
+                        },
+                      ),
+                    ),
                     ChangeNotifierProvider<LabourListViewModel>(
                       create: (context) => labourViewModel,
                       child: Consumer<LabourListViewModel>(
@@ -110,16 +103,22 @@ class LabourListViewState extends State<LabourListView>
                             case Status.COMPLETED:
                               // print(value.labourList.data!.labourList!.length
                               //     .toString());
+                            if (search.text.isEmpty) {
+                                // If search text is empty, show the full list
+                                filteredList = value.labourList.data!.labourList!;
+                                } else {
+                                filteredList = value.labourList.data!.labourList!
+                                    .where((item) => item.fullName!.toLowerCase().contains(search.text.toLowerCase()))
+                                    .toList();
+                                }
 
                               return Expanded(
                                 child: SizedBox(
                                   height: height,
                                   child: ListView.builder(
-                                      itemCount: value
-                                          .labourList.data!.labourList!.length,
+                                      itemCount: filteredList.length,
                                       itemBuilder: (context, index) {
-                                        var data = value.labourList.data!
-                                            .labourList![index];
+                                        var data = filteredList[index];
                                         return Padding(
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(25, 25, 25, 0),

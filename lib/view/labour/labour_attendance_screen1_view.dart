@@ -260,7 +260,7 @@ class LabourAttendanceScreen1ViewState extends State<LabourAttendanceScreen1View
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                   ),
-                                  hintText: 'Select Labour Type',
+                                  hintText: 'Select Site',
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
@@ -445,7 +445,7 @@ class LabourAttendanceScreen1ViewState extends State<LabourAttendanceScreen1View
                                     ),
                                   ),
                                   FFButtonWidget(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       if (siteName == null) {
                                         Utils.flushBarErrorMessage(
                                             "Please select labour Head", context);
@@ -464,10 +464,18 @@ class LabourAttendanceScreen1ViewState extends State<LabourAttendanceScreen1View
 
                                         // labourAttendance.labourListForAttendanceApi(data, context);
                                         log(RoutesName.labour_attendance_screen2_view);
-                                        Get.toNamed(
+                                       await Get.toNamed(
                                           RoutesName.labour_attendance_screen2_view,
                                           arguments: ScreenArguments(data),
                                         );
+
+                                       // Get.back();
+                                       //  data['date_range'] = "$date To $date";
+                                       //
+                                       //  Get.toNamed(
+                                       //    RoutesName.labour_show_attendance_screen2_view,
+                                       //    arguments: ScreenArguments(data),
+                                       //  );
                                       }
                                     },
                                     text: 'Next',

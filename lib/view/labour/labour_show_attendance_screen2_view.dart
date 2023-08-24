@@ -7,6 +7,7 @@ import 'package:android_path_provider/android_path_provider.dart';
 import 'package:civil_manager/data/response/status.dart';
 import 'package:civil_manager/model/arguments.dart';
 import 'package:civil_manager/res/app_url.dart';
+import 'package:civil_manager/res/components/pdf_viewer.dart';
 import 'package:civil_manager/utils/routes/routes_name.dart';
 import 'package:civil_manager/utils/utils.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_util.dart';
@@ -15,6 +16,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -27,11 +29,12 @@ class AttendanceListView extends StatefulWidget {
   AttendanceListViewState createState() => AttendanceListViewState();
 }
 
-class AttendanceListViewState extends State<AttendanceListView> {
+class AttendanceListViewState extends State<AttendanceListView> with TickerProviderStateMixin {
 
 
   final LabourListForAttendanceViewModel _labourListAfterAttendanceViewModel =
   LabourListForAttendanceViewModel();
+  late AnimationController controller;
 
   bool? checkboxValue1;
   bool? checkboxValue2;
@@ -48,6 +51,9 @@ class AttendanceListViewState extends State<AttendanceListView> {
   @override
   void initState() {
     _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
+    controller = BottomSheet.createAnimationController(this);
+    controller.duration = const Duration(milliseconds: 1000);
+    controller.reverseDuration = const Duration(milliseconds: 750);
     super.initState();
   }
 
@@ -215,16 +221,21 @@ class AttendanceListViewState extends State<AttendanceListView> {
                                     ),
                                   ),
                                   IconButton(
-                                    onPressed: (){
+                                    onPressed: () async {
+                                      final SharedPreferences sp = await SharedPreferences.getInstance();
+                                      final String id = sp.getString('id') ?? "";
+                                      final String userName = sp.getString('userName') ?? "";
                                       Map data={
                                         "l_id":_labourListAfterAttendanceViewModel.getAllId(),
                                         "delete": _labourListAfterAttendanceViewModel.getAllDelete(),
-                                        "user_id":"1",
-                                        "user_name":"Santosh Bandhe"
+                                        "user_id":id,
+                                        "user_name":userName
                                       };
                                       dynamic  jsondata =jsonEncode(data);
                                       _labourListAfterAttendanceViewModel.labourDeleteAttendanceApi(jsondata,widget.data, context).then((value){
                                         Get.back();
+
+                                        // _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
                                       });
                                     },
                                     icon: const Icon(
@@ -405,187 +416,191 @@ class AttendanceListViewState extends State<AttendanceListView> {
                                                   ],
                                               ),
                                                 ):const SizedBox(),
-                                              Slidable(
-                                                endActionPane: ActionPane(
-                                                  motion: const ScrollMotion(),
-                                                  children: [
-                                                    SlidableAction(
-                                                      onPressed: (context) {
-                                                        Map<String,String> imgData = {
-                                                          'image':"${AppUrl.subMainUrl}/assets/material/uploads/"
-                                                        };
+                                              InkWell(
+                                                onLongPress: () {
+                                                  change(data[index].id ?? "");
+                                                },
+                                                child: Slidable(
+                                                  endActionPane: ActionPane(
+                                                    motion: const ScrollMotion(),
+                                                    children: [
+                                                      SlidableAction(
+                                                        onPressed: (context) {
+                                                          Map<String,String> imgData = {
+                                                            'image':"${AppUrl.subMainUrl}assets/site_images/attandance_images/${data[index].imageName ?? ""}"
+                                                          };
 
-                                                        Get.toNamed(RoutesName.image_viewer,arguments: ScreenArguments(imgData));
+                                                          Get.toNamed(RoutesName.image_viewer,arguments: ScreenArguments(imgData));
 
-
-                                                      },
-                                                      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                      foregroundColor: Colors.white,
-                                                      icon: Icons.image_outlined,
-                                                      label: 'View Image',
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Column(
-                                                  children: [
-                                                    ListTile(
-                                                      title:  Padding(
-                                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                                            15, 0, 0, 0),
-                                                        child: Row(
+                                                        },
+                                                        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+                                                        foregroundColor: Colors.white,
+                                                        icon: Icons.image_outlined,
+                                                        label: 'View Image',
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Column(
+                                                    children: [
+                                                      ListTile(
+                                                        title:  Padding(
+                                                          padding: const EdgeInsetsDirectional.fromSTEB(
+                                                              15, 0, 0, 0),
+                                                          child: Row(
+                                                            mainAxisSize: MainAxisSize.max,
+                                                            children: [
+                                                              Icon(
+                                                                Icons.person,
+                                                                color: FlutterFlowTheme.of(context)
+                                                                    .tertiaryColor,
+                                                                size: 18,
+                                                              ),
+                                                              Padding(
+                                                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                    2, 0, 0, 0),
+                                                                child: Text(
+                                                                  data[index].labourName ?? "",
+                                                                  style: FlutterFlowTheme.of(context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                    fontFamily: 'Poppins',
+                                                                    color:
+                                                                    FlutterFlowTheme.of(context)
+                                                                        .primaryText,
+                                                                    fontSize: 15,
+                                                                    fontWeight: FontWeight.w600,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        subtitle:  Column(
                                                           mainAxisSize: MainAxisSize.max,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
-                                                            Icon(
-                                                              Icons.person,
-                                                              color: FlutterFlowTheme.of(context)
-                                                                  .tertiaryColor,
-                                                              size: 18,
-                                                            ),
                                                             Padding(
                                                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                  2, 0, 0, 0),
+                                                                  15, 0, 15, 0),
+                                                              child: Row(
+                                                                mainAxisSize: MainAxisSize.max,
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment.spaceBetween,
+                                                                children: [
+                                                                  Theme(
+                                                                    data: ThemeData(
+                                                                      checkboxTheme: CheckboxThemeData(
+                                                                        shape: RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                          BorderRadius.circular(0),
+                                                                        ),
+                                                                      ),
+                                                                      unselectedWidgetColor:
+                                                                      FlutterFlowTheme.of(context)
+                                                                          .tertiaryColor,
+                                                                    ),
+                                                                    child: Checkbox(
+                                                                      value:
+                                                                      _labourListAfterAttendanceViewModel
+                                                                          .getDelete(index),
+                                                                      onChanged: (value) {
+                                                                        _labourListAfterAttendanceViewModel
+                                                                            .setDelete(index);
+                                                                      },
+                                                                      activeColor:
+                                                                      FlutterFlowTheme.of(context)
+                                                                          .primaryColor,
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child: Row(
+                                                                      mainAxisSize: MainAxisSize.max,
+                                                                      mainAxisAlignment:
+                                                                      MainAxisAlignment.start,
+                                                                      children: [
+                                                                        Container(
+                                                                          width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                              0.15,
+                                                                          height: MediaQuery.of(context)
+                                                                              .size
+                                                                              .height *
+                                                                              0.03,
+                                                                          decoration: BoxDecoration(
+                                                                            color:
+                                                                            FlutterFlowTheme.of(context)
+                                                                                .primaryBtnText,
+                                                                          ),
+                                                                          child: Padding(
+                                                                            padding: const EdgeInsetsDirectional
+                                                                                .fromSTEB(0, 2, 2, 2),
+                                                                            child: Text(
+                                                                              data[index].labourType ?? "",
+                                                                              style: FlutterFlowTheme.of(
+                                                                                  context)
+                                                                                  .bodyText1
+                                                                                  .override(
+                                                                                fontFamily: 'Poppins',
+                                                                                color:
+                                                                                FlutterFlowTheme.of(
+                                                                                    context)
+                                                                                    .secondaryText,
+                                                                                fontSize: 14,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child: Row(
+                                                                      mainAxisSize: MainAxisSize.max,
+                                                                      mainAxisAlignment:
+                                                                      MainAxisAlignment.spaceBetween,
+                                                                      children: [
+
+                                                                        Visibility(visible: data[index].present=="1",replacement: Icon(Icons.close,color: FlutterFlowTheme.of(context).secondaryBackground,),child: Icon(Icons.check,color: FlutterFlowTheme.of(context).primaryColor,),),
+
+                                                                        Visibility(visible: data[index].halfday=="0.5",replacement: Icon(Icons.close,color: FlutterFlowTheme.of(context).secondaryBackground,),child: Icon(Icons.check,color: FlutterFlowTheme.of(context).primaryColor,),),
+
+                                                                        Visibility(visible: data[index].night=="1",replacement: Icon(Icons.close,color: FlutterFlowTheme.of(context).secondaryBackground,),child: Icon(Icons.check,color: FlutterFlowTheme.of(context).primaryColor,),),
+
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            data[index].labourWork!="" ?  Padding(
+                                                              padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 0, 10),
                                                               child: Text(
-                                                                data[index].labourName ?? "",
+                                                                data[index].labourWork ?? "",
                                                                 style: FlutterFlowTheme.of(context)
                                                                     .bodyText1
                                                                     .override(
                                                                   fontFamily: 'Poppins',
-                                                                  color:
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .primaryText,
-                                                                  fontSize: 15,
-                                                                  fontWeight: FontWeight.w600,
+                                                                  color: FlutterFlowTheme.of(context)
+                                                                      .secondaryText,
+                                                                  fontSize: 12,
+                                                                  fontWeight: FontWeight.normal,
                                                                 ),
                                                               ),
-                                                            ),
+                                                            ):const SizedBox.shrink(),
                                                           ],
                                                         ),
+
                                                       ),
-                                                      subtitle:  Column(
-                                                        mainAxisSize: MainAxisSize.max,
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Padding(
-                                                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                15, 0, 15, 0),
-                                                            child: Row(
-                                                              mainAxisSize: MainAxisSize.max,
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment.spaceBetween,
-                                                              children: [
-                                                                Theme(
-                                                                  data: ThemeData(
-                                                                    checkboxTheme: CheckboxThemeData(
-                                                                      shape: RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                        BorderRadius.circular(0),
-                                                                      ),
-                                                                    ),
-                                                                    unselectedWidgetColor:
-                                                                    FlutterFlowTheme.of(context)
-                                                                        .tertiaryColor,
-                                                                  ),
-                                                                  child: Checkbox(
-                                                                    value:
-                                                                    _labourListAfterAttendanceViewModel
-                                                                        .getDelete(index),
-                                                                    onChanged: (value) {
-                                                                      _labourListAfterAttendanceViewModel
-                                                                          .setDelete(index);
-                                                                    },
-                                                                    activeColor:
-                                                                    FlutterFlowTheme.of(context)
-                                                                        .primaryColor,
-                                                                  ),
-                                                                ),
-                                                                Expanded(
-                                                                  child: Row(
-                                                                    mainAxisSize: MainAxisSize.max,
-                                                                    mainAxisAlignment:
-                                                                    MainAxisAlignment.start,
-                                                                    children: [
-                                                                      Container(
-                                                                        width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                            0.15,
-                                                                        height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height *
-                                                                            0.03,
-                                                                        decoration: BoxDecoration(
-                                                                          color:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .primaryBtnText,
-                                                                        ),
-                                                                        child: Padding(
-                                                                          padding: const EdgeInsetsDirectional
-                                                                              .fromSTEB(0, 2, 2, 2),
-                                                                          child: Text(
-                                                                            data[index].labourType ?? "",
-                                                                            style: FlutterFlowTheme.of(
-                                                                                context)
-                                                                                .bodyText1
-                                                                                .override(
-                                                                              fontFamily: 'Poppins',
-                                                                              color:
-                                                                              FlutterFlowTheme.of(
-                                                                                  context)
-                                                                                  .secondaryText,
-                                                                              fontSize: 14,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Expanded(
-                                                                  child: Row(
-                                                                    mainAxisSize: MainAxisSize.max,
-                                                                    mainAxisAlignment:
-                                                                    MainAxisAlignment.spaceBetween,
-                                                                    children: [
-
-                                                                      Visibility(visible: data[index].present=="1",replacement: Icon(Icons.close,color: FlutterFlowTheme.of(context).secondaryBackground,),child: Icon(Icons.check,color: FlutterFlowTheme.of(context).primaryColor,),),
-
-                                                                      Visibility(visible: data[index].halfday=="0.5",replacement: Icon(Icons.close,color: FlutterFlowTheme.of(context).secondaryBackground,),child: Icon(Icons.check,color: FlutterFlowTheme.of(context).primaryColor,),),
-
-                                                                      Visibility(visible: data[index].night=="1",replacement: Icon(Icons.close,color: FlutterFlowTheme.of(context).secondaryBackground,),child: Icon(Icons.check,color: FlutterFlowTheme.of(context).primaryColor,),),
-
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          data[index].labourWork!="" ?  Padding(
-                                                            padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 0, 10),
-                                                            child: Text(
-                                                              data[index].labourWork ?? "",
-                                                              style: FlutterFlowTheme.of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                fontFamily: 'Poppins',
-                                                                color: FlutterFlowTheme.of(context)
-                                                                    .secondaryText,
-                                                                fontSize: 12,
-                                                                fontWeight: FontWeight.normal,
-                                                              ),
-                                                            ),
-                                                          ):const SizedBox.shrink(),
-                                                        ],
+                                                      const Divider(
+                                                        color: Colors.grey,
+                                                        height: 1,
+                                                        thickness: 1,
                                                       ),
+                                                    ],
+                                                  ),
 
-                                                    ),
-                                                    const Divider(
-                                                      color: Colors.grey,
-                                                      height: 1,
-                                                      thickness: 1,
-                                                    ),
-                                                  ],
                                                 ),
-
                                               ),
                                             ],
                                           );
@@ -616,6 +631,7 @@ class AttendanceListViewState extends State<AttendanceListView> {
   Future openFile({required String url, String? fileName}) async {
     final file = await downloadFile(url, fileName!);
     if (file == null) return;
+    Get.to(()=>PDFFileScreen(path: file.path));
 
     log('Path: ${file.path}');
     Utils.toastMessage("Successfully downloaded to: ${file.path}");
@@ -643,5 +659,46 @@ class AttendanceListViewState extends State<AttendanceListView> {
       return null;
     }
   }
+
+
+  void change(String id)
+  {
+    showModalBottomSheet<void>(
+        backgroundColor: Colors.transparent,
+        transitionAnimationController: controller,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            padding: const EdgeInsets.all(20),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+              color: Colors.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
+                  },
+                  child: Row(
+                    children: [
+                      Icon(Icons.delete,color: FlutterFlowTheme.of(context).error,),
+                      const SizedBox(width: 10,),
+                      Text("Delete",style: FlutterFlowTheme.of(context).labelMedium)
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        });
+
+  }
+
 
 }

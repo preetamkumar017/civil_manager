@@ -48,6 +48,7 @@ class Result {
   String? ip;
   String? userId;
   String? userName;
+  String? imageName;
 
   Result(
       {this.id,
@@ -69,7 +70,8 @@ class Result {
         this.updateDate,
         this.ip,
         this.userId,
-        this.userName});
+        this.userName,
+        this.imageName});
 
   Result.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -92,6 +94,7 @@ class Result {
     ip = json['ip'];
     userId = json['user_id'];
     userName = json['user_name'];
+    imageName = json['image_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -116,6 +119,7 @@ class Result {
     data['ip'] = ip;
     data['user_id'] = userId;
     data['user_name'] = userName;
+    data['image_name'] = imageName;
     return data;
   }
 }
