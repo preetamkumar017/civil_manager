@@ -3,7 +3,6 @@ import 'package:civil_manager/view/flutter_flow/flutter_flow_theme.dart';
 import 'package:civil_manager/model/labour_list_model.dart';
 import 'package:civil_manager/view_model/labour_list_view_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 

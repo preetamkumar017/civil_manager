@@ -10,12 +10,14 @@ import 'package:civil_manager/res/components/pdf_viewer.dart';
 import 'package:civil_manager/utils/utils.dart';
 import 'package:civil_manager/view_model/labour_payment_view_model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:civil_manager/model/labour_payment_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LabourPaymentView extends StatefulWidget {
@@ -31,6 +33,8 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final LabourPaymentListViewModel _labourListAfterAttendanceViewModel =  LabourPaymentListViewModel();
 
+  final search = TextEditingController();
+  List<LabourList> filteredList = [];
   @override
   void initState() {
     _labourListAfterAttendanceViewModel.fatchLabourListWithDataApi(widget.data);
@@ -344,6 +348,17 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                             endIndent: 10,
                             color: FlutterFlowTheme.of(context).secondaryText,
                           ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5.0,right: 25.0,left: 25.0,bottom: 5.0),
+                            child: CupertinoSearchTextField(
+                              controller: search,
+                              onChanged: (value) {
+                                setState(() {
+                                });
+                              },
+                            ),
+                          ),
                           Expanded(
                             child: SizedBox(
                               height: Get.height,
@@ -359,14 +374,20 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                             child: Text(value.labourList.message.toString()));
                                       case Status.COMPLETED:
 
-                                        var data =   value.labourList.data!.result!.labourList;
-
-
+                                         filteredList =   value.labourList.data!.result!.labourList!;
+                                         if (search.text.isEmpty) {
+                                           // If search text is empty, show the full list
+                                           filteredList = value.labourList.data!.result!.labourList!;
+                                         } else {
+                                           filteredList = value.labourList.data!.result!.labourList!
+                                               .where((item) => item.labourName!.toLowerCase().contains(search.text.toLowerCase()))
+                                               .toList();
+                                         }
                                         return ListView.builder(
                                           physics: const BouncingScrollPhysics(),
-                                          itemCount: data!.length,
+                                          itemCount: filteredList!.length,
                                           itemBuilder: (context, index) {
-                                           var present = int.parse(data[index].tpresent ?? "")+ int.parse(data[index].thalfday ?? "")+ int.parse(data[index].tnight ?? "");
+                                           var present = int.parse(filteredList[index].tpresent ?? "")+ int.parse(filteredList[index].thalfday ?? "")+ int.parse(filteredList[index].tnight ?? "");
                                             return Padding(
                                               padding:
                                               const EdgeInsetsDirectional.fromSTEB(15, 2, 15, 3),
@@ -404,7 +425,7 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                                               const EdgeInsetsDirectional.fromSTEB(
                                                                   2, 0, 0, 0),
                                                               child: Text(
-                                                                data[index].labourName ?? "",
+                                                                filteredList[index].labourName ?? "",
                                                                 style: FlutterFlowTheme.of(
                                                                     context)
                                                                     .bodyText1
@@ -455,7 +476,7 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                                                           .fromSTEB(
                                                                           0, 2, 2, 2),
                                                                       child: Text(
-                                                                        data[index].labourType ?? "",
+                                                                        filteredList[index].labourType ?? "",
                                                                         style:
                                                                         FlutterFlowTheme.of(
                                                                             context)
@@ -485,19 +506,19 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                                                       .spaceBetween,
                                                                   children: [
                                                                     Text(
-                                                                      data[index].tpresent ?? "",
+                                                                      filteredList[index].tpresent ?? "",
                                                                       style: FlutterFlowTheme.of(
                                                                           context)
                                                                           .bodyText1,
                                                                     ),
                                                                     Text(
-                                                                      data[index].thalfday ?? "",
+                                                                      filteredList[index].thalfday ?? "",
                                                                       style: FlutterFlowTheme.of(
                                                                           context)
                                                                           .bodyText1,
                                                                     ),
                                                                     Text(
-                                                                      data[index].tnight ?? "",
+                                                                      filteredList[index].tnight ?? "",
                                                                       style: FlutterFlowTheme.of(
                                                                           context)
                                                                           .bodyText1,
@@ -572,7 +593,7 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  ' ₹ ${data[index].salary ?? ""}',
+                                                                  ' ₹ ${filteredList[index].salary ?? ""}',
                                                                   style:
                                                                   FlutterFlowTheme.of(context)
                                                                       .bodyText1

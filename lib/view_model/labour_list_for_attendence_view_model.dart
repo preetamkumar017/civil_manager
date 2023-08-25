@@ -5,6 +5,7 @@ import 'package:civil_manager/model/labour_list_after_attendance_model.dart';
 import 'package:civil_manager/model/labour_list_for_attendance_model.dart';
 import 'package:civil_manager/model/result_model.dart';
 import 'package:civil_manager/respository/labour_list_for_attendance_repository.dart';
+import 'package:civil_manager/utils/routes/routes_name.dart';
 import 'package:civil_manager/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,7 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
   List delete = <bool>[];
   List note = <String>[];
   List id = <String>[];
+
 
   bool getPresent(int index) => present[index];
   bool getHalfDay(int index) => halfDay[index];
@@ -93,6 +95,7 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+
   ApiResponse<LabourListForAttendanceModel> labourList = ApiResponse.loading();
   ApiResponse<ResultModel> result = ApiResponse.loading();
 
@@ -151,8 +154,8 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
       {
         Utils.flushBarSuccessMessage("Attendance Successfully Added", context);
         log(value.message.toString());
-        Get.back();
-        Get.back();
+
+        Navigator.pushReplacementNamed(context, RoutesName.dashboard_view);
       }else{
         Utils.flushBarErrorMessage(value.status.toString(), context);
         log(value.status.toString());
@@ -162,7 +165,7 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
 
       setAddLoading(false);
       setResult(ApiResponse.error(error.toString()));
-      Utils.flushBarErrorMessage(error.toString(), context);
+      // Utils.flushBarErrorMessage(error.toString(), context);
     });
   }
 
@@ -207,6 +210,13 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
   void setLoadingImage(bool value)
   {
     loadingImage = value;
+    notifyListeners();
+  }
+
+  String search = "";
+  setSearch(String value)
+  {
+    search = value;
     notifyListeners();
   }
 }

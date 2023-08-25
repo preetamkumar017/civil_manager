@@ -4,8 +4,10 @@ import 'package:civil_manager/utils/routes/routes_name.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_widgets.dart';
 import 'package:civil_manager/view_model/labour_list_for_attendence_view_model.dart';
 import 'package:civil_manager/view_model/user_view_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import '../../model/labour_list_for_attendance_model.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,8 @@ class LabourAttendanceScreen2ViewState
   int i = 0;
   final _unFocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final search = TextEditingController();
 
   @override
   void initState() {
@@ -320,6 +324,17 @@ class LabourAttendanceScreen2ViewState
                           color: FlutterFlowTheme.of(context).secondaryText,
                         ),
 
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5.0,right: 25.0,left: 25.0),
+                          child: CupertinoSearchTextField(
+                            controller: search,
+                            onChanged: (value) {
+                              _labourListForAttendanceViewModel.setSearch(value);
+                            },
+                          ),
+                        ),
+
+
 
                         Container(
                           height: height-260,
@@ -340,12 +355,13 @@ class LabourAttendanceScreen2ViewState
                                       i++;
                                       _labourListForAttendanceViewModel.setDefaultPresent(id);
                                     }
+
                                     return ListView.builder(
                                       physics: const BouncingScrollPhysics(),
                                       itemCount: data.length,
                                       itemBuilder: (context, index) {
-                                        return
-                                          Container(
+                                        if( data[index].fullName!.toLowerCase().contains(search.text.toLowerCase()))
+                                          {return Container(
                                             margin: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                                             width: double.infinity,
                                             decoration: BoxDecoration(
@@ -554,6 +570,10 @@ class LabourAttendanceScreen2ViewState
                                               ],
                                             ),
                                           );
+                                        }else
+                                          {
+                                            return SizedBox();
+                                          }
                                       },
                                     );
                                   default:
