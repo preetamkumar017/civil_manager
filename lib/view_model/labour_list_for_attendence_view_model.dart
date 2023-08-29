@@ -184,7 +184,7 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
     });
   }
 
-  Future<void> labourDeleteAttendanceApi(dynamic data,dynamic wdata, BuildContext context) async {
+  Future<void> labourDeleteAttendanceApi(dynamic data, BuildContext context) async {
     // setLoading(true);
     // setLabourdeleteAttendance(ApiResponse.loading());
     _myRepo.labourDeleteAttendance(data).then((value) {

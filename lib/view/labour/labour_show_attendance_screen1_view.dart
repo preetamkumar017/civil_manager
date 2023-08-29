@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:developer';
 import 'package:civil_manager/model/arguments.dart';
 import 'package:civil_manager/utils/routes/routes_name.dart';
@@ -17,8 +19,8 @@ class LabourShowAttendanceScreen1View extends StatefulWidget {
 
 class LabourShowAttendanceScreen1ViewState extends State<LabourShowAttendanceScreen1View> {
 
-  TextEditingController? siteName;
-  TextEditingController? labourHeadName;
+  TextEditingController siteName = TextEditingController();
+  TextEditingController labourHeadName = TextEditingController();
   String? siteId = "";
   String? labourHeadId = "";
   DateTime? datePicked;
@@ -448,18 +450,18 @@ class LabourShowAttendanceScreen1ViewState extends State<LabourShowAttendanceScr
                                   ),
                                   FFButtonWidget(
                                     onPressed: () {
-                                      if (siteName == null) {
+                                      if (siteName.text == "") {
                                         Utils.flushBarErrorMessage(
                                             "Please select labour Head", context);
-                                      } else if (labourHeadName == null) {
+                                      } else if (labourHeadName.text == "") {
                                         Utils.flushBarErrorMessage(
                                             "Please select labour Head", context);
                                       } else {
                                         Map<String, String> data = {
                                           'submit': "true",
                                           'site_id': siteId.toString(),
-                                          'site_name': siteName?.text ?? "",
-                                          'labour_head_name': labourHeadName?.text ?? "",
+                                          'site_name': siteName.text ?? "",
+                                          'labour_head_name': labourHeadName.text ?? "",
                                           'labour_head': labourHeadId.toString(),
                                           'date_range': date.toString(),
                                         };

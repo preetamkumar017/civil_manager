@@ -11,15 +11,19 @@ import 'package:civil_manager/view_model/status_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:civil_manager/model/labour_list_model.dart';
 
-class AddLabourView extends StatefulWidget {
-  const AddLabourView({Key? key}) : super(key: key);
+class EditLabourView extends StatefulWidget {
+  LabourList data;
+  EditLabourView({super.key, required this.data});
 
   @override
-  AddLabourViewState createState() => AddLabourViewState();
+  EditLabourViewState createState() => EditLabourViewState();
 }
 
-class AddLabourViewState extends State<AddLabourView> {
+class EditLabourViewState extends State<EditLabourView> {
+  LabourList data = LabourList();
+  String id = "";
   TextEditingController labourType = TextEditingController();
   TextEditingController labourHeadName = TextEditingController();
   TextEditingController name = TextEditingController();
@@ -39,12 +43,17 @@ class AddLabourViewState extends State<AddLabourView> {
   @override
   void initState() {
     super.initState();
-    labourType = TextEditingController();
-    labourHeadName = TextEditingController();
-    name = TextEditingController();
-    mobileNumber = TextEditingController();
-    salaryPerDay = TextEditingController();
-    address = TextEditingController();
+    data  = widget.data;
+    id = data.id ?? "";
+    labourType.text = data.labourType ?? "";
+    labourHeadName.text = data.headName ?? "";
+    name.text = data.fullName ?? "";
+    mobileNumber.text = data.mobile ?? "";
+    salaryPerDay.text = data.salary ?? "";
+    address.text = data.address ?? "";
+    isLabourHead = data.isLabourHead=="Yes";
+    labourHeadId = data.labourHead ?? "";
+
   }
 
   @override
@@ -70,7 +79,7 @@ class AddLabourViewState extends State<AddLabourView> {
       backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
       appBar: AppBar(
         title: Text(
-          'Manage Labour',
+          'Edit Labour Details',
           style: FlutterFlowTheme.of(context).bodyText1.override(
                 fontFamily: 'Roboto',
                 color: FlutterFlowTheme.of(context).primaryBtnText,
@@ -143,7 +152,7 @@ class AddLabourViewState extends State<AddLabourView> {
                                 onTap: () async {
                                   String data = await Get.toNamed(
                                       RoutesName.select_labour_type_view);
-                                  labourType.text = data.toString();
+                                  labourType?.text = data.toString();
                                   log("labourType!.text");
                                 },
                                 obscureText: false,
@@ -364,7 +373,7 @@ class AddLabourViewState extends State<AddLabourView> {
                                       RoutesName.select_labour_head_view);
                                   Map jsnen = jsonDecode(data);
                                   log(jsnen['full_name'] ?? " ");
-                                  labourHeadName.text = jsnen['full_name'];
+                                  labourHeadName?.text = jsnen['full_name'];
                                   labourHeadId = jsnen['id'];
                                   // labourHeadName!.text="sfsaf";
                                 },
@@ -850,6 +859,7 @@ class AddLabourViewState extends State<AddLabourView> {
                                           child: FFButtonWidget(
                                             onPressed: () {
                                               // print('Button pressed ...');
+                                              Get.back();
                                             },
                                             text: 'Cancel',
                                             options: FFButtonOptions(
@@ -914,6 +924,7 @@ class AddLabourViewState extends State<AddLabourView> {
                                               else {
                                                 Map data = {
                                                   'submit': "true",
+                                                  'id':id,
                                                   'labour_type':labourType.text,
                                                   'labour_head':labourHeadId,
                                                   'full_name': name.text,
@@ -925,12 +936,11 @@ class AddLabourViewState extends State<AddLabourView> {
 
 
                                                 // context.loaderOverlay.show();
-                                                 await  labourReg.labourRegApi( data, context);
-                                                   if(!labourReg.status)
-                                                     {
-                                                       Get.back();
-                                                       Navigator.pushNamed(context, RoutesName.labour_list_view);
-                                                     }
+                                                  await labourReg.labourRegApi( data, context);
+
+                                                      Navigator.of(context).pop();
+                                                       // Navigator.pushNamed(context, RoutesName.labour_list_view);
+
                                                    // print(labourReg.status);
                                               }
                                             },

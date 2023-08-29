@@ -5,6 +5,7 @@ class RoutesName {
 
   //home screen routes name
   static const String add_labour_view     ="add_labour_view";
+  static const String edit_labour_view     ="edit_labour_view";
   static const String attendance_list_view    ="attendance_list_view";
   static const String dashboard2_view     ="dashboard2_view";
   static const String dashboard_civil_view    ="dashboard_civil_view";

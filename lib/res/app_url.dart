@@ -25,6 +25,7 @@ class AppUrl {
   static var labourAddAttendanceEndPoint = '$mainUrl/ApiLabour/ajax_lab_attandance' ;
   static var labourAttendanceListEndPoint =  '$mainUrl/ApiLabour/labour_attandance_list' ;
   static var labourDeleteAttendanceEndPoint =  '$mainUrl/ApiLabour/labour_attandance_delete' ;
+  static var labourDeleteEndPoint =  '$mainUrl/ApiLabour/labour_delete' ;
   static var labourPaymentListEndPoint =  '$mainUrl/ApiLabour/labour_payment' ;
   static var requestMatListEndPoint =  '$mainUrl/ApiLabour/request_mat_list' ;
   static var requestedMatListEndPoint =  '$mainUrl/ApiLabour/requested_mat_list' ;

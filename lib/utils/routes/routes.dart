@@ -7,6 +7,7 @@ import 'package:civil_manager/view/client_portal/cctv_image_view.dart';
 import 'package:civil_manager/view/client_portal/client_select_site_view.dart';
 import 'package:civil_manager/view/client_portal/upload_image_view.dart';
 import 'package:civil_manager/view/client_portal/manual_uploaded_view.dart';
+import 'package:civil_manager/view/labour/edit_labour_view.dart';
 import 'package:civil_manager/view/labour/labour_image_capture_view.dart';
 import 'package:civil_manager/view/labour/labour_show_attendance_screen1_view.dart';
 import 'package:civil_manager/view/material/select_site_view.dart';
@@ -35,6 +36,8 @@ import 'package:civil_manager/view/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 
+import '../../model/labour_list_model.dart';
+
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     log(settings.name ?? "");
@@ -49,6 +52,12 @@ class Routes {
       case RoutesName.add_labour_view:
         return GetPageRoute(
             page: () => const AddLabourView(),
+            transition: Transition.fade,
+            transitionDuration: const Duration(milliseconds: 600));
+      case RoutesName.edit_labour_view:
+        LabourList data = settings.arguments as LabourList;
+        return GetPageRoute(
+            page: () =>  EditLabourView(data: data,),
             transition: Transition.fade,
             transitionDuration: const Duration(milliseconds: 600));
       case RoutesName.attendance_list_view:

@@ -52,8 +52,8 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
   void initState() {
     _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
     controller = BottomSheet.createAnimationController(this);
-    controller.duration = const Duration(milliseconds: 1000);
-    controller.reverseDuration = const Duration(milliseconds: 750);
+    controller.duration = const Duration(milliseconds: 500);
+    controller.reverseDuration = const Duration(milliseconds: 500);
     super.initState();
   }
 
@@ -220,30 +220,30 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
                                       ),
                                     ),
                                   ),
-                                  IconButton(
-                                    onPressed: () async {
-                                      final SharedPreferences sp = await SharedPreferences.getInstance();
-                                      final String id = sp.getString('id') ?? "";
-                                      final String userName = sp.getString('userName') ?? "";
-                                      Map data={
-                                        "l_id":_labourListAfterAttendanceViewModel.getAllId(),
-                                        "delete": _labourListAfterAttendanceViewModel.getAllDelete(),
-                                        "user_id":id,
-                                        "user_name":userName
-                                      };
-                                      dynamic  jsondata =jsonEncode(data);
-                                      _labourListAfterAttendanceViewModel.labourDeleteAttendanceApi(jsondata,widget.data, context).then((value){
-                                        Get.back();
-
-                                        // _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
-                                      });
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      color: Color(0xFFFF0000),
-                                      size: 24,
-                                    ),
-                                  ),
+                                  // IconButton(
+                                  //   onPressed: () async {
+                                  //     final SharedPreferences sp = await SharedPreferences.getInstance();
+                                  //     final String id = sp.getString('id') ?? "";
+                                  //     final String userName = sp.getString('userName') ?? "";
+                                  //     Map data={
+                                  //       "l_id":_labourListAfterAttendanceViewModel.getAllId(),
+                                  //       "delete": _labourListAfterAttendanceViewModel.getAllDelete(),
+                                  //       "user_id":id,
+                                  //       "user_name":userName
+                                  //     };
+                                  //     dynamic  jsondata =jsonEncode(data);
+                                  //     _labourListAfterAttendanceViewModel.labourDeleteAttendanceApi(jsondata, context).then((value){
+                                  //       Get.back();
+                                  //
+                                  //       // _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
+                                  //     });
+                                  //   },
+                                  //   icon: const Icon(
+                                  //     Icons.delete,
+                                  //     color: Color(0xFFFF0000),
+                                  //     size: 24,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ],
@@ -358,8 +358,6 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
                           endIndent: 10,
                           color: FlutterFlowTheme.of(context).secondaryText,
                         ),
-
-
                         Expanded(
                           child: SizedBox(
                             height: Get.height,
@@ -487,31 +485,31 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
                                                                 mainAxisAlignment:
                                                                 MainAxisAlignment.spaceBetween,
                                                                 children: [
-                                                                  Theme(
-                                                                    data: ThemeData(
-                                                                      checkboxTheme: CheckboxThemeData(
-                                                                        shape: RoundedRectangleBorder(
-                                                                          borderRadius:
-                                                                          BorderRadius.circular(0),
-                                                                        ),
-                                                                      ),
-                                                                      unselectedWidgetColor:
-                                                                      FlutterFlowTheme.of(context)
-                                                                          .tertiaryColor,
-                                                                    ),
-                                                                    child: Checkbox(
-                                                                      value:
-                                                                      _labourListAfterAttendanceViewModel
-                                                                          .getDelete(index),
-                                                                      onChanged: (value) {
-                                                                        _labourListAfterAttendanceViewModel
-                                                                            .setDelete(index);
-                                                                      },
-                                                                      activeColor:
-                                                                      FlutterFlowTheme.of(context)
-                                                                          .primaryColor,
-                                                                    ),
-                                                                  ),
+                                                                  // Theme(
+                                                                  //   data: ThemeData(
+                                                                  //     checkboxTheme: CheckboxThemeData(
+                                                                  //       shape: RoundedRectangleBorder(
+                                                                  //         borderRadius:
+                                                                  //         BorderRadius.circular(0),
+                                                                  //       ),
+                                                                  //     ),
+                                                                  //     unselectedWidgetColor:
+                                                                  //     FlutterFlowTheme.of(context)
+                                                                  //         .tertiaryColor,
+                                                                  //   ),
+                                                                  //   child: Checkbox(
+                                                                  //     value:
+                                                                  //     _labourListAfterAttendanceViewModel
+                                                                  //         .getDelete(index),
+                                                                  //     onChanged: (value) {
+                                                                  //       _labourListAfterAttendanceViewModel
+                                                                  //           .setDelete(index);
+                                                                  //     },
+                                                                  //     activeColor:
+                                                                  //     FlutterFlowTheme.of(context)
+                                                                  //         .primaryColor,
+                                                                  //   ),
+                                                                  // ),
                                                                   Expanded(
                                                                     child: Row(
                                                                       mainAxisSize: MainAxisSize.max,
@@ -681,9 +679,14 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InkWell(
-                  onTap: () {
+                 onTap: () {
                     Navigator.of(context).pop();
-                    _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
+                    // _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
+                   Map data = {'attendance_id':id};
+                       _labourListAfterAttendanceViewModel.labourDeleteAttendanceApi(data, context).then((value){
+                         // Get.back();
+                         _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
+                       });
                   },
                   child: Row(
                     children: [

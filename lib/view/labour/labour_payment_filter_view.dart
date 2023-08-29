@@ -17,8 +17,8 @@ class LabourPaymentFilterView extends StatefulWidget {
 
 class LabourPaymentFilterViewState extends State<LabourPaymentFilterView> {
 
-  TextEditingController? siteName;
-  TextEditingController? labourHeadName;
+  TextEditingController siteName = TextEditingController();
+  TextEditingController labourHeadName = TextEditingController();
   String? siteId;
   String? labourHeadId;
   DateTime? datePicked;
@@ -31,7 +31,9 @@ class LabourPaymentFilterViewState extends State<LabourPaymentFilterView> {
   @override
   void initState() {
     // TODO: implement initState.
-    date = DateFormat('dd-MMM-yyyy').format( DateTime.now());
+    // date = DateFormat('dd-MMM-yyyy').format( DateTime.now());
+
+    date= "${DateFormat('dd-MM-yyyy').format(DateTime.now())} To ${DateFormat('dd-MM-yyyy').format(DateTime.now())}";
     siteName = TextEditingController();
     labourHeadName = TextEditingController();
     super.initState();
@@ -450,18 +452,18 @@ class LabourPaymentFilterViewState extends State<LabourPaymentFilterView> {
                                   ),
                                   FFButtonWidget(
                                     onPressed: () {
-                                      if (siteName == null) {
+                                      if (siteName.text == "" ) {
                                         Utils.flushBarErrorMessage(
                                             "Please select labour Head", context);
-                                      } else if (labourHeadName == null) {
+                                      } else if (labourHeadName.text == "") {
                                         Utils.flushBarErrorMessage(
                                             "Please select labour Head", context);
                                       } else {
                                         Map<String, String> data = {
                                           'submit': "true",
                                           'site_id': siteId.toString(),
-                                          'site_name': siteName?.text ?? "",
-                                          'labour_head_name': labourHeadName?.text ?? "",
+                                          'site_name': siteName.text ?? "",
+                                          'labour_head_name': labourHeadName.text ?? "",
                                           'labour_head': labourHeadId.toString(),
                                           'date_range': date.toString(),
                                         };
