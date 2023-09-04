@@ -71,7 +71,7 @@ class _ReceivingMaterialSelectSiteViewState extends State<ReceivingMaterialSelec
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                           children: [
-                            Text(data.siteName ?? "",style: FlutterFlowTheme.of(context).subtitle1,),
+                            Expanded(child: Text(data.siteName ?? "",style: FlutterFlowTheme.of(context).subtitle1,)),
                             Container(
                               height:30,
                               width: 30,

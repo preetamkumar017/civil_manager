@@ -938,7 +938,7 @@ class EditLabourViewState extends State<EditLabourView> {
                                                 // context.loaderOverlay.show();
                                                   await labourReg.labourRegApi( data, context);
 
-                                                      Navigator.of(context).pop();
+                                                      // Navigator.of(context).pop();
                                                        // Navigator.pushNamed(context, RoutesName.labour_list_view);
 
                                                    // print(labourReg.status);

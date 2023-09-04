@@ -1,6 +1,7 @@
 import 'package:civil_manager/data/response/status.dart';
 import 'package:civil_manager/model/arguments.dart';
 import 'package:civil_manager/utils/routes/routes_name.dart';
+import 'package:civil_manager/utils/utils.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_widgets.dart';
 import 'package:civil_manager/view_model/labour_list_for_attendence_view_model.dart';
 import 'package:civil_manager/view_model/user_view_model.dart';
@@ -199,29 +200,48 @@ class LabourAttendanceScreen2ViewState
                                     onPressed: ()
                                     async {
                                       Result result = await  UserViewModel().getUser();
-
-                                      Map data={
-                                        "l_id":_labourListForAttendanceViewModel.getAllId(),
-                                        "hdn_p": _labourListForAttendanceViewModel.getAllPresent(),
-                                        "hdn_h": _labourListForAttendanceViewModel.getAllHalfDay(),
-                                        "hdn_n": _labourListForAttendanceViewModel.getAllNigh(),
-                                        "lab_work": _labourListForAttendanceViewModel.getAllNote(),
-                                        "hdn_att_date":widget.data['hdn_att_date'],
-                                        "hdn_labour_head":widget.data['labour_head'],
-                                        "hdn_site_id":widget.data['site_id'],
-                                        "user_id":result.id ?? "",
-                                        "user_name":result.userName ?? ""
+                                      if (_labourListForAttendanceViewModel.getAllPresent().any((value) => value) ||
+                                          _labourListForAttendanceViewModel.getAllHalfDay().any((value) => value) ||
+                                          _labourListForAttendanceViewModel.getAllNigh().any((value) => value)){
+                                      Map data = {
+                                        "l_id":
+                                            _labourListForAttendanceViewModel
+                                                .getAllId(),
+                                        "hdn_p":
+                                            _labourListForAttendanceViewModel
+                                                .getAllPresent(),
+                                        "hdn_h":
+                                            _labourListForAttendanceViewModel
+                                                .getAllHalfDay(),
+                                        "hdn_n":
+                                            _labourListForAttendanceViewModel
+                                                .getAllNigh(),
+                                        "lab_work":
+                                            _labourListForAttendanceViewModel
+                                                .getAllNote(),
+                                        "hdn_att_date":
+                                            widget.data['hdn_att_date'],
+                                        "hdn_labour_head":
+                                            widget.data['labour_head'],
+                                        "hdn_site_id": widget.data['site_id'],
+                                        "user_id": result.id ?? "",
+                                        "user_name": result.userName ?? ""
                                       };
                                       // Map userData = user.read("user");
                                       // log(data.toString());
 
-                                      dynamic  jsonData =jsonEncode(data);
-                                      Get.toNamed(RoutesName.labour_image_capture_view,arguments: ScreenArgumentsString(jsonData));
+                                      dynamic jsonData = jsonEncode(data);
+                                      Get.toNamed(
+                                          RoutesName.labour_image_capture_view,
+                                          arguments:
+                                              ScreenArgumentsString(jsonData));
 
                                       // labourAddAttendanceViewModel.labourAddAttendanceApi(jsonData, context);
-
-
-                                    },
+                                    }else
+                                      {
+                                        Utils.flushBarErrorMessage("Please mark attendance for at least one person.", context);
+                                      }
+                                  },
                                     text: 'Submit',
                                     options: FFButtonOptions(
                                       width: 80,
@@ -531,12 +551,12 @@ class LabourAttendanceScreen2ViewState
                                                                     .getNigh(index),
                                                                 onChanged: (newValue) async {
 
-                                                                  _labourListForAttendanceViewModel
-                                                                      .setNight(index);
                                                                   if (newValue!) {
                                                                     _showMyDialog(newValue, index);
                                                                   }else
                                                                   {
+                                                                    _labourListForAttendanceViewModel
+                                                                        .setNight(index);
                                                                     _labourListForAttendanceViewModel.setNote(index, "");
                                                                   }
                                                                 },
@@ -610,9 +630,10 @@ class LabourAttendanceScreen2ViewState
   Future<void> _showMyDialog(bool value, int index) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: true, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
+
           title: const Text('Enter Note'),
           content: SingleChildScrollView(
             child: ListBody(
@@ -683,8 +704,14 @@ class LabourAttendanceScreen2ViewState
                   FFButtonWidget(
                     onPressed: ()
                     {
-                      _labourListForAttendanceViewModel.setNote(index, note.text);
-                      note.text = "";
+                      if(note.text!="") {
+
+                        _labourListForAttendanceViewModel
+                            .setNight(index);
+                        _labourListForAttendanceViewModel.setNote(
+                            index, note.text);
+                        note.text = "";
+                      }
                       Get.back();
 
                     },

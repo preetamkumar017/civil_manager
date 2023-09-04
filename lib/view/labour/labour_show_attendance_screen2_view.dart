@@ -11,12 +11,14 @@ import 'package:civil_manager/res/components/pdf_viewer.dart';
 import 'package:civil_manager/utils/routes/routes_name.dart';
 import 'package:civil_manager/utils/utils.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_util.dart';
+import 'package:civil_manager/view/labour/my_dialog.dart';
 import 'package:civil_manager/view_model/labour_list_for_attendence_view_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:civil_manager/model/labour_list_after_attendance_model.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -415,8 +417,8 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
                                               ),
                                                 ):const SizedBox(),
                                               InkWell(
-                                                onLongPress: () {
-                                                  change(data[index].id ?? "");
+                                                onTap: () {
+                                                  change(data[index].id ?? "",data[index]);
                                                 },
                                                 child: Slidable(
                                                   endActionPane: ActionPane(
@@ -659,13 +661,13 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
   }
 
 
-  void change(String id)
+  void change(String id,Result data)
   {
     showModalBottomSheet<void>(
         backgroundColor: Colors.transparent,
         transitionAnimationController: controller,
         context: context,
-        builder: (BuildContext context) {
+        builder: (BuildContext context1) {
           return Container(
             padding: const EdgeInsets.all(20),
             decoration: const BoxDecoration(
@@ -678,6 +680,24 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                InkWell(
+                  onTap: () async {
+                    Navigator.of(context1).pop();
+                    // _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
+                    // Map data = {'attendance_id':id};
+                   await _dialogBuilder(context,data);
+
+                    _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
+
+                  },
+                  child: Row(
+                    children: [
+                      Icon(Icons.edit,color: FlutterFlowTheme.of(context).success,),
+                      const SizedBox(width: 10,),
+                      Text("Edit",style: FlutterFlowTheme.of(context).labelMedium)
+                    ],
+                  ),
+                ),
                 InkWell(
                  onTap: () {
                     Navigator.of(context).pop();
@@ -695,7 +715,7 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
                       Text("Delete",style: FlutterFlowTheme.of(context).labelMedium)
                     ],
                   ),
-                )
+                ),
               ],
             ),
           );
@@ -703,5 +723,14 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
 
   }
 
+  Future<void> _dialogBuilder(BuildContext context,Result data) {
+    return showDialog<void>(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return MyDialog(data);
+      },
+    );
+  }
 
 }

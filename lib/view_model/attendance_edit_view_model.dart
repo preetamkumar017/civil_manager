@@ -1,13 +1,14 @@
+import 'package:civil_manager/respository/attendance_edit_repository.dart';
 import 'package:civil_manager/respository/labour_reg_repository.dart';
 import 'package:civil_manager/utils/routes/routes_name.dart';
 import 'package:civil_manager/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class LabourRegViewModel extends ChangeNotifier
+class AttendanceEditViewModel extends ChangeNotifier
 {
-  
-  final _myRepo = LabourRegRepository();
+
+  final _myRepo = AttendanceEditRepository();
   bool _loading = false ;
   bool get loading => _loading ;
 
@@ -15,7 +16,7 @@ class LabourRegViewModel extends ChangeNotifier
   bool get status => _status ;
 
 
-  
+
 
   setLoading(bool value){
     _loading = value;
@@ -28,25 +29,19 @@ class LabourRegViewModel extends ChangeNotifier
   }
 
 
-  
-  Future<void> labourRegApi(dynamic data , BuildContext context) async {
 
+  Future<void> labourAttendanceEdit(dynamic data , BuildContext context) async {
     setLoading(true);
-    _myRepo.labourRegApi(data).then((value){
-
+    _myRepo.labourAttendanceEditApi(data).then((value){
       setLoading(false);
-
       if(value.code==200)
       {
         setStatus(true);
-        Navigator.of(context).pop();
-        Utils.flushBarErrorMessage('Labour Added Successfully', context);
-        Navigator.pushNamed(context, RoutesName.labour_list_view);
-
+        Utils.flushBarSuccessMessage('Attendance Edit Successfully', context);
       }else
       {
         setStatus(false);
-        Utils.flushBarErrorMessage('Labour Not Added Something Went Wrong', context);
+        Utils.flushBarErrorMessage('Attendance Not Edited Something Went Wrong', context);
       }
 
     }).onError((error, stackTrace){

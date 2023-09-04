@@ -28,7 +28,7 @@ class AddLabourViewState extends State<AddLabourView> {
   TextEditingController address = TextEditingController();
 
   final jj = TextEditingController();
-  String? labourHeadId;
+  String labourHeadId = "";
   bool isLabourHead = false;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -115,9 +115,166 @@ class AddLabourViewState extends State<AddLabourView> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
+
                             Padding(
                               padding:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 40, 0, 0),
+                              const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Theme(
+                                    data: ThemeData(
+                                      checkboxTheme: CheckboxThemeData(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(0),
+                                        ),
+                                      ),
+                                      unselectedWidgetColor: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                    ),
+                                    child: Checkbox(
+                                      value: isLabourHead ??= false,
+                                      onChanged: (newValue) async {
+                                        setState(() => isLabourHead = newValue!);
+                                      },
+                                      activeColor: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      // checkColor:Colors.white,
+                                      focusColor: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      hoverColor: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+
+
+                                    ),
+                                  ),
+                                  Text(
+                                    'Is  Labour Head?',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            //----------labour Head------------------
+                            Padding(
+                              padding:
+                              const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'Labour Head',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin:
+                              const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
+                              child: TextFormField(
+                                controller: labourHeadName,
+                                enabled: !isLabourHead ,
+                                onTap: () async {
+                                  var data = await Get.toNamed(
+                                      RoutesName.select_labour_head_view);
+                                  Map jsnen = jsonDecode(data);
+                                  log(jsnen['full_name'] ?? " ");
+                                  labourHeadName.text = jsnen['full_name'];
+                                  labourHeadId = jsnen['id'];
+                                  // labourHeadName!.text="sfsaf";
+                                },
+                                keyboardType: TextInputType.none,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: const Color(0xFF57636C),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  hintText: 'Select Labour Head',
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                    fontFamily: 'Roboto',
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryColor,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryColor,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  disabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryColor,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding:
+                                  const EdgeInsetsDirectional.fromSTEB(
+                                      24, 24, 20, 0),
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                maxLines: null,
+                              ),
+                            ),
+                            //==============labour Head===============
+                            //-------------------labour Type------------
+                            Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 0, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -211,6 +368,7 @@ class AddLabourViewState extends State<AddLabourView> {
                                 maxLines: null,
                               ),
                             ),
+                            //====================labour Type============
                             // Padding(
                             //   padding: EdgeInsetsDirectional.fromSTEB(30, 5, 30, 0),
                             //   child: Container(
@@ -335,105 +493,7 @@ class AddLabourViewState extends State<AddLabourView> {
                             //     // ),
                             //   ),
                             // ),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Labour Head',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              margin:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
-                              child: TextFormField(
-                                controller: labourHeadName,
-                                onTap: () async {
-                                  var data = await Get.toNamed(
-                                      RoutesName.select_labour_head_view);
-                                  Map jsnen = jsonDecode(data);
-                                  log(jsnen['full_name'] ?? " ");
-                                  labourHeadName.text = jsnen['full_name'];
-                                  labourHeadId = jsnen['id'];
-                                  // labourHeadName!.text="sfsaf";
-                                },
-                                keyboardType: TextInputType.none,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: const Color(0xFF57636C),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  hintText: 'Select Labour Head',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Roboto',
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                      const EdgeInsetsDirectional.fromSTEB(
-                                          24, 24, 20, 0),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                maxLines: null,
-                              ),
-                            ),
+                            //-----labour name
                             Padding(
                               padding:
                                   const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
@@ -522,6 +582,99 @@ class AddLabourViewState extends State<AddLabourView> {
                                 maxLines: null,
                               ),
                             ),
+                            //======labour name
+                            //--------labour salary
+                            Padding(
+                              padding:
+                              const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'Salary(Per Day)',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin:
+                              const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
+                              child: TextFormField(
+                                controller: salaryPerDay,
+                                obscureText: false,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: const Color(0xFF57636C),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  hintText: 'Enter Salary',
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                    fontFamily: 'Roboto',
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryColor,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryColor,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding:
+                                  const EdgeInsetsDirectional.fromSTEB(
+                                      24, 24, 20, 0),
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                maxLines: null,
+                              ),
+                            ),
+                            //========labour salary
+                            //------labour mobile
                             Padding(
                               padding:
                                   const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
@@ -611,95 +764,8 @@ class AddLabourViewState extends State<AddLabourView> {
                                 maxLines: null,
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Salary(Per Day)',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
-                              child: TextFormField(
-                                controller: salaryPerDay,
-                                obscureText: false,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: const Color(0xFF57636C),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  hintText: 'Enter Salary',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Roboto',
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                      const EdgeInsetsDirectional.fromSTEB(
-                                          24, 24, 20, 0),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                maxLines: null,
-                              ),
-                            ),
+                            //=======labour mobile
+                            //--------labour Address
                             Padding(
                               padding:
                                   const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
@@ -789,46 +855,8 @@ class AddLabourViewState extends State<AddLabourView> {
                                 maxLines: null,
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Theme(
-                                    data: ThemeData(
-                                      checkboxTheme: CheckboxThemeData(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(0),
-                                        ),
-                                      ),
-                                      unselectedWidgetColor: const Color(0xFFF5F5F5),
-                                    ),
-                                    child: Checkbox(
-                                      value: isLabourHead ??= false,
-                                      onChanged: (newValue) async {
-                                        setState(
-                                            () => isLabourHead = newValue!);
-                                      },
-                                      activeColor: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      checkColor:Colors.white,
+                            //======labour Address
 
-                                    ),
-                                  ),
-                                  Text(
-                                    'Is  Labour Head?',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
                             Padding(
                               padding:
                                   const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
@@ -850,6 +878,7 @@ class AddLabourViewState extends State<AddLabourView> {
                                           child: FFButtonWidget(
                                             onPressed: () {
                                               // print('Button pressed ...');
+                                              Navigator.of(context).pop();
                                             },
                                             text: 'Cancel',
                                             options: FFButtonOptions(
@@ -887,7 +916,7 @@ class AddLabourViewState extends State<AddLabourView> {
                                                 Utils.flushBarErrorMessage(
                                                     "Please Select Labour Type",
                                                     context);
-                                              } else if (labourHeadName.text == "") {
+                                              } else if (!isLabourHead && labourHeadName.text == "") {
                                                 Utils.flushBarErrorMessage(
                                                     "Please Select Labour Head",
                                                     context);
@@ -926,11 +955,9 @@ class AddLabourViewState extends State<AddLabourView> {
 
                                                 // context.loaderOverlay.show();
                                                  await  labourReg.labourRegApi( data, context);
-                                                   if(!labourReg.status)
-                                                     {
-                                                       Get.back();
-                                                       Navigator.pushNamed(context, RoutesName.labour_list_view);
-                                                     }
+                                                   // if(!labourReg.status)
+                                                   //   {
+                                                   //    }
                                                    // print(labourReg.status);
                                               }
                                             },

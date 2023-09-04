@@ -385,9 +385,9 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                          }
                                         return ListView.builder(
                                           physics: const BouncingScrollPhysics(),
-                                          itemCount: filteredList!.length,
+                                          itemCount: filteredList.length,
                                           itemBuilder: (context, index) {
-                                           var present = int.parse(filteredList[index].tpresent ?? "")+ int.parse(filteredList[index].thalfday ?? "")+ int.parse(filteredList[index].tnight ?? "");
+                                           var present = double.parse(filteredList[index].tpresent ?? "")+ double.parse(filteredList[index].thalfday ?? "")+ double.parse(filteredList[index].tnight ?? "");
                                             return Padding(
                                               padding:
                                               const EdgeInsetsDirectional.fromSTEB(15, 2, 15, 3),

@@ -12,10 +12,10 @@ import 'package:get/get.dart';
 import 'package:http/src/multipart_file.dart' as img;
 class LabourListForAttendanceViewModel with ChangeNotifier {
   final _myRepo = LabourListForAttendanceRepository();
-  List present = <bool>[];
-  List halfDay = <bool>[];
-  List night = <bool>[];
-  List delete = <bool>[];
+  List<bool> present = <bool>[];
+  List<bool> halfDay = <bool>[];
+  List<bool> night = <bool>[];
+  List<bool> delete = <bool>[];
   List note = <String>[];
   List id = <String>[];
 
@@ -26,9 +26,9 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
   bool getDelete(int index) => delete[index];
   String getNote(int index) => note[index];
 
-  List getAllPresent() => present;
-  List getAllHalfDay() => halfDay;
-  List getAllNigh() => night;
+  List<bool> getAllPresent() => present;
+  List<bool> getAllHalfDay() => halfDay;
+  List<bool> getAllNigh() => night;
   List getAllNote() => note;
   List getAllDelete() => delete;
   List getAllId() => id;
@@ -140,7 +140,7 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
     });
   }
 
-  Future<void> labourAddAttendanceApi(dynamic data, List<img.MultipartFile> file, BuildContext context) async {
+  Future<void> labourAddAttendanceApi(dynamic data, List<img.MultipartFile> file,  context) async {
         
     setAddLoading(true);
     setResult(ApiResponse.loading());
@@ -152,10 +152,16 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
 
       if(value.code==200)
       {
-        Utils.flushBarSuccessMessage("Attendance Successfully Added", context);
+        // Utils.flushBarSuccessMessage("Attendance Successfully Added", context);
         log(value.message.toString());
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          RoutesName.dashboard_view,
+              (Route<dynamic> route) => false,
+        );
 
-        Navigator.pushReplacementNamed(context, RoutesName.dashboard_view);
+
+        // Navigator.pushReplacementNamed(context, RoutesName.dashboard_view);
       }else{
         Utils.flushBarErrorMessage(value.status.toString(), context);
         log(value.status.toString());
