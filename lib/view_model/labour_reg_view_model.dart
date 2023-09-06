@@ -41,7 +41,7 @@ class LabourRegViewModel extends ChangeNotifier
         setStatus(true);
         Navigator.of(context).pop();
         Utils.flushBarErrorMessage('Labour Added Successfully', context);
-        Navigator.pushNamed(context, RoutesName.labour_list_view);
+        Navigator.pushReplacementNamed(context, RoutesName.labour_list_view);
 
       }else
       {

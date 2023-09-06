@@ -206,7 +206,7 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
                                             date = "${date.replaceAll('To', '-')}";
                                             // log("${AppUrl.pdfDownloadAttendanceEndPoint}?site_id=${ widget.data['site_id']}&labour_head_id=${ widget.data['labour_head']}&date_range=${date}");
                                           }
-                                          String url = "${AppUrl.pdfDownloadAttendanceEndPoint}?site_id=${widget.data['site_id']}&labour_head_id=${widget.data['labour_head']}&date_range=$date";
+                                          String url = "${AppUrl.pdfDownloadAttendanceEndPoint}?site_id=${widget.data['site_id']}&labour_head_id=${widget.data['labour_head_id']}&date_range=$date";
                                           log(url);
                                           openFile(
                                               url: url,

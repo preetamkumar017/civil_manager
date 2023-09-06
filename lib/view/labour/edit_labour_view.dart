@@ -79,910 +79,940 @@ class EditLabourViewState extends State<EditLabourView> {
       backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
       appBar: AppBar(
         title: Text(
-          'Edit Labour Details',
+          'Manage Labour',
           style: FlutterFlowTheme.of(context).bodyText1.override(
-                fontFamily: 'Roboto',
-                color: FlutterFlowTheme.of(context).primaryBtnText,
-                fontSize: 25,
-                fontWeight: FontWeight.normal,
-              ),
+            fontFamily: 'Roboto',
+            color: FlutterFlowTheme.of(context).primaryBtnText,
+            fontSize: 25,
+            fontWeight: FontWeight.normal,
+          ),
         ),
         elevation: 0,
         backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
       ),
       body: Stack(
-        children:[
-          SafeArea(
-          child: GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 1,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).tertiaryColor,
-                shape: BoxShape.rectangle,
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Container(
-                      margin: const EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryBtnText,
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(0),
-                          bottomRight: Radius.circular(0),
-                          topLeft: Radius.circular(60),
-                          topRight: Radius.circular(60),
-                        ),
-                        shape: BoxShape.rectangle,
-                      ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 40, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Labour Type',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
-                              ),
+          children:[
+            SafeArea(
+              child: GestureDetector(
+                onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 1,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).tertiaryColor,
+                    shape: BoxShape.rectangle,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          margin: const EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(0),
+                              bottomRight: Radius.circular(0),
+                              topLeft: Radius.circular(60),
+                              topRight: Radius.circular(60),
                             ),
-                            Container(
-                              margin:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
-                              child: TextFormField(
-                                controller: labourType,
-                                keyboardType: TextInputType.none,
-                                // initialValue: ,
-                                onTap: () async {
-                                  String data = await Get.toNamed(
-                                      RoutesName.select_labour_type_view);
-                                  labourType?.text = data.toString();
-                                  log("labourType!.text");
-                                },
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: const Color(0xFF57636C),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  hintText: 'Select Labour Type',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Roboto',
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                      const EdgeInsetsDirectional.fromSTEB(
-                                          24, 24, 20, 0),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                maxLines: null,
-                              ),
-                            ),
-                            // Padding(
-                            //   padding: EdgeInsetsDirectional.fromSTEB(30, 5, 30, 0),
-                            //   child: Container(
-                            //     width: MediaQuery.of(context).size.width,
-                            //     height: 50,
-                            //     decoration: BoxDecoration(
-                            //       color: Colors.white,
-                            //       boxShadow: [
-                            //         BoxShadow(
-                            //           blurRadius: 0,
-                            //           color: Color(0x33000000),
-                            //           offset: Offset(0, 0),
-                            //         )
-                            //       ],
-                            //       borderRadius: BorderRadius.circular(10),
-                            //       border: Border.all(
-                            //         color:
-                            //         FlutterFlowTheme.of(context).secondaryColor,
-                            //       ),
-                            //     ),
-                            //
-                            //    child: Padding(
-                            //       padding: EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
-                            //       child: TextFormField(
-                            //         controller: emailAddressController1,
-                            //         keyboardType: TextInputType.none,
-                            //         onTap: () async {
-                            //           var data = await Get.toNamed(RoutesName.select_view) ;
-                            //           Map jsnen = jsonDecode(data) ;
-                            //           log(jsnen['id'] ?? " ");
-                            //           emailAddressController1?.text = jsnen['full_name'] ?? "";
-                            //         },
-                            //         obscureText: false,
-                            //         decoration: InputDecoration(
-                            //           isDense: true,
-                            //           labelStyle: FlutterFlowTheme.of(context)
-                            //               .bodyText1
-                            //               .override(
-                            //             fontFamily: 'Lexend Deca',
-                            //             color: Color(0xFF57636C),
-                            //             fontSize: 14,
-                            //             fontWeight: FontWeight.normal,
-                            //           ),
-                            //           hintText: 'Enter Full Name',
-                            //           hintStyle: FlutterFlowTheme.of(context)
-                            //               .bodyText1
-                            //               .override(
-                            //             fontFamily: 'Roboto',
-                            //             color: Colors.black,
-                            //             fontSize: 14,
-                            //             fontWeight: FontWeight.normal,
-                            //           ),
-                            //           enabledBorder: OutlineInputBorder(
-                            //             borderSide: BorderSide(
-                            //               color: FlutterFlowTheme.of(context)
-                            //                   .secondaryColor,
-                            //               width: 1,
-                            //             ),
-                            //             borderRadius: BorderRadius.circular(8),
-                            //           ),
-                            //           focusedBorder: OutlineInputBorder(
-                            //             borderSide: BorderSide(
-                            //               color: FlutterFlowTheme.of(context)
-                            //                   .secondaryColor,
-                            //               width: 1,
-                            //             ),
-                            //             borderRadius: BorderRadius.circular(8),
-                            //           ),
-                            //           errorBorder: OutlineInputBorder(
-                            //             borderSide: BorderSide(
-                            //               color: Color(0x00000000),
-                            //               width: 1,
-                            //             ),
-                            //             borderRadius: BorderRadius.circular(8),
-                            //           ),
-                            //           focusedErrorBorder: OutlineInputBorder(
-                            //             borderSide: BorderSide(
-                            //               color: Color(0x00000000),
-                            //               width: 1,
-                            //             ),
-                            //             borderRadius: BorderRadius.circular(8),
-                            //           ),
-                            //           filled: true,
-                            //           fillColor: Colors.white,
-                            //           contentPadding:
-                            //           EdgeInsetsDirectional.fromSTEB(24, 24, 20, 0),
-                            //         ),
-                            //         style:
-                            //         FlutterFlowTheme.of(context).bodyText1.override(
-                            //           fontFamily: 'Poppins',
-                            //           fontWeight: FontWeight.normal,
-                            //         ),
-                            //         maxLines: null,
-                            //       ),
-                            //     ),
-                            //     // child: Padding(
-                            //     //   padding: EdgeInsetsDirectional.fromSTEB(
-                            //     //       10, 10, 10, 10),
-                            //     //   child: FlutterFlowDropDown<String>(
-                            //     //     options: [],
-                            //     //     onChanged: (val) =>
-                            //     //         setState(() => dropDownValue1 = val),
-                            //     //     width: 180,
-                            //     //     height: 50,
-                            //     //     textStyle: FlutterFlowTheme.of(context)
-                            //     //         .bodyText1
-                            //     //         .override(
-                            //     //       fontFamily: 'Poppins',
-                            //     //       color: Colors.black,
-                            //     //       fontWeight: FontWeight.normal,
-                            //     //     ),
-                            //     //     hintText: 'Please select...',
-                            //     //     fillColor: Colors.white,
-                            //     //     elevation: 2,
-                            //     //     borderColor: Colors.transparent,
-                            //     //     borderWidth: 0,
-                            //     //     borderRadius: 0,
-                            //     //     margin: EdgeInsetsDirectional.fromSTEB(
-                            //     //         12, 4, 12, 4),
-                            //     //     hidesUnderline: true,
-                            //     //   ),
-                            //     // ),
-                            //   ),
-                            // ),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Labour Head',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
 
-                            Container(
-                              margin:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
-                              child: TextFormField(
-                                controller: labourHeadName,
-                                onTap: () async {
-                                  var data = await Get.toNamed(
-                                      RoutesName.select_labour_head_view);
-                                  Map jsnen = jsonDecode(data);
-                                  log(jsnen['full_name'] ?? " ");
-                                  labourHeadName?.text = jsnen['full_name'];
-                                  labourHeadId = jsnen['id'];
-                                  // labourHeadName!.text="sfsaf";
-                                },
-                                keyboardType: TextInputType.none,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: const Color(0xFF57636C),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  hintText: 'Select Labour Head',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Roboto',
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                      const EdgeInsetsDirectional.fromSTEB(
-                                          24, 24, 20, 0),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                maxLines: null,
-                              ),
-                            ),
-                            Padding(
-                              padding:
+                                Padding(
+                                  padding:
                                   const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Full Name',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
-                              child: TextFormField(
-                                controller: name,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: const Color(0xFF57636C),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  hintText: 'Enter Full Name',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Roboto',
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                      const EdgeInsetsDirectional.fromSTEB(
-                                          24, 24, 20, 0),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                maxLines: null,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Mobile Number',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
-                              child: TextFormField(
-                                controller: mobileNumber,
-                                obscureText: false,
-                                keyboardType: TextInputType.phone,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: const Color(0xFF57636C),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  hintText: 'Enter Mobile Number',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Roboto',
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                      const EdgeInsetsDirectional.fromSTEB(
-                                          24, 24, 20, 0),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                maxLines: null,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Salary(Per Day)',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
-                              child: TextFormField(
-                                controller: salaryPerDay,
-                                obscureText: false,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: const Color(0xFF57636C),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  hintText: 'Enter Salary',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Roboto',
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                      const EdgeInsetsDirectional.fromSTEB(
-                                          24, 24, 20, 0),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                maxLines: null,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Address',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin:
-                              const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
-                              child: TextFormField(
-                                controller: address,
-                                obscureText: false,
-                                keyboardType: TextInputType.streetAddress,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: const Color(0xFF57636C),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                  hintText: 'Enter Address',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                    fontFamily: 'Roboto',
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                  const EdgeInsetsDirectional.fromSTEB(
-                                      24, 24, 20, 0),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                maxLines: null,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Theme(
-                                    data: ThemeData(
-                                      checkboxTheme: CheckboxThemeData(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Theme(
+                                        data: ThemeData(
+                                          checkboxTheme: CheckboxThemeData(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
                                               BorderRadius.circular(0),
+                                            ),
+                                          ),
+                                          unselectedWidgetColor: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                        ),
+                                        child: Checkbox(
+                                          value: isLabourHead ??= false,
+                                          onChanged: (newValue) async {
+                                            if(newValue!)
+                                            {
+                                              labourHeadName.text = "";
+                                            }
+                                            setState(() => isLabourHead = newValue!);
+                                          },
+                                          activeColor: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          // checkColor:Colors.white,
+                                          focusColor: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          hoverColor: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+
+
                                         ),
                                       ),
-                                      unselectedWidgetColor: const Color(0xFFF5F5F5),
-                                    ),
-                                    child: Checkbox(
-                                      value: isLabourHead ??= false,
-                                      onChanged: (newValue) async {
-                                        setState(
-                                            () => isLabourHead = newValue!);
-                                      },
-                                      activeColor: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      checkColor:Colors.white,
-
-                                    ),
-                                  ),
-                                  Text(
-                                    'Is  Labour Head?',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
+                                      Text(
+                                        'Is  Labour Head?',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w500,
                                         ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
+                                ),
+
+                                //----------labour Head------------------
+                                Padding(
+                                  padding:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        'Labour Head',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
+                                  child: TextFormField(
+                                    controller: labourHeadName,
+                                    enabled: !isLabourHead ,
+                                    onTap: () async {
+                                      var data = await Get.toNamed(
+                                          RoutesName.select_labour_head_view);
+                                      Map jsnen = jsonDecode(data);
+                                      log(jsnen['full_name'] ?? " ");
+                                      labourHeadName.text = jsnen['full_name'];
+                                      labourHeadId = jsnen['id'];
+                                      // labourHeadName!.text="sfsaf";
+                                    },
+                                    keyboardType: TextInputType.none,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: const Color(0xFF57636C),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      hintText: 'Select Labour Head',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Roboto',
+                                        color: isLabourHead ? const Color(0x55000000):Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      disabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x33000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      contentPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          24, 24, 20, 0),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    maxLines: null,
+                                  ),
+                                ),
+                                //==============labour Head===============
+                                //-------------------labour Type------------
+                                Padding(
+                                  padding:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        'Labour Type',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
+                                  child: TextFormField(
+                                    controller: labourType,
+                                    keyboardType: TextInputType.none,
+                                    // initialValue: ,
+                                    onTap: () async {
+                                      String data = await Get.toNamed(
+                                          RoutesName.select_labour_type_view);
+                                      labourType.text = data.toString();
+                                      log("labourType!.text");
+                                    },
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: const Color(0xFF57636C),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      hintText: 'Select Labour Type',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Roboto',
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      contentPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          24, 24, 20, 0),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    maxLines: null,
+                                  ),
+                                ),
+                                //====================labour Type============
+                                // Padding(
+                                //   padding: EdgeInsetsDirectional.fromSTEB(30, 5, 30, 0),
+                                //   child: Container(
+                                //     width: MediaQuery.of(context).size.width,
+                                //     height: 50,
+                                //     decoration: BoxDecoration(
+                                //       color: Colors.white,
+                                //       boxShadow: [
+                                //         BoxShadow(
+                                //           blurRadius: 0,
+                                //           color: Color(0x33000000),
+                                //           offset: Offset(0, 0),
+                                //         )
+                                //       ],
+                                //       borderRadius: BorderRadius.circular(10),
+                                //       border: Border.all(
+                                //         color:
+                                //         FlutterFlowTheme.of(context).secondaryColor,
+                                //       ),
+                                //     ),
+                                //
+                                //    child: Padding(
+                                //       padding: EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
+                                //       child: TextFormField(
+                                //         controller: emailAddressController1,
+                                //         keyboardType: TextInputType.none,
+                                //         onTap: () async {
+                                //           var data = await Get.toNamed(RoutesName.select_view) ;
+                                //           Map jsnen = jsonDecode(data) ;
+                                //           log(jsnen['id'] ?? " ");
+                                //           emailAddressController1?.text = jsnen['full_name'] ?? "";
+                                //         },
+                                //         obscureText: false,
+                                //         decoration: InputDecoration(
+                                //           isDense: true,
+                                //           labelStyle: FlutterFlowTheme.of(context)
+                                //               .bodyText1
+                                //               .override(
+                                //             fontFamily: 'Lexend Deca',
+                                //             color: Color(0xFF57636C),
+                                //             fontSize: 14,
+                                //             fontWeight: FontWeight.normal,
+                                //           ),
+                                //           hintText: 'Enter Full Name',
+                                //           hintStyle: FlutterFlowTheme.of(context)
+                                //               .bodyText1
+                                //               .override(
+                                //             fontFamily: 'Roboto',
+                                //             color: Colors.black,
+                                //             fontSize: 14,
+                                //             fontWeight: FontWeight.normal,
+                                //           ),
+                                //           enabledBorder: OutlineInputBorder(
+                                //             borderSide: BorderSide(
+                                //               color: FlutterFlowTheme.of(context)
+                                //                   .secondaryColor,
+                                //               width: 1,
+                                //             ),
+                                //             borderRadius: BorderRadius.circular(8),
+                                //           ),
+                                //           focusedBorder: OutlineInputBorder(
+                                //             borderSide: BorderSide(
+                                //               color: FlutterFlowTheme.of(context)
+                                //                   .secondaryColor,
+                                //               width: 1,
+                                //             ),
+                                //             borderRadius: BorderRadius.circular(8),
+                                //           ),
+                                //           errorBorder: OutlineInputBorder(
+                                //             borderSide: BorderSide(
+                                //               color: Color(0x00000000),
+                                //               width: 1,
+                                //             ),
+                                //             borderRadius: BorderRadius.circular(8),
+                                //           ),
+                                //           focusedErrorBorder: OutlineInputBorder(
+                                //             borderSide: BorderSide(
+                                //               color: Color(0x00000000),
+                                //               width: 1,
+                                //             ),
+                                //             borderRadius: BorderRadius.circular(8),
+                                //           ),
+                                //           filled: true,
+                                //           fillColor: Colors.white,
+                                //           contentPadding:
+                                //           EdgeInsetsDirectional.fromSTEB(24, 24, 20, 0),
+                                //         ),
+                                //         style:
+                                //         FlutterFlowTheme.of(context).bodyText1.override(
+                                //           fontFamily: 'Poppins',
+                                //           fontWeight: FontWeight.normal,
+                                //         ),
+                                //         maxLines: null,
+                                //       ),
+                                //     ),
+                                //     // child: Padding(
+                                //     //   padding: EdgeInsetsDirectional.fromSTEB(
+                                //     //       10, 10, 10, 10),
+                                //     //   child: FlutterFlowDropDown<String>(
+                                //     //     options: [],
+                                //     //     onChanged: (val) =>
+                                //     //         setState(() => dropDownValue1 = val),
+                                //     //     width: 180,
+                                //     //     height: 50,
+                                //     //     textStyle: FlutterFlowTheme.of(context)
+                                //     //         .bodyText1
+                                //     //         .override(
+                                //     //       fontFamily: 'Poppins',
+                                //     //       color: Colors.black,
+                                //     //       fontWeight: FontWeight.normal,
+                                //     //     ),
+                                //     //     hintText: 'Please select...',
+                                //     //     fillColor: Colors.white,
+                                //     //     elevation: 2,
+                                //     //     borderColor: Colors.transparent,
+                                //     //     borderWidth: 0,
+                                //     //     borderRadius: 0,
+                                //     //     margin: EdgeInsetsDirectional.fromSTEB(
+                                //     //         12, 4, 12, 4),
+                                //     //     hidesUnderline: true,
+                                //     //   ),
+                                //     // ),
+                                //   ),
+                                // ),
+                                //-----labour name
+                                Padding(
+                                  padding:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        'Full Name',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
+                                  child: TextFormField(
+                                    controller: name,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: const Color(0xFF57636C),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      hintText: 'Enter Full Name',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Roboto',
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      contentPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          24, 24, 20, 0),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    maxLines: null,
+                                  ),
+                                ),
+                                //======labour name
+                                //--------labour salary
+                                Padding(
+                                  padding:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        'Salary(Per Day)',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
+                                  child: TextFormField(
+                                    controller: salaryPerDay,
+                                    obscureText: false,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: const Color(0xFF57636C),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      hintText: 'Enter Salary',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Roboto',
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      contentPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          24, 24, 20, 0),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    maxLines: null,
+                                  ),
+                                ),
+                                //========labour salary
+                                //------labour mobile
+                                Padding(
+                                  padding:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        'Mobile Number',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
+                                  child: TextFormField(
+                                    controller: mobileNumber,
+                                    obscureText: false,
+                                    keyboardType: TextInputType.phone,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: const Color(0xFF57636C),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      hintText: 'Enter Mobile Number',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Roboto',
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      contentPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          24, 24, 20, 0),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    maxLines: null,
+                                  ),
+                                ),
+                                //=======labour mobile
+                                //--------labour Address
+                                Padding(
+                                  padding:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 20, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        'Address',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin:
+                                  const EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
+                                  child: TextFormField(
+                                    controller: address,
+                                    obscureText: false,
+                                    keyboardType: TextInputType.streetAddress,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: const Color(0xFF57636C),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      hintText: 'Enter Address',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Roboto',
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      contentPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          24, 24, 20, 0),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    maxLines: null,
+                                  ),
+                                ),
+                                //======labour Address
+
+                                Padding(
+                                  padding:
                                   const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        30, 0, 0, 0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            30, 0, 0, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
                                           MainAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding:
+                                          children: [
+                                            Padding(
+                                              padding:
                                               const EdgeInsetsDirectional.fromSTEB(
                                                   50, 0, 0, 0),
-                                          child: FFButtonWidget(
-                                            onPressed: () {
-                                              // print('Button pressed ...');
-                                              Get.back();
-                                            },
-                                            text: 'Cancel',
-                                            options: FFButtonOptions(
-                                              width: 100,
-                                              height: 40,
-                                              color: Colors.white,
-                                              textStyle: FlutterFlowTheme.of(
+                                              child: FFButtonWidget(
+                                                onPressed: () {
+                                                  // print('Button pressed ...');
+                                                  Navigator.of(context).pop();
+                                                },
+                                                text: 'Cancel',
+                                                options: FFButtonOptions(
+                                                  width: 100,
+                                                  height: 40,
+                                                  color: Colors.white,
+                                                  textStyle: FlutterFlowTheme.of(
                                                       context)
-                                                  .subtitle2
-                                                  .override(
+                                                      .subtitle2
+                                                      .override(
                                                     fontFamily: 'Poppins',
                                                     color: FlutterFlowTheme.of(
-                                                            context)
+                                                        context)
                                                         .tertiaryColor,
                                                     fontWeight: FontWeight.w500,
                                                   ),
-                                              borderSide: BorderSide(
-                                                color:
+                                                  borderSide: BorderSide(
+                                                    color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryColor,
-                                                width: 1,
-                                              ),
-                                              borderRadius:
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius:
                                                   BorderRadius.circular(8),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
+                                            Padding(
+                                              padding:
                                               const EdgeInsetsDirectional.fromSTEB(
                                                   25, 0, 0, 0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              if (labourType.text == "") {
-                                                Utils.flushBarErrorMessage(
-                                                    "Please Select Labour Type",
-                                                    context);
-                                              } else if (labourHeadName.text == "") {
-                                                Utils.flushBarErrorMessage(
-                                                    "Please Select Labour Head",
-                                                    context);
-                                              } else if (name.text == "") {
-                                                Utils.flushBarErrorMessage(
-                                                    "Please Enter full name",
-                                                    context);
-                                              }
-                                              // else if (mobileNumber.text == "") {
-                                              //   Utils.flushBarErrorMessage(
-                                              //       "Please Enter mobile Number",
-                                              //       context);
-                                              // }
-                                              else if (salaryPerDay.text == "") {
-                                                Utils.flushBarErrorMessage(
-                                                    "Please Enter Salary per day",
-                                                    context);
-                                              }
-                                              else if (address.text == "") {
-                                                Utils.flushBarErrorMessage(
-                                                    "Please Enter Address",
-                                                    context);
-                                              }
-                                              else {
-                                                Map data = {
-                                                  'submit': "true",
-                                                  'id':id,
-                                                  'labour_type':labourType.text,
-                                                  'labour_head':labourHeadId,
-                                                  'full_name': name.text,
-                                                  'mobile': mobileNumber.text,
-                                                  'salary': salaryPerDay.text,
-                                                  'address':address.text,
-                                                  'is_labour_head': isLabourHead ?"Yes":"No",
-                                                };
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  if (labourType.text == "") {
+                                                    Utils.flushBarErrorMessage(
+                                                        "Please Select Labour Type",
+                                                        context);
+                                                  } else if (!isLabourHead && labourHeadName.text == "") {
+                                                    Utils.flushBarErrorMessage(
+                                                        "Please Select Labour Head",
+                                                        context);
+                                                  } else if (name.text == "") {
+                                                    Utils.flushBarErrorMessage(
+                                                        "Please Enter full name",
+                                                        context);
+                                                  }
+                                                  // else if (mobileNumber.text == "") {
+                                                  //   Utils.flushBarErrorMessage(
+                                                  //       "Please Enter mobile Number",
+                                                  //       context);
+                                                  // }
+                                                  else if (salaryPerDay.text == "") {
+                                                    Utils.flushBarErrorMessage(
+                                                        "Please Enter Salary per day",
+                                                        context);
+                                                  }
+                                                  else if (address.text == "") {
+                                                    Utils.flushBarErrorMessage(
+                                                        "Please Enter Address",
+                                                        context);
+                                                  }
+                                                  else {
+                                                    Map data = {
+                                                      'submit': "true",
+                                                      'id':id,
+                                                      'labour_type':labourType.text,
+                                                      'labour_head':labourHeadId,
+                                                      'full_name': name.text,
+                                                      'mobile': mobileNumber.text,
+                                                      'salary': salaryPerDay.text,
+                                                      'address':address.text,
+                                                      'is_labour_head': isLabourHead ?"Yes":"No",
+                                                    };
 
 
-                                                // context.loaderOverlay.show();
-                                                  await labourReg.labourRegApi( data, context);
-
-                                                      // Navigator.of(context).pop();
-                                                       // Navigator.pushNamed(context, RoutesName.labour_list_view);
-
-                                                   // print(labourReg.status);
-                                              }
-                                            },
-                                            text: 'Save',
-                                            options: FFButtonOptions(
-                                              width: 100,
-                                              height: 40,
-                                              color:
+                                                    // context.loaderOverlay.show();
+                                                    await  labourReg.labourRegApi( data, context);
+                                                    // if(!labourReg.status)
+                                                    //   {
+                                                    //    }
+                                                    // print(labourReg.status);
+                                                  }
+                                                },
+                                                text: 'Save',
+                                                options: FFButtonOptions(
+                                                  width: 100,
+                                                  height: 40,
+                                                  color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryColor,
-                                              textStyle:
+                                                  textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .subtitle2
                                                       .override(
-                                                        fontFamily: 'Poppins',
-                                                        color: Colors.white,
-                                                      ),
-                                              borderSide: const BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1,
-                                              ),
-                                              borderRadius:
+                                                    fontFamily: 'Poppins',
+                                                    color: Colors.white,
+                                                  ),
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius:
                                                   BorderRadius.circular(8),
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
 
             Visibility(
               visible: labourReg.loading,
@@ -999,7 +1029,7 @@ class EditLabourViewState extends State<EditLabourView> {
                 ),
               ),
             )
-        ]
+          ]
       ),
     );
   }

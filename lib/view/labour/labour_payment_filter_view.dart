@@ -250,7 +250,7 @@ class LabourPaymentFilterViewState extends State<LabourPaymentFilterView> {
                                   String data = await Get.toNamed( RoutesName.select_site_view);
                                   Map jsnen = jsonDecode(data);
                                   // setState(() {
-                                  siteName?.text = jsnen['full_name'];
+                                  siteName.text = jsnen['full_name'];
                                   siteId= jsnen['id'];
                                   // });
                                   log("labourType!.text");
@@ -349,7 +349,7 @@ class LabourPaymentFilterViewState extends State<LabourPaymentFilterView> {
                                       RoutesName.select_labour_head_view);
                                   Map jsnen = jsonDecode(data);
                                   log(jsnen['full_name'] ?? " ");
-                                  labourHeadName?.text = jsnen['full_name'];
+                                  labourHeadName.text = jsnen['full_name'];
                                   labourHeadId = jsnen['id'];
                                   // labourHeadName!.text="sfsaf";
                                 },
@@ -454,22 +454,23 @@ class LabourPaymentFilterViewState extends State<LabourPaymentFilterView> {
                                     onPressed: () {
                                       if (siteName.text == "" ) {
                                         Utils.flushBarErrorMessage(
-                                            "Please select labour Head", context);
+                                            "Please Select Site Name", context);
                                       } else if (labourHeadName.text == "") {
                                         Utils.flushBarErrorMessage(
-                                            "Please select labour Head", context);
+                                            "Please Select Labour Head", context);
                                       } else {
                                         Map<String, String> data = {
                                           'submit': "true",
                                           'site_id': siteId.toString(),
                                           'site_name': siteName.text ?? "",
                                           'labour_head_name': labourHeadName.text ?? "",
-                                          'labour_head': labourHeadId.toString(),
+                                          'labour_head_id': labourHeadId.toString(),
                                           'date_range': date.toString(),
                                         };
 
                                         // labourAttendance.labourListForAttendanceApi(data, context);
                                         // log(RoutesName.labour_attendance_screen2_view);
+                                        log(data.toString());
                                         Get.toNamed(
                                           RoutesName.labour_payment_view,
                                           arguments: ScreenArguments(data),

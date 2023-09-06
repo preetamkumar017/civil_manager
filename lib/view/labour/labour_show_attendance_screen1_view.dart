@@ -452,22 +452,23 @@ class LabourShowAttendanceScreen1ViewState extends State<LabourShowAttendanceScr
                                     onPressed: () {
                                       if (siteName.text == "") {
                                         Utils.flushBarErrorMessage(
-                                            "Please select labour Head", context);
+                                            "Please Select Site Name", context);
                                       } else if (labourHeadName.text == "") {
                                         Utils.flushBarErrorMessage(
-                                            "Please select labour Head", context);
+                                            "Please Select Labour Head", context);
                                       } else {
                                         Map<String, String> data = {
                                           'submit': "true",
                                           'site_id': siteId.toString(),
                                           'site_name': siteName.text ?? "",
                                           'labour_head_name': labourHeadName.text ?? "",
-                                          'labour_head': labourHeadId.toString(),
+                                          'labour_head_id': labourHeadId.toString(),
                                           'date_range': date.toString(),
                                         };
 
                                         // labourAttendance.labourListForAttendanceApi(data, context);
                                         // log(RoutesName.labour_attendance_screen2_view);
+                                        log(data.toString());
                                         Get.toNamed(
                                           RoutesName.labour_show_attendance_screen2_view,
                                           arguments: ScreenArguments(data),

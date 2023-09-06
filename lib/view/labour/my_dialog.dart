@@ -190,6 +190,9 @@ class _MyDialogState extends State<MyDialog> {
                           value: night,
                           onChanged: (newValue) async {
                             night = newValue!;
+                            if(!newValue) {
+                              commitment.text = "";
+                            }
                             setState(() {});
                           },
                           activeColor:
@@ -224,30 +227,32 @@ class _MyDialogState extends State<MyDialog> {
             ),
             child: const Text('Submit'),
             onPressed: () async {
-              Map frmData = {
-                "submit":"true",
-                "id": widget.data.id,
-                "present": present ? "1" : "0",
-                "halfday": halfDay ? "0.5" : "0",
-                "night": night ? "1" : "0",
-              };
-              if (night && commitment.text == "") {
-                Utils.flushBarErrorMessage("Please Insert Comment", context);
-              } else {
-                frmData['labour_work'] = commitment.text;
-                loading = true;
-                setState(() {
-
-                });
-               await atteEdit.labourAttendanceEdit(frmData, context).then((value)
-                {
-                  loading = false;
-                  setState(() {
-
+              if(present || halfDay || night){
+                Map frmData = {
+                  "submit": "true",
+                  "id": widget.data.id,
+                  "present": present ? "1" : "0",
+                  "halfday": halfDay ? "0.5" : "0",
+                  "night": night ? "1" : "0",
+                };
+                if (night && commitment.text == "") {
+                  Utils.flushBarErrorMessage("Please Insert Comment", context);
+                } else {
+                  frmData['labour_work'] = commitment.text;
+                  loading = true;
+                  setState(() {});
+                  await atteEdit
+                      .labourAttendanceEdit(frmData, context)
+                      .then((value) {
+                    loading = false;
+                    setState(() {});
                   });
-                });
 
-                Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                }
+              }else
+              {
+                Utils.flushBarErrorMessage("Attendance acn not null", context);
               }
             },
           ),

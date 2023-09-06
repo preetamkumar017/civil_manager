@@ -136,6 +136,10 @@ class AddLabourViewState extends State<AddLabourView> {
                                     child: Checkbox(
                                       value: isLabourHead ??= false,
                                       onChanged: (newValue) async {
+                                        if(newValue!)
+                                          {
+                                            labourHeadName.text = "";
+                                          }
                                         setState(() => isLabourHead = newValue!);
                                       },
                                       activeColor: FlutterFlowTheme.of(context)
@@ -213,7 +217,7 @@ class AddLabourViewState extends State<AddLabourView> {
                                       .bodyText1
                                       .override(
                                     fontFamily: 'Roboto',
-                                    color: Colors.black,
+                                    color: isLabourHead ? const Color(0x55000000):Colors.black,
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -234,9 +238,8 @@ class AddLabourViewState extends State<AddLabourView> {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   disabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
+                                    borderSide: const BorderSide(
+                                      color: Color(0x33000000),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
