@@ -1,7 +1,9 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:civil_manager/view/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
@@ -74,17 +76,37 @@ class _PDFFileScreenState extends State<PDFFileScreen> with WidgetsBindingObserv
       child: Scaffold(
         appBar: AppBar(
           // toolbarHeight: 35,
-          backgroundColor:
-          Colors.transparent, // Set the background color to transparent
+          title: Text("PDF Viewer"),
+          centerTitle: true,
+          // backgroundColor:
+          // // Colors.transparent, // Set the background color to transparent
           elevation: 0, // Remove the elevation
           leading: IconButton(
             icon: const Icon(Icons.arrow_back,
-              color: Colors.black,
+              color: Colors.white,
                 ), // Set the back arrow color to black
             onPressed: () {
               Get.back();
             },
           ),
+          actions: [
+            IconButton(onPressed: () async {
+              try {
+                try {
+                  await FlutterShareMe().shareToWhatsApp(
+                    msg: "text",
+                    imagePath: widget.path.toString(),
+                  );
+                } catch (e) {
+                  print('Error sharing: $e');
+                }
+              }catch(e)
+              {
+                log(widget.path.toString());
+                log(e.toString());
+              }
+            }, icon: Icon(Icons.share,color: Colors.white,))
+          ],
         ),
         body: SfPdfViewer.file(
             File(widget.path ?? ""),

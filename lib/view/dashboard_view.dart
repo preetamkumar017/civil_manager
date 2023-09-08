@@ -1060,7 +1060,7 @@ class DashboardViewState extends State<DashboardView> {
                                               Get.toNamed(RoutesName.add_labour_view);
                                             },
                                             title: Text(
-                                              'Manage Labour',
+                                              'Add Labour',
                                               style: FlutterFlowTheme.of(context)
                                                   .bodyText1,
                                             ),

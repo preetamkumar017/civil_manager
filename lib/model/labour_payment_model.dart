@@ -2,86 +2,77 @@ class LabourPaymentModel {
   int? code;
   String? status;
   String? siteId;
+  String? labourHeadId;
   String? dateRange;
   Result? result;
-  String? reset;
 
   LabourPaymentModel(
       {this.code,
         this.status,
         this.siteId,
+        this.labourHeadId,
         this.dateRange,
-        this.result,
-        this.reset});
+        this.result});
 
   LabourPaymentModel.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     status = json['status'];
     siteId = json['site_id'];
+    labourHeadId = json['labour_head_id'];
     dateRange = json['date_range'];
     result =
-    json['result'] != null ? Result.fromJson(json['result']) : null;
-    reset = json['reset'];
+    json['result'] != null ? new Result.fromJson(json['result']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['code'] = code;
-    data['status'] = status;
-    data['site_id'] = siteId;
-    data['date_range'] = dateRange;
-    if (result != null) {
-      data['result'] = result!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['code'] = this.code;
+    data['status'] = this.status;
+    data['site_id'] = this.siteId;
+    data['labour_head_id'] = this.labourHeadId;
+    data['date_range'] = this.dateRange;
+    if (this.result != null) {
+      data['result'] = this.result!.toJson();
     }
-    data['reset'] = reset;
     return data;
   }
 }
 
 class Result {
   List<LabourList>? labourList;
-  List<LabourHead>? labourHead;
-  List<SiteList>? siteList;
+  int? mishtriCount;
+  int? rezaCount;
+  int? kuliCount;
 
-  Result({this.labourList, this.labourHead, this.siteList});
+  Result({this.labourList, this.mishtriCount, this.rezaCount, this.kuliCount});
 
   Result.fromJson(Map<String, dynamic> json) {
     if (json['labour_list'] != null) {
       labourList = <LabourList>[];
       json['labour_list'].forEach((v) {
-        labourList!.add(LabourList.fromJson(v));
+        labourList!.add(new LabourList.fromJson(v));
       });
     }
-    if (json['labour_head'] != null) {
-      labourHead = <LabourHead>[];
-      json['labour_head'].forEach((v) {
-        labourHead!.add(LabourHead.fromJson(v));
-      });
-    }
-    if (json['site_list'] != null) {
-      siteList = <SiteList>[];
-      json['site_list'].forEach((v) {
-        siteList!.add(SiteList.fromJson(v));
-      });
-    }
+    mishtriCount = json['mishtriCount'];
+    rezaCount = json['rezaCount'];
+    kuliCount = json['kuliCount'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (labourList != null) {
-      data['labour_list'] = labourList!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.labourList != null) {
+      data['labour_list'] = this.labourList!.map((v) => v.toJson()).toList();
     }
-    if (labourHead != null) {
-      data['labour_head'] = labourHead!.map((v) => v.toJson()).toList();
-    }
-    if (siteList != null) {
-      data['site_list'] = siteList!.map((v) => v.toJson()).toList();
-    }
+    data['mishtriCount'] = this.mishtriCount;
+    data['rezaCount'] = this.rezaCount;
+    data['kuliCount'] = this.kuliCount;
     return data;
   }
 }
 
 class LabourList {
+  String? id;
+  String? labourId;
   String? labourType;
   String? salary;
   String? siteName;
@@ -90,10 +81,12 @@ class LabourList {
   String? tpresent;
   String? thalfday;
   String? tnight;
-  dynamic tabsent;
+  String? tabsent;
 
   LabourList(
-      {this.labourType,
+      {this.id,
+        this.labourId,
+        this.labourType,
         this.salary,
         this.siteName,
         this.labourHeadId,
@@ -104,6 +97,8 @@ class LabourList {
         this.tabsent});
 
   LabourList.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    labourId = json['labour_id'];
     labourType = json['labour_type'];
     salary = json['salary'];
     siteName = json['site_name'];
@@ -116,122 +111,18 @@ class LabourList {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['labour_type'] = labourType;
-    data['salary'] = salary;
-    data['site_name'] = siteName;
-    data['labour_head_id'] = labourHeadId;
-    data['labour_name'] = labourName;
-    data['tpresent'] = tpresent;
-    data['thalfday'] = thalfday;
-    data['tnight'] = tnight;
-    data['tabsent'] = tabsent;
-    return data;
-  }
-}
-
-class LabourHead {
-  String? id;
-  String? fullName;
-  String? labourType;
-  String? salary;
-  String? mobile;
-  String? address;
-  dynamic joiningDate;
-  String? isLabourHead;
-  String? labourHead;
-  String? status;
-  String? createDate;
-  String? updateDate;
-  dynamic ip;
-
-  LabourHead(
-      {this.id,
-        this.fullName,
-        this.labourType,
-        this.salary,
-        this.mobile,
-        this.address,
-        this.joiningDate,
-        this.isLabourHead,
-        this.labourHead,
-        this.status,
-        this.createDate,
-        this.updateDate,
-        this.ip});
-
-  LabourHead.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    fullName = json['full_name'];
-    labourType = json['labour_type'];
-    salary = json['salary'];
-    mobile = json['mobile'];
-    address = json['address'];
-    joiningDate = json['joining_date'];
-    isLabourHead = json['is_labour_head'];
-    labourHead = json['labour_head'];
-    status = json['status'];
-    createDate = json['create_date'];
-    updateDate = json['update_date'];
-    ip = json['ip'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['full_name'] = fullName;
-    data['labour_type'] = labourType;
-    data['salary'] = salary;
-    data['mobile'] = mobile;
-    data['address'] = address;
-    data['joining_date'] = joiningDate;
-    data['is_labour_head'] = isLabourHead;
-    data['labour_head'] = labourHead;
-    data['status'] = status;
-    data['create_date'] = createDate;
-    data['update_date'] = updateDate;
-    data['ip'] = ip;
-    return data;
-  }
-}
-
-class SiteList {
-  String? id;
-  String? catId;
-  String? name;
-  String? status;
-  String? createDate;
-  String? updateDate;
-  String? ip;
-
-  SiteList(
-      {this.id,
-        this.catId,
-        this.name,
-        this.status,
-        this.createDate,
-        this.updateDate,
-        this.ip});
-
-  SiteList.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    catId = json['cat_id'];
-    name = json['name'];
-    status = json['status'];
-    createDate = json['create_date'];
-    updateDate = json['update_date'];
-    ip = json['ip'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['cat_id'] = catId;
-    data['name'] = name;
-    data['status'] = status;
-    data['create_date'] = createDate;
-    data['update_date'] = updateDate;
-    data['ip'] = ip;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['labour_id'] = this.labourId;
+    data['labour_type'] = this.labourType;
+    data['salary'] = this.salary;
+    data['site_name'] = this.siteName;
+    data['labour_head_id'] = this.labourHeadId;
+    data['labour_name'] = this.labourName;
+    data['tpresent'] = this.tpresent;
+    data['thalfday'] = this.thalfday;
+    data['tnight'] = this.tnight;
+    data['tabsent'] = this.tabsent;
     return data;
   }
 }

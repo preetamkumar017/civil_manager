@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, deprecated_member_use_from_same_package
 
 import 'dart:developer';
 import 'dart:io';
@@ -685,9 +685,11 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
                     Navigator.of(context1).pop();
                     // _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
                     // Map data = {'attendance_id':id};
-                   await _dialogBuilder(context,data);
+                   await _dialogBuilder(context,data).then((value) {
+                     _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
 
-                    _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
+                   });
+
 
                   },
                   child: Row(
