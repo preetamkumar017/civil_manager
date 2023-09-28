@@ -27,14 +27,13 @@ class NetworkApiService extends BaseApiServices {
   @override
   Future getPostApiResponse(String url, dynamic data) async {
     dynamic responseJson;
-    log("NetworkApiService: $data");
     log("NetworkApiService: $url");
+    log("NetworkApiService: $data");
     try {
       Response response = await post(Uri.parse(url), body: data)
           .timeout(const Duration(seconds: 30));
       log(response.body.toString());
       responseJson = returnResponse(response);
-      log(responseJson.toString());
     } on SocketException {
       throw FetchDataException('No Internet Connection');
     }catch(e)

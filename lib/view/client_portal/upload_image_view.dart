@@ -352,8 +352,7 @@ class _UploadImageViewState extends State<UploadImageView> {
     log(uIController.getImagesListLength.toString());
   }
 
-  Future<void> getRemark()
-  async {
+  Future<void> getRemark() async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -377,10 +376,8 @@ class _UploadImageViewState extends State<UploadImageView> {
               child: const Text('Save'),
               onPressed: () {
                 if(remark.text != "") {
-                  uIController.uploadImage(widget.data['site_id'],
-                      widget.data['user_name'],remark.text);
+                  uIController.uploadImage(widget.data['site_id'],widget.data['user_name'],remark.text);
                   remark.text = "";
-
                   Navigator.of(context).pop();
                 }else
                 {

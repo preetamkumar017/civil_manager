@@ -3,6 +3,10 @@ import 'package:civil_manager/index.dart';
 import 'package:civil_manager/model/arguments.dart';
 import 'package:civil_manager/res/components/image_viewer.dart';
 import 'package:civil_manager/utils/routes/routes_name.dart';
+import 'package:civil_manager/view/Thekedar/thekedar_image_view.dart';
+import 'package:civil_manager/view/Thekedar/thekedar_list_view.dart';
+import 'package:civil_manager/view/Thekedar/thekedar_select_site_view.dart';
+import 'package:civil_manager/view/Thekedar/thekedar_work_list_view.dart';
 import 'package:civil_manager/view/client_portal/cctv_image_view.dart';
 import 'package:civil_manager/view/client_portal/client_select_site_view.dart';
 import 'package:civil_manager/view/client_portal/upload_image_view.dart';
@@ -372,6 +376,22 @@ class Routes {
         final args = settings.arguments as ScreenArguments;
         return MaterialPageRoute(
             builder: (BuildContext context) => ManualImageUploadedView(data: args.data));
+
+      case RoutesName.thekedar_select_site:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const ThekedarSelectSiteView());
+
+      case RoutesName.thekedar_work_list_view:
+        final args = settings.arguments as ScreenArguments;
+        return MaterialPageRoute(
+            builder: (BuildContext context) => WorkCompletedListView(data: args.data));
+
+      case RoutesName.thekedar_list_view:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const ThekedarListView());
+      case RoutesName.thekedar_image_view:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const ThekedarImageView());
 
       default:
         return MaterialPageRoute(builder: (_) {

@@ -3,22 +3,23 @@ import 'package:civil_manager/model/arguments.dart';
 import 'package:civil_manager/utils/routes/routes_name.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_theme.dart';
 import 'package:civil_manager/view_model/select_labour_head_view_model.dart';
+import 'package:civil_manager/view_model/site_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class ReceivingMaterialSelectSiteView extends StatefulWidget {
-  const ReceivingMaterialSelectSiteView({Key? key}) : super(key: key);
+class ThekedarSelectSiteView extends StatefulWidget {
+  const ThekedarSelectSiteView({Key? key}) : super(key: key);
 
   @override
-  State<ReceivingMaterialSelectSiteView> createState() => _ReceivingMaterialSelectSiteViewState();
+  State<ThekedarSelectSiteView> createState() => _ThekedarSelectSiteViewState();
 }
 
-class _ReceivingMaterialSelectSiteViewState extends State<ReceivingMaterialSelectSiteView> {
-  SelectViewModel selectView = SelectViewModel();
+class _ThekedarSelectSiteViewState extends State<ThekedarSelectSiteView> {
+  SiteListViewModel selectView = SiteListViewModel();
   @override
   void initState() {
-    selectView.fetchSiteListRequestApi();
+    selectView.fatchSiteListApi();
     super.initState();
   }
 
@@ -27,6 +28,7 @@ class _ReceivingMaterialSelectSiteViewState extends State<ReceivingMaterialSelec
     selectView.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -43,22 +45,21 @@ class _ReceivingMaterialSelectSiteViewState extends State<ReceivingMaterialSelec
           elevation: 0,
           backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
         ),
-        body: ChangeNotifierProvider<SelectViewModel>(
+        body: ChangeNotifierProvider<SiteListViewModel>(
           create: (context) => selectView,
-          child: Consumer<SelectViewModel>(
+          child: Consumer<SiteListViewModel>(
             builder: (context, value, _) {
-              switch (value.siteRequestList.status)
-              {
+              switch (value.siteList.status) {
                 case Status.LOADING:
                   return const Center(child: CircularProgressIndicator());
                 case Status.ERROR:
                   return Center(
-                      child: Text(value.siteRequestList.message.toString()));
+                      child: Text(value.siteList.message.toString()));
                 case Status.COMPLETED:
                   return ListView.builder(
-                    itemCount: value.siteRequestList.data!.siteList!.length,
+                    itemCount: value.siteList.data!.siteList!.length,
                     itemBuilder: (context, index) {
-                      var data = value.siteRequestList.data!.siteList![index];
+                      var data = value.siteList.data!.siteList![index];
 
                       final bool isEven = index % 2 == 0;
                       Color? color = isEven ? Colors.white : Colors.grey[100];
@@ -67,11 +68,13 @@ class _ReceivingMaterialSelectSiteViewState extends State<ReceivingMaterialSelec
                         color: color,
                         child: ListTile(
                           onTap: () {
-                            Map<String, String>  pdata =   {"site_id":"${data.siteId}","full_name":"${data.siteName}"};
-                            // print(pdata);
-                            Get.toNamed(RoutesName.receiving_material_view,arguments: ScreenArguments(pdata));
+                            Map<String, String> pdata = {
+                              "site_id":data.id.toString(),
+                              "site_name":data.name.toString()
+                            };
+                            Get.toNamed(RoutesName.thekedar_work_list_view,arguments: ScreenArguments(pdata));
                           },
-                          title: Text(data.siteName ?? "",style: FlutterFlowTheme.of(context).subtitle1,),
+                          title: Text(data.name ?? "",style: FlutterFlowTheme.of(context).subtitle1,),
                           iconColor: FlutterFlowTheme.of(context).primaryBackground,
                           trailing: const Icon(Icons.arrow_forward,weight: 2.0,size: 30),
                           leading: const Icon(Icons.home),

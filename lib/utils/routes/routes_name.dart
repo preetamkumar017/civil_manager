@@ -62,5 +62,9 @@ class RoutesName {
   static const String cctv_image_view = 'cctv_image_view';
   static const String upload_image_view = 'upload_image_view';
   static const String manual_uploaded_image_view = 'manual_uploaded_image_view';
+  static const String thekedar_select_site = 'thekedar_select_site';
+  static const String thekedar_work_list_view = 'thekedar_work_list_view';
+  static const String thekedar_list_view = 'thekedar_list_view';
+  static const String thekedar_image_view = 'thekedar_image_view';
 
 }

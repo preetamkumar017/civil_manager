@@ -1564,6 +1564,108 @@ class DashboardViewState extends State<DashboardView> {
                             ),
                           ),
 /**************************End Client Portal*******************************************************/
+/**************************Start Thekedar Portal*******************************************************/
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context).secondaryColor,
+                                    ),
+                                  ),
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional.fromSTEB(
+                                              0, 15, 0, 0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: 35,
+                                                height: 35,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/images/Group_10.jpg',
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 0, 0),
+                                                child: Text(
+                                                  'Thekedar Portal',
+                                                  style: FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                    fontFamily: 'Poppins',
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const Divider(
+                                          thickness: 2,
+                                          indent: 25,
+                                          endIndent: 25,
+                                          color:  Color(0xFFB2EBF2),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                                          child: ListTile(
+                                            onTap: (){
+                                              Get.toNamed(RoutesName.thekedar_select_site);
+                                            },
+                                            title: Text(
+                                              'Work Completed',
+                                              style: FlutterFlowTheme.of(context)
+                                                  .bodyText1,
+                                            ),
+                                            trailing: Container(
+                                              width: 30,
+                                              height: 30,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Image.asset(
+                                                'assets/images/Group_11.jpg',
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            dense: true,
+                                            visualDensity: const VisualDensity(vertical: -3),
+
+                                          ),
+                                        ),
+                                        const Divider(
+                                          thickness: 1,
+                                          indent: 25,
+                                          endIndent: 25,
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+/**************************End Thekedar Portal*******************************************************/
                         ],
                       ),
                     ),
