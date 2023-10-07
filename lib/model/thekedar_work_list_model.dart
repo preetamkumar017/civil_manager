@@ -38,7 +38,7 @@ class Result {
   String? workAmount;
   String? thekaRate;
   String? isApproved;
-  Null? approvalRemark;
+  String? approvalRemark;
   String? approveBy;
   String? rateUnit;
   String? fullName;

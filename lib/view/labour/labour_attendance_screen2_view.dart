@@ -27,6 +27,7 @@ class LabourAttendanceScreen2ViewState
   final LabourListForAttendanceViewModel _labourListForAttendanceViewModel = LabourListForAttendanceViewModel();
 
   final TextEditingController note = TextEditingController();
+  final TextEditingController oth = TextEditingController();
 
   int i = 0;
   final _unFocusNode = FocusNode();
@@ -202,7 +203,8 @@ class LabourAttendanceScreen2ViewState
                                       Result result = await  UserViewModel().getUser();
                                       if (_labourListForAttendanceViewModel.getAllPresent().any((value) => value) ||
                                           _labourListForAttendanceViewModel.getAllHalfDay().any((value) => value) ||
-                                          _labourListForAttendanceViewModel.getAllNigh().any((value) => value)){
+                                          _labourListForAttendanceViewModel.getAllNigh().any((value) => value) ||
+                                          _labourListForAttendanceViewModel.getAllOt().any((value) => value)){
                                       Map data = {
                                         "l_id":
                                             _labourListForAttendanceViewModel
@@ -216,9 +218,15 @@ class LabourAttendanceScreen2ViewState
                                         "hdn_n":
                                             _labourListForAttendanceViewModel
                                                 .getAllNigh(),
+                                        // "hdn_o":
+                                        //     _labourListForAttendanceViewModel
+                                        //         .getAllOt(),
                                         "lab_work":
                                             _labourListForAttendanceViewModel
                                                 .getAllNote(),
+                                        "lab_work_oth":
+                                            _labourListForAttendanceViewModel
+                                                .getAllOth(),
                                         "hdn_att_date":
                                             widget.data['hdn_att_date'],
                                         "hdn_labour_head":
@@ -268,32 +276,31 @@ class LabourAttendanceScreen2ViewState
                           padding: const EdgeInsetsDirectional.fromSTEB(15, 20, 30, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Expanded(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      decoration: BoxDecoration(
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.25,
+                                    margin: EdgeInsets.only(right: 10,left: 15),
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBtnText,
+                                    ),
+                                    child: Text(
+                                      'Name ',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Poppins',
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryBtnText,
-                                      ),
-                                      child: Text(
-                                        'Labour Name',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                          fontFamily: 'Poppins',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                        ),
+                                            .secondaryText,
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                               Expanded(
                                 child: Row(
@@ -323,6 +330,16 @@ class LabourAttendanceScreen2ViewState
                                     ),
                                     Text(
                                       'Night',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                    ),
+                                    Text(
+                                      'OT',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -430,52 +447,50 @@ class LabourAttendanceScreen2ViewState
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                                      15, 0, 15, 0),
+                                                      15, 0, 0, 0),
                                                   child: Row(
                                                     mainAxisSize: MainAxisSize.max,
                                                     mainAxisAlignment:
                                                     MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Expanded(
-                                                        child: Row(
-                                                          mainAxisSize: MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment.start,
-                                                          children: [
-                                                            Container(
-                                                              width: MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                                  0.25,
-                                                              height: MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.03,
-                                                              decoration: BoxDecoration(
-                                                                color:
+                                                      Row(
+                                                        mainAxisSize: MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                        children: [
+                                                          Container(
+                                                            width: MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                                0.25,
+                                                            height: MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                                0.03,
+                                                            decoration: BoxDecoration(
+                                                              color:
+                                                              FlutterFlowTheme.of(context)
+                                                                  .primaryBtnText,
+                                                            ),
+                                                            child: Padding(
+                                                              padding: const EdgeInsetsDirectional
+                                                                  .fromSTEB(20, 2, 2, 2),
+                                                              child: Text(
+                                                                data[index].labourType ?? "",
+                                                                style:
                                                                 FlutterFlowTheme.of(context)
-                                                                    .primaryBtnText,
-                                                              ),
-                                                              child: Padding(
-                                                                padding: const EdgeInsetsDirectional
-                                                                    .fromSTEB(20, 2, 2, 2),
-                                                                child: Text(
-                                                                  data[index].labourType ?? "",
-                                                                  style:
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                    fontFamily: 'Poppins',
-                                                                    color: FlutterFlowTheme
-                                                                        .of(context)
-                                                                        .secondaryText,
-                                                                    fontSize: 14,
-                                                                  ),
+                                                                    .bodyText1
+                                                                    .override(
+                                                                  fontFamily: 'Poppins',
+                                                                  color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                      .secondaryText,
+                                                                  fontSize: 14,
                                                                 ),
                                                               ),
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
                                                       ),
                                                       Expanded(
                                                         child: Row(
@@ -565,17 +580,65 @@ class LabourAttendanceScreen2ViewState
                                                                     .primaryColor,
                                                               ),
                                                             ),
+                                                            Theme(
+                                                              data: ThemeData(
+                                                                checkboxTheme: CheckboxThemeData(
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                    BorderRadius.circular(0),
+                                                                  ),
+                                                                ),
+                                                                unselectedWidgetColor:
+                                                                FlutterFlowTheme.of(context)
+                                                                    .tertiaryColor,
+                                                              ),
+                                                              child: Checkbox(
+                                                                value:
+                                                                _labourListForAttendanceViewModel
+                                                                    .getOt(index),
+                                                                onChanged: (newValue) async {
+
+                                                                  if (newValue!) {
+                                                                    _showMyDialog1(newValue, index);
+                                                                  }else
+                                                                  {
+                                                                    _labourListForAttendanceViewModel
+                                                                        .setOt(index);
+                                                                    _labourListForAttendanceViewModel.setOth(index, "");
+                                                                  }
+                                                                },
+                                                                activeColor:
+                                                                FlutterFlowTheme.of(context)
+                                                                    .primaryColor,
+                                                              ),
+                                                            ),
                                                           ],
                                                         ),
                                                       ),
                                                     ],
                                                   ),
                                                 ),
-                                                Padding(
+                                                if(_labourListForAttendanceViewModel.getNote(index)!="") Padding(
                                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                                       15, 0, 0, 10),
                                                   child: Text(
                                                     _labourListForAttendanceViewModel.getNote(index).toString(),
+                                                    style: FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: FlutterFlowTheme.of(context)
+                                                          .secondaryText,
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.normal,
+                                                    ),
+                                                  ),
+                                                ),
+                                               if(_labourListForAttendanceViewModel.getOth(index)!="") Padding(
+                                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                                      15, 0, 0, 10),
+                                                  child: Text(
+                                                    _labourListForAttendanceViewModel.getOth(index).toString(),
                                                     style: FlutterFlowTheme.of(context)
                                                         .bodyText1
                                                         .override(
@@ -711,6 +774,120 @@ class LabourAttendanceScreen2ViewState
                         _labourListForAttendanceViewModel.setNote(
                             index, note.text);
                         note.text = "";
+                      }
+                      Get.back();
+
+                    },
+                    text: 'Submit',
+                    options: FFButtonOptions(
+                      width: 80,
+                      height: 30,
+                      color: FlutterFlowTheme.of(context).primaryColor,
+                      textStyle: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Poppins',
+                        color: FlutterFlowTheme.of(context).primaryBtnText,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  )
+,
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Future<void> _showMyDialog1(bool value, int index) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+
+          title: const Text('Enter Note'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+
+                TextFormField(
+                  controller: oth,
+                  autofocus: true,
+                  obscureText: false,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'Write Total Hours .......',
+                    hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                    enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
+                    ),
+                    errorBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
+                    ),
+                    focusedErrorBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
+                    ),
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyText1,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal:10.0),
+              child: Row(
+
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  FFButtonWidget(
+                    onPressed: ()
+                    {
+                      if(oth.text!="") {
+
+                        _labourListForAttendanceViewModel.setOt(index);
+
+                        _labourListForAttendanceViewModel.setOth(index, oth.text);
+                        oth.text = "";
                       }
                       Get.back();
 

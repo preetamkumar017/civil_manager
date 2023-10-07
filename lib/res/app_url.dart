@@ -7,8 +7,8 @@ class AppUrl {
 
   static var registerApiEndPoint =  '$baseUrl/api/register' ;
 
-  static var domain = 'http://192.168.1.4:80';
-  // static var domain = 'https://ukcdesigner.in';
+  // static var domain = 'http://192.168.1.4:80';
+  static var domain = 'https://ukcdesigner.in';
   static var mainUrl = '$domain/approvalzone/index.php';
   static var subMainUrl = '$domain/approvalzone/';
   // static var mainUrl = 'https://ukcdesigner.in/approvalzone/index.php';
@@ -52,5 +52,6 @@ class AppUrl {
   static var cctvDetails =  '$cctvMain/cctv_details' ;
   static var manualUploadedImage =  '$cctvMain/manualUploadedImages' ;
   static var siteImagesEndPoint =  '$cctvMain/upload_image' ;
+  static var calenderImagesEndPoint =  '$cctvMain/manualUploadedImagesCalender' ;
   static const String imageUrl  = "https://ukcdesigner.in/site_camera_data/";
 }

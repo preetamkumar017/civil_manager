@@ -348,6 +348,16 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
                                                 .secondaryText,
                                           ),
                                     ),
+                                    Text(
+                                      'OT',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                          ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -567,6 +577,8 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
 
                                                                         Visibility(visible: data[index].night=="1",replacement: Icon(Icons.close,color: FlutterFlowTheme.of(context).secondaryBackground,),child: Icon(Icons.check,color: FlutterFlowTheme.of(context).primaryColor,),),
 
+                                                                        Visibility(visible: data[index].overTime!="0",replacement: Icon(Icons.close,color: FlutterFlowTheme.of(context).secondaryBackground,),child: Icon(Icons.check,color: FlutterFlowTheme.of(context).primaryColor,),),
+
                                                                       ],
                                                                     ),
                                                                   ),
@@ -588,6 +600,21 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
                                                                 ),
                                                               ),
                                                             ):const SizedBox.shrink(),
+                                                            if(data[index].overTime!="") Padding(
+                                                              padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 0, 10),
+                                                              child: Text(
+                                                                "Over Time:- ${data[index].overTime ?? ""}h",
+                                                                style: FlutterFlowTheme.of(context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                  fontFamily: 'Poppins',
+                                                                  color: FlutterFlowTheme.of(context)
+                                                                      .secondaryText,
+                                                                  fontSize: 12,
+                                                                  fontWeight: FontWeight.normal,
+                                                                ),
+                                                              ),
+                                                            )
                                                           ],
                                                         ),
 
@@ -687,7 +714,9 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
                     // Map data = {'attendance_id':id};
                    await _dialogBuilder(context,data).then((value) {
                      _labourListAfterAttendanceViewModel.labourListAfterAttendanceApi(widget.data, context);
+                     setState(() {
 
+                     });
                    });
 
 

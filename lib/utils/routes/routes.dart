@@ -7,6 +7,7 @@ import 'package:civil_manager/view/Thekedar/thekedar_image_view.dart';
 import 'package:civil_manager/view/Thekedar/thekedar_list_view.dart';
 import 'package:civil_manager/view/Thekedar/thekedar_select_site_view.dart';
 import 'package:civil_manager/view/Thekedar/thekedar_work_list_view.dart';
+import 'package:civil_manager/view/client_portal/calender_view.dart';
 import 'package:civil_manager/view/client_portal/cctv_image_view.dart';
 import 'package:civil_manager/view/client_portal/client_select_site_view.dart';
 import 'package:civil_manager/view/client_portal/upload_image_view.dart';
@@ -389,9 +390,15 @@ class Routes {
       case RoutesName.thekedar_list_view:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ThekedarListView());
+
       case RoutesName.thekedar_image_view:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ThekedarImageView());
+
+      case RoutesName.calender_view:
+        final args = settings.arguments as ScreenArguments;
+        return MaterialPageRoute(
+            builder: (BuildContext context) =>  CalenderView(data: args.data));
 
       default:
         return MaterialPageRoute(builder: (_) {

@@ -418,6 +418,17 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                                         .secondaryText,
                                               ),
                                         ),
+                                        Text(
+                                          'OT',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                              ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -479,16 +490,13 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                               const BouncingScrollPhysics(),
                                           itemCount: filteredList.length,
                                           itemBuilder: (context, index) {
-                                            var present = double.parse(
-                                                    filteredList[index]
-                                                            .tpresent ??
-                                                        "") +
-                                                double.parse(filteredList[index]
-                                                        .thalfday ??
-                                                    "") +
-                                                double.parse(filteredList[index]
-                                                        .tnight ??
-                                                    "");
+                                            var present = double.parse(filteredList[index].tpresent ??"") +
+                                                          double.parse(filteredList[index].thalfday ?? "") +
+                                                          double.parse(filteredList[index].tnight ?? "") +
+                                                          (double.parse(filteredList[index].overTime ??"")/8);
+                                            var present1 = double.parse(filteredList[index].tpresent ??"") +
+                                                          double.parse(filteredList[index].thalfday ?? "") +
+                                                          double.parse(filteredList[index].tnight ?? "") ;
                                             return Padding(
                                               padding:
                                                   const EdgeInsetsDirectional
@@ -667,6 +675,12 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                                                               context)
                                                                           .bodyText1,
                                                                     ),
+                                                                    Text(
+                                                                      "${filteredList[index].overTime ??"0"}h",
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText1,
+                                                                    ),
                                                                   ],
                                                                 ),
                                                               ),
@@ -695,7 +709,7 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                                                       .spaceBetween,
                                                               children: [
                                                                 Text(
-                                                                  'Total Present: ',
+                                                                  'Present: ',
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyText1
@@ -709,8 +723,7 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                                                       ),
                                                                 ),
                                                                 Text(
-                                                                  present
-                                                                      .toString(),
+                                                                  "${present1}d, ${filteredList[index].overTime ??""}h",
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyText1
@@ -734,21 +747,18 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                                                       .spaceBetween,
                                                               children: [
                                                                 Text(
-                                                                  'Total Payment:',
+                                                                  'Payment:',
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyText1
                                                                       .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
+                                                                        fontFamily: 'Poppins',
+                                                                        color: FlutterFlowTheme.of(context).primaryText,
+                                                                        fontWeight: FontWeight.w600,
                                                                       ),
                                                                 ),
                                                                 Text(
-                                                                  ' ₹ ${filteredList[index].salary ?? ""}',
+                                                                  ' ₹ ${double.parse(filteredList[index].salary ?? "")*present}',
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyText1

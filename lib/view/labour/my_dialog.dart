@@ -21,7 +21,9 @@ class _MyDialogState extends State<MyDialog> {
   bool present = false;
   bool halfDay = false;
   bool night = false;
+  bool ot = false;
   TextEditingController commitment = TextEditingController();
+  TextEditingController otT = TextEditingController();
   final atteEdit = Get.put(AttendanceEditViewModel());
   bool loading = false;
   @override
@@ -30,7 +32,9 @@ class _MyDialogState extends State<MyDialog> {
     present = widget.data.present == "1";
     halfDay = widget.data.halfday == "0.5";
     night = widget.data.night == "1";
+    ot = widget.data.overTime != "";
     commitment.text = widget.data.labourWork ?? "";
+    otT.text = widget.data.overTime ?? "";
   }
 
   @override
@@ -47,7 +51,7 @@ class _MyDialogState extends State<MyDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: 85,
+                    width: 70,
                     child: Text(
                       'Name',
                       style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -91,6 +95,16 @@ class _MyDialogState extends State<MyDialog> {
                                     FlutterFlowTheme.of(context).secondaryText,
                               ),
                         ),
+                        Text(
+                          'OT',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Poppins',
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                              ),
+                        ),
                       ],
                     ),
                   ),
@@ -101,33 +115,27 @@ class _MyDialogState extends State<MyDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          height: MediaQuery.of(context).size.height * 0.03,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primaryBtnText,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 2, 2, 2),
-                            child: Text(
-                              widget.data.labourName ?? "",
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    fontSize: 14,
-                                  ),
-                            ),
-                          ),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      height: MediaQuery.of(context).size.height * 0.03,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primaryBtnText,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0, 2, 2, 2),
+                        child: Text(
+                          widget.data.labourName ?? "",
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Poppins',
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryText,
+                                fontSize: 14,
+                              ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                   Row(
@@ -199,6 +207,29 @@ class _MyDialogState extends State<MyDialog> {
                               FlutterFlowTheme.of(context).primaryColor,
                         ),
                       ),
+                      Theme(
+                        data: ThemeData(
+                          checkboxTheme: CheckboxThemeData(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                          ),
+                          unselectedWidgetColor:
+                              FlutterFlowTheme.of(context).tertiaryColor,
+                        ),
+                        child: Checkbox(
+                          value: ot,
+                          onChanged: (newValue) async {
+                            ot = newValue!;
+                            if(!newValue) {
+                              otT.text = "";
+                            }
+                            setState(() {});
+                          },
+                          activeColor:
+                              FlutterFlowTheme.of(context).primaryColor,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -207,6 +238,12 @@ class _MyDialogState extends State<MyDialog> {
                 TextFormField(
                   controller: commitment,
                   decoration: const InputDecoration(hintText: "Enter Comments"),
+                ),
+              if (ot)
+                TextFormField(
+                  controller: otT,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "Enter Over Time Hour"),
                 )
             ],
           ),
@@ -227,7 +264,7 @@ class _MyDialogState extends State<MyDialog> {
             ),
             child: const Text('Submit'),
             onPressed: () async {
-              if(present || halfDay || night){
+              if(present || halfDay || night || ot){
                 Map frmData = {
                   "submit": "true",
                   "id": widget.data.id,
@@ -237,8 +274,11 @@ class _MyDialogState extends State<MyDialog> {
                 };
                 if (night && commitment.text == "") {
                   Utils.flushBarErrorMessage("Please Insert Comment", context);
+                } else  if (ot && otT.text == "") {
+                  Utils.flushBarErrorMessage("Please Insert OT hours", context);
                 } else {
                   frmData['labour_work'] = commitment.text;
+                  frmData['ot'] = otT.text;
                   loading = true;
                   setState(() {});
                   await atteEdit

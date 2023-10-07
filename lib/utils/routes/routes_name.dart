@@ -66,5 +66,6 @@ class RoutesName {
   static const String thekedar_work_list_view = 'thekedar_work_list_view';
   static const String thekedar_list_view = 'thekedar_list_view';
   static const String thekedar_image_view = 'thekedar_image_view';
+  static const String calender_view = 'calender_view';
 
 }

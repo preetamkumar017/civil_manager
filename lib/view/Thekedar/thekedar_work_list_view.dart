@@ -4,6 +4,7 @@ import 'package:civil_manager/data/response/status.dart';
 import 'package:civil_manager/res/components/general_exception.dart';
 import 'package:civil_manager/res/components/internet_exceptions_widget.dart';
 import 'package:civil_manager/utils/routes/routes_name.dart';
+import 'package:civil_manager/utils/utils.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_theme.dart';
 import 'package:civil_manager/view_model/thekedar_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -121,10 +122,9 @@ class _WorkCompletedListViewState extends State<WorkCompletedListView> {
       padding: const EdgeInsets.only(left: 10,right: 10,top: 1.5,bottom: 3),
       child: InkWell(
         onLongPress: () {
-          if(result.isApproved=="0")
-            {
+          remark.text = result.approvalRemark ?? "";
               showBottom(result);
-            }
+
         },
         onTap: () {
           wLController.imageList.value = result.workImage!.split(",");
@@ -215,16 +215,15 @@ class _WorkCompletedListViewState extends State<WorkCompletedListView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Text("Approval Remark:-",style: FlutterFlowTheme.of(context).labelLarge),
-                            Text(result.approvalRemark ?? "",style: const TextStyle(
-                              fontFamily:  'Poppins',
-                              color: Colors.redAccent,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14.0,
-                            ),),
-                          ],
+                        Text("Approval Remark:-",style: FlutterFlowTheme.of(context).labelLarge),
+                        Expanded(
+                          child: Text(
+                              "${result.approvalRemark ?? ""}",style: const TextStyle(
+                            fontFamily:  'Poppins',
+                            color: Colors.redAccent,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.0,
+                          ),),
                         ),
                       ],
                     ),
@@ -295,13 +294,8 @@ class _WorkCompletedListViewState extends State<WorkCompletedListView> {
             children: [
               TextButton(onPressed: () async{
                 Get.back();
-                final SharedPreferences sp = await SharedPreferences.getInstance();
-                Map data = {
-                  "id":result.id,
-                  "is_approved":"1",
-                  "approve_by":sp.getString('userName')
-                };
-                wLController.approve(data);
+
+                getRemark(result,"1");
               }, child: const Row(
                 children: [
                   Icon(Icons.check_circle_outline_rounded,color: Color(0xff1DA1F2)),
@@ -311,13 +305,8 @@ class _WorkCompletedListViewState extends State<WorkCompletedListView> {
               )),
               TextButton(onPressed: () async {
                 Get.back();
-                final SharedPreferences sp = await SharedPreferences.getInstance();
-                Map data = {
-                  "id":result.id,
-                  "is_approved":"2",
-                  "approve_by":sp.getString('userName')
-                };
-                wLController.approve(data);
+                getRemark(result,"2");
+
               }, child: const Row(
                 children: [
                   Icon(Icons.image,color:  Colors.redAccent,),
@@ -328,6 +317,53 @@ class _WorkCompletedListViewState extends State<WorkCompletedListView> {
 
             ],
           ),
+        );
+      },
+    );
+  }
+
+final TextEditingController remark = TextEditingController();
+  Future<void> getRemark(Result result, String is_approved) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Add Remark'),
+          content:  TextField(
+            maxLines: 2,
+            controller: remark,
+            decoration: const InputDecoration(labelText: 'Enter your remark',
+                border: OutlineInputBorder()
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: const Text('Save'),
+              onPressed: () async {
+                if(remark.text != "") {
+                  final SharedPreferences sp = await SharedPreferences.getInstance();
+                  Map data = {
+                    "id":result.id,
+                    "is_approved":is_approved,
+                    "approval_remark":remark.text,
+                    "approve_by":sp.getString('userName')
+                  };
+                  wLController.approve(data);
+                  remark.text = "";
+                  Navigator.of(context).pop();
+                }else
+                {
+                  Utils.flushBarErrorMessage("Remark cannot be left blank", context);
+                }// Close the dialog
+              },
+            ),
+          ],
         );
       },
     );

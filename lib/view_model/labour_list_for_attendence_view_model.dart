@@ -15,21 +15,27 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
   List<bool> present = <bool>[];
   List<bool> halfDay = <bool>[];
   List<bool> night = <bool>[];
+  List<bool> ot = <bool>[];
   List<bool> delete = <bool>[];
   List note = <String>[];
+  List oth = <String>[];
   List id = <String>[];
 
 
   bool getPresent(int index) => present[index];
   bool getHalfDay(int index) => halfDay[index];
   bool getNigh(int index) => night[index];
+  bool getOt(int index) => ot[index];
   bool getDelete(int index) => delete[index];
   String getNote(int index) => note[index];
+  String getOth(int index) => oth[index];
 
   List<bool> getAllPresent() => present;
   List<bool> getAllHalfDay() => halfDay;
   List<bool> getAllNigh() => night;
+  List<bool> getAllOt() => ot;
   List getAllNote() => note;
+  List getAllOth() => oth;
   List getAllDelete() => delete;
   List getAllId() => id;
 
@@ -38,7 +44,9 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
     present.add(false);
     halfDay.add(false);
     night.add(false);
+    ot.add(false);
     note.add("");
+    oth.add("");
     id.add(id1);
   }
 
@@ -73,8 +81,17 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  setOt(int index) {
+    ot[index] = !ot[index];
+    notifyListeners();
+  }
+
   setNote(int index, String data) {
     note[index] = data;
+    notifyListeners();
+  }
+  setOth(int index, String data) {
+    oth[index] = data;
     notifyListeners();
   }
 
@@ -157,7 +174,7 @@ class LabourListForAttendanceViewModel with ChangeNotifier {
         Navigator.pushNamedAndRemoveUntil(
           context,
           RoutesName.dashboard_view,
-              (Route<dynamic> route) => false,
+          (Route<dynamic> route) => false,
         );
 
 

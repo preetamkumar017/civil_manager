@@ -309,6 +309,18 @@ class _UploadChooseViewWidgetState extends State<SelectSourceView> {
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Map<String, String> pData = {
+              "site_id": widget.data['site_id'] ?? "",
+              "site_name": widget.data['full_name'] ?? "",
+            };
+            Get.toNamed(RoutesName.calender_view,arguments: ScreenArguments(pData));
+          },
+          tooltip: "Calender View",
+          child: Icon(Icons.calendar_month),
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+        ),
       ),
     );
   }

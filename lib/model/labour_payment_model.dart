@@ -82,6 +82,7 @@ class LabourList {
   String? thalfday;
   String? tnight;
   String? tabsent;
+  String? overTime;
 
   LabourList(
       {this.id,
@@ -94,7 +95,8 @@ class LabourList {
         this.tpresent,
         this.thalfday,
         this.tnight,
-        this.tabsent});
+        this.tabsent,
+        this.overTime});
 
   LabourList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -108,6 +110,7 @@ class LabourList {
     thalfday = json['thalfday'];
     tnight = json['tnight'];
     tabsent = json['tabsent'];
+    overTime = json['over_time'];
   }
 
   Map<String, dynamic> toJson() {
@@ -123,6 +126,7 @@ class LabourList {
     data['thalfday'] = this.thalfday;
     data['tnight'] = this.tnight;
     data['tabsent'] = this.tabsent;
+    data['over_time'] = this.overTime;
     return data;
   }
 }
