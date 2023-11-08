@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
+import '../../view_model/services/comman_methods.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:civil_manager/model/labour_payment_model.dart';
@@ -36,6 +37,8 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
 
   final search = TextEditingController();
   List<LabourList> filteredList = [];
+
+
   @override
   void initState() {
     _labourListAfterAttendanceViewModel.fatchLabourListWithDataApi(widget.data);
@@ -61,6 +64,7 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
             child: ListView(
+              physics: NeverScrollableScrollPhysics(),
               // mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
@@ -452,9 +456,10 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                               },
                             ),
                           ),
-                          Expanded(
-                            child: SizedBox(
-                              height: Get.height,
+                          SizedBox(
+                            height: Get.height*0.58,
+                            child: SingleChildScrollView(
+                              physics: BouncingScrollPhysics(),
                               child: ChangeNotifierProvider<
                                   LabourPaymentListViewModel>(
                                 create: (context) =>
@@ -486,9 +491,9 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                               .toList();
                                         }
                                         return ListView.builder(
-                                          physics:
-                                              const BouncingScrollPhysics(),
+                                          physics: NeverScrollableScrollPhysics(),
                                           itemCount: filteredList.length,
+                                          shrinkWrap: true,
                                           itemBuilder: (context, index) {
                                             var present = double.parse(filteredList[index].tpresent ??"") +
                                                           double.parse(filteredList[index].thalfday ?? "") +
@@ -497,6 +502,7 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                             var present1 = double.parse(filteredList[index].tpresent ??"") +
                                                           double.parse(filteredList[index].thalfday ?? "") +
                                                           double.parse(filteredList[index].tnight ?? "") ;
+
                                             return Padding(
                                               padding:
                                                   const EdgeInsetsDirectional
@@ -723,7 +729,7 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
                                                                       ),
                                                                 ),
                                                                 Text(
-                                                                  "${present1}d, ${filteredList[index].overTime ??""}h",
+                                                                  "${present1}d, ${convertToTimeFormat(filteredList[index].overTime ?? "")}h",
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyText1
@@ -846,4 +852,5 @@ class LabourPaymentViewState extends State<LabourPaymentView> {
       return null;
     }
   }
+
 }

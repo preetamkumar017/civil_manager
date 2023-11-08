@@ -9,6 +9,8 @@ const kThemeModeKey = '__theme_mode__';
 SharedPreferences? _prefs;
 
 abstract class FlutterFlowTheme {
+  get borderColor => null;
+
   static Future initialize() async =>
       _prefs = await SharedPreferences.getInstance();
   static ThemeMode get themeMode {

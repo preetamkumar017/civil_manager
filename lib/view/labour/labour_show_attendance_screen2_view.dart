@@ -13,6 +13,7 @@ import 'package:civil_manager/utils/utils.dart';
 import 'package:civil_manager/view/flutter_flow/flutter_flow_util.dart';
 import 'package:civil_manager/view/labour/my_dialog.dart';
 import 'package:civil_manager/view_model/labour_list_for_attendence_view_model.dart';
+import 'package:civil_manager/view_model/services/comman_methods.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
@@ -49,6 +50,7 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
   String? currentdate;
   String preDate ="";
   bool da = false;
+
 
   @override
   void initState() {
@@ -603,7 +605,7 @@ class AttendanceListViewState extends State<AttendanceListView> with TickerProvi
                                                             if(data[index].overTime!="") Padding(
                                                               padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 0, 10),
                                                               child: Text(
-                                                                "Over Time:- ${data[index].overTime ?? ""}h",
+                                                                "Over Time:- ${convertToTimeFormat(data[index].overTime ?? "")}h",
                                                                 style: FlutterFlowTheme.of(context)
                                                                     .bodyText1
                                                                     .override(

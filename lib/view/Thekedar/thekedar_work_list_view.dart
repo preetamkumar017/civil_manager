@@ -294,7 +294,6 @@ class _WorkCompletedListViewState extends State<WorkCompletedListView> {
             children: [
               TextButton(onPressed: () async{
                 Get.back();
-
                 getRemark(result,"1");
               }, child: const Row(
                 children: [

@@ -31,3 +31,18 @@ String getTimeFromFileName(String fileName) {
 
   return formattedTime;
 }
+
+String convertToTimeFormat(String inputString) {
+  double input = double.tryParse(inputString) ?? 0.0;
+
+  // Decimal part of the input
+  int decimalPart = ((input - input.floor()) * 60).toInt();
+
+  // Integer part of the input
+  int integerPart = input.floor();
+
+  // Create the time format string
+  String timeFormat = '$integerPart:${decimalPart.toString().padLeft(2, '0')}';
+
+  return timeFormat;
+}

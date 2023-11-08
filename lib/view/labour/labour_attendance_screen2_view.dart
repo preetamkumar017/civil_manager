@@ -1,3 +1,6 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
+import 'dart:developer';
 import 'package:civil_manager/data/response/status.dart';
 import 'package:civil_manager/model/arguments.dart';
 import 'package:civil_manager/utils/routes/routes_name.dart';
@@ -23,11 +26,13 @@ class LabourAttendanceScreen2View extends StatefulWidget {
 }
 
 class LabourAttendanceScreen2ViewState
-    extends State<LabourAttendanceScreen2View> {
+    extends State<LabourAttendanceScreen2View> with TickerProviderStateMixin{
   final LabourListForAttendanceViewModel _labourListForAttendanceViewModel = LabourListForAttendanceViewModel();
 
   final TextEditingController note = TextEditingController();
   final TextEditingController oth = TextEditingController();
+
+  List<String> ot = [];
 
   int i = 0;
   final _unFocusNode = FocusNode();
@@ -35,10 +40,38 @@ class LabourAttendanceScreen2ViewState
 
   final search = TextEditingController();
 
+  late AnimationController controller;
+
+  String selectedValue = "0.5"; // Default value
+
+  List<String> dropdownItems = [
+    "01:00h",
+    "01:30h",
+    "02:00h",
+    "02:30h",
+    "03:00h",
+    "03:30h",
+  ];
+
+  List<String> dropdownValues = [
+    "1.0",
+    "1.5",
+    "2.0",
+    "2.5",
+    "3.0",
+    "3.5",
+  ];
+
+  List<List<bool>> list = [];
+
   @override
   void initState() {
     _labourListForAttendanceViewModel.labourListForAttendanceApi(widget.data, context);
     super.initState();
+
+    controller = BottomSheet.createAnimationController(this);
+    controller.duration = const Duration(milliseconds: 500);
+    controller.reverseDuration = const Duration(milliseconds: 500);
   }
 
   @override
@@ -71,7 +104,9 @@ class LabourAttendanceScreen2ViewState
                     mainAxisSize: MainAxisSize.max,
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(onPressed: (){Get.back();}, icon: const Icon(Icons.arrow_back,color: Colors.white,)),
+                      IconButton(onPressed: (){Get.back();}, icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,)),
                       Text(
                         'Labour Attendance ',
                         style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -284,7 +319,7 @@ class LabourAttendanceScreen2ViewState
                                   Container(
                                     width: MediaQuery.of(context).size.width *
                                         0.25,
-                                    margin: EdgeInsets.only(right: 10,left: 15),
+                                    margin: const EdgeInsets.only(right: 10,left: 15),
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBtnText,
@@ -373,8 +408,8 @@ class LabourAttendanceScreen2ViewState
 
 
 
-                        Container(
-                          height: height-260,
+                        SizedBox(
+                          height: height-300,
                           child: ChangeNotifierProvider<LabourListForAttendanceViewModel>(
                             create: (context) => _labourListForAttendanceViewModel,
                             child: Consumer<LabourListForAttendanceViewModel>(
@@ -398,7 +433,11 @@ class LabourAttendanceScreen2ViewState
                                       itemCount: data.length,
                                       itemBuilder: (context, index) {
                                         if( data[index].fullName!.toLowerCase().contains(search.text.toLowerCase()))
-                                          {return Container(
+                                          {
+
+                                            ot.add("");
+                                            list.add([false,false,false,false,false,false,]);
+                                            return Container(
                                             margin: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                                             width: double.infinity,
                                             decoration: BoxDecoration(
@@ -507,8 +546,7 @@ class LabourAttendanceScreen2ViewState
                                                                   ),
                                                                 ),
                                                                 unselectedWidgetColor:
-                                                                FlutterFlowTheme.of(context)
-                                                                    .tertiaryColor,
+                                                                FlutterFlowTheme.of(context).tertiaryColor,
                                                               ),
                                                               child: Checkbox(
                                                                 value:
@@ -599,9 +637,12 @@ class LabourAttendanceScreen2ViewState
                                                                 onChanged: (newValue) async {
 
                                                                   if (newValue!) {
-                                                                    _showMyDialog1(newValue, index);
+                                                                    // _showMyDialog1(newValue, index);
+                                                                    change(index);
                                                                   }else
                                                                   {
+                                                                    list[index] = [false,false,false,false,false,false];
+                                                                    ot[index] = "";
                                                                     _labourListForAttendanceViewModel
                                                                         .setOt(index);
                                                                     _labourListForAttendanceViewModel.setOth(index, "");
@@ -618,7 +659,7 @@ class LabourAttendanceScreen2ViewState
                                                     ],
                                                   ),
                                                 ),
-                                                if(_labourListForAttendanceViewModel.getNote(index)!="") Padding(
+                                               if(_labourListForAttendanceViewModel.getNote(index)!="") Padding(
                                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                                       15, 0, 0, 10),
                                                   child: Text(
@@ -634,11 +675,11 @@ class LabourAttendanceScreen2ViewState
                                                     ),
                                                   ),
                                                 ),
-                                               if(_labourListForAttendanceViewModel.getOth(index)!="") Padding(
+                                               if(ot[index]!="") Padding(
                                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                                       15, 0, 0, 10),
                                                   child: Text(
-                                                    _labourListForAttendanceViewModel.getOth(index).toString(),
+                                                    "Over Time:- ${ot[index]}",
                                                     style: FlutterFlowTheme.of(context)
                                                         .bodyText1
                                                         .override(
@@ -655,7 +696,7 @@ class LabourAttendanceScreen2ViewState
                                           );
                                         }else
                                           {
-                                            return SizedBox();
+                                            return const SizedBox();
                                           }
                                       },
                                     );
@@ -804,13 +845,14 @@ class LabourAttendanceScreen2ViewState
       },
     );
   }
+
+
   Future<void> _showMyDialog1(bool value, int index) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-
           title: const Text('Enter Note'),
           content: SingleChildScrollView(
             child: ListBody(
@@ -918,4 +960,90 @@ class LabourAttendanceScreen2ViewState
       },
     );
   }
+
+
+
+  void change(int idx)
+  {
+    showModalBottomSheet<void>(
+        backgroundColor: Colors.transparent,
+        transitionAnimationController: controller,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            padding: const EdgeInsets.all(20),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+              color: Colors.white,
+            ),
+            child: Wrap(
+              alignment: WrapAlignment.start,
+              children:  List.generate(dropdownItems.length, (index){
+                log(index.toString());
+                return Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 10),
+                    child: ChoiceChip(
+                      label: Text(dropdownItems[index]),
+                      selected: false,
+                      selectedColor: FlutterFlowTheme
+                          .of(context)
+                          .borderColor,
+                      avatar: const Icon(
+                          Icons.attach_file_sharp),
+                      onSelected: (value) {
+                        Navigator.of(context).pop();
+                        for (int i = 0; i < list[idx].length; i++) {
+                          list[idx][i] = (i == index) ? true : false;
+                        }
+                        oth.text = dropdownValues[index];
+
+                        if(value) {
+                          _labourListForAttendanceViewModel.setOt(idx);
+                          _labourListForAttendanceViewModel.setOth(idx, dropdownValues[index]);
+                          oth.text = "";
+                          ot[idx] = dropdownItems[index];
+                        }
+                        setState(() {});
+                      },
+                      elevation: 1.0,
+                      backgroundColor: list[idx][index] ? FlutterFlowTheme.of(context).primary: Colors.white ,
+                      labelStyle: list[idx][index] ? FlutterFlowTheme
+                          .of(context)
+                          .bodyText1
+                          .override(
+                        fontFamily: 'Poppins',
+                        color: Colors.white,
+                      )
+                          : FlutterFlowTheme
+                          .of(context)
+                          .bodyText1
+                          .override(
+                        fontFamily: 'Poppins',
+                        color:
+                        FlutterFlowTheme
+                            .of(context)
+                            .secondaryText,
+                      ),
+                      iconTheme: const IconThemeData(
+                        color:Colors.green,
+                        size: 18.0,
+                      ),
+                    ),
+                  );
+              }),
+
+            ),
+          );
+        });
+
+  }
+
 }
+
+
+
+
